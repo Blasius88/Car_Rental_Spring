@@ -14,7 +14,7 @@ public class User {
     private String lastName;
     private String login;
     private String pass;
-    private Date created;
+    private int created;
     private Long id_role;
     private String email;
     private String phone;
@@ -23,7 +23,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String login, String pass, Date created, Long id_role, String email, String phone, String city) {
+    public User(Long id, String firstName, String lastName, String login, String pass, int created, Long id_role, String email, String phone, String city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -56,7 +56,7 @@ public class User {
         this.pass = pass;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(int created) {
         this.created = created;
     }
 
@@ -96,7 +96,7 @@ public class User {
         return pass;
     }
 
-    public Date getCreated() {
+    public int getCreated() {
         return created;
     }
 

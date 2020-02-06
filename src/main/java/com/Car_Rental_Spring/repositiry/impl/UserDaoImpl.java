@@ -19,8 +19,8 @@ import java.util.Objects;
 public class UserDaoImpl implements UserDao {
 
     public static final String USER_ID = "id" ;
-    public static final String FIRST_NAME = "firsName";
-    public static final String LAST_NAME ="lastName";
+    public static final String FIRST_NAME = "firs_name";
+    public static final String LAST_NAME ="last_name";
     public static final String LOGIN = "login";
     public static final String PASS = "pass";
     public static final String CREATED = "created";
@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
         user.setLastName(resultSet.getString(LAST_NAME));
         user.setLogin(resultSet.getString(LOGIN));
         user.setPass(resultSet.getString(PASS));
-        user.setCreated(resultSet.getDate(CREATED));
+        user.setCreated(resultSet.getInt(CREATED));
         user.setId_role(resultSet.getLong(ROLE));
         user.setEmail(resultSet.getString(EMAIL));
         user.setPhone(resultSet.getString(PHONE));

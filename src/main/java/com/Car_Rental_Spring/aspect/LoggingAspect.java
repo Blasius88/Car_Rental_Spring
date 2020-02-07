@@ -22,7 +22,7 @@ public class LoggingAspect {
         LOGGER.info("Method " + joinPoint.getSignature().getName() + " finished");
     }
 
-    @Pointcut("execution(* com.Car_Rental_Spring.domain.*.*(..))")
+    @Pointcut("execution(* com.Car_Rental_Spring.repository.*.*(..))")
     public void domainEntitiesMethods() {
     }
 

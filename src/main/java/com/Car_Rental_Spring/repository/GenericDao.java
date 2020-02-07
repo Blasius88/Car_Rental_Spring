@@ -1,4 +1,4 @@
-package com.Car_Rental_Spring.repositiry;
+package com.Car_Rental_Spring.repository;
 
 import java.util.List;
 

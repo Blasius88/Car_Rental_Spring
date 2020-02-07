@@ -2,7 +2,7 @@ package com.Car_Rental_Spring;
 
 import com.Car_Rental_Spring.confing.AppConfig;
 import com.Car_Rental_Spring.domain.User;
-import com.Car_Rental_Spring.repositiry.UserDao;
+import com.Car_Rental_Spring.repository.UserDao;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

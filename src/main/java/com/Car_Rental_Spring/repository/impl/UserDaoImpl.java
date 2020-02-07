@@ -52,10 +52,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findOne(List<User> users, Long Id) {
+    public User findOne(Long Id) {
         final String findOneQuery = "select * " +
-                "from m_user u" +
-                "where u.id = userId";
+                "from m_user " +
+                "where Id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getUserRowMapper);
@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findById(Long id) {
-        final String findById = "select * from m_user where id = :userId";
+        final String findById = "select * from m_user where id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         return namedParameterJdbcTemplate.queryForObject(findById, params, this::getUserRowMapper);
@@ -79,7 +79,7 @@ public class UserDaoImpl implements UserDao {
     public void delete(Long id) {
         final String delete = "delete " +
                 "from m_user " +
-                "where id = :userId";
+                "where id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", id);
         namedParameterJdbcTemplate.update(delete, params);

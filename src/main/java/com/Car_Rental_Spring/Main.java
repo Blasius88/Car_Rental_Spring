@@ -13,5 +13,15 @@ public class Main {
         for (User user : userDao.findAll()) {
             System.out.println(user.toString());
         }
+
+        System.out.println(userDao.findOne(4L));
+
+       userDao.delete(5L);
+//        boolean bool = false;
+//        if ( userDao.findOne(5L))
+//        {
+//
+//        }
+
     }
 }

@@ -76,12 +76,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id_user) {
         final String delete = "delete " +
                 "from m_user " +
-                "where id = :id";
+                "where id = :userId";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("userId", id);
+        params.addValue("userId", id_user);
         namedParameterJdbcTemplate.update(delete, params);
     }
 

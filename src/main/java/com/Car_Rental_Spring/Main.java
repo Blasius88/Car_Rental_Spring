@@ -6,6 +6,8 @@ import com.Car_Rental_Spring.repository.UserDao;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.sound.midi.Track;
+import java.sql.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -16,17 +18,51 @@ public class Main {
 
     private static void start() {
         ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        UserDao userDao = (UserDao) context.getBean("userDaoImpl");
-        for (User user : userDao.findAll()) {
-            System.out.println(user.toString());
-        }
-        System.out.println("Введите Id ");
         Scanner sc = new Scanner(System.in);
-        Long num = sc.nextLong();
-        userDao.delete(num);
-        System.out.println("Введите Id ");
-        num = sc.nextLong();
         try {
+            UserDao userDao = (UserDao) context.getBean("userDaoImpl");
+            for (User user : userDao.findAll()) {
+                System.out.println(user.toString());
+            }
+            try {
+                System.out.println("Введите имя");
+                String firstName = sc.next();
+
+                System.out.println("Введите Фамилию");
+                String lastName = sc.next();
+
+                System.out.println("Введите login ");
+                String login = sc.next();
+
+                System.out.println("Введите pass ");
+                String pass = sc.next();
+
+                System.out.println("Введите id роль ");
+                Long roleId = sc.nextLong();
+
+                System.out.println("Введите email ");
+                String e_mail = sc.next();
+
+                System.out.println("Введите телефон");
+                String phone = sc.next();
+
+                System.out.println("Введите город");
+                String city = sc.next();
+
+                java.util.Date date = new java.util.Date();
+                Date created = new java.sql.Date(date.getTime());
+
+                User us = new User(firstName, lastName, login, pass, created, roleId, e_mail, phone, city);
+                userDao.save(us);
+            } catch (Exception ex) {
+                System.out.println(ex.toString());
+            }
+            System.out.println("Введите Id ");
+            Long num = sc.nextLong();
+            userDao.delete(num);
+
+            System.out.println("Введите Id ");
+            num = sc.nextLong();
             System.out.println(userDao.findOne(num));
         } catch (Exception ex) {
             System.out.println("this id not found");
@@ -41,6 +77,5 @@ public class Main {
                     break;
             }
         }
-
     }
 }

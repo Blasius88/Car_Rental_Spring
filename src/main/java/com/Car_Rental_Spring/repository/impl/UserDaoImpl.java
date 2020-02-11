@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +77,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delete(Long id_user) {
         final String delete = "delete " +
                 "from m_user " +
@@ -83,30 +85,25 @@ public class UserDaoImpl implements UserDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", id_user);
         namedParameterJdbcTemplate.update(delete, params);
+        throw new RuntimeException();
     }
 
     @Override
+    //@Transactional(rollbackFor = Exception.class)
     public User save(User entity) {
-        final String creatQuery = "INSERT INTO m_user (firstName =:userFirstName" +
-                " lastName =:userLastName," +
-                " login = :userLogin," +
-                "pass = :userPass," +
-                " created = :userCreated," +
-                " id_role =:userId_role, " +
-                "email = :userEmail," +
-                "phone = :userPhone," +
-                "city = :userCity)";
+        final String creatQuery = "INSERT INTO m_user (first_name, last_name, login, pass, created, id_role, email,  phone, city) " +
+        "VALUES (:first_name, :last_name, :login, :pass, :created, :id_role, :email, :phone, :city);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("userFirsName", entity.getFirstName());
-        parameterSource.addValue("userLastName", entity.getLastName());
-        parameterSource.addValue("userLogin", entity.getLogin());
-        parameterSource.addValue("userPass", entity.getPass());
-        parameterSource.addValue("userCreated", entity.getCreated());
-        parameterSource.addValue("userId_role", entity.getId_role());
-        parameterSource.addValue("userEmail", entity.getEmail());
-        parameterSource.addValue("userPhone", entity.getPhone());
-        parameterSource.addValue("userCity", entity.getCity());
+        parameterSource.addValue("first_name", entity.getFirstName());
+        parameterSource.addValue("last_name", entity.getLastName());
+        parameterSource.addValue("login", entity.getLogin());
+        parameterSource.addValue("pass", entity.getPass());
+        parameterSource.addValue("created", entity.getCreated());
+        parameterSource.addValue("id_role", entity.getId_role());
+        parameterSource.addValue("email", entity.getEmail());
+        parameterSource.addValue("phone", entity.getPhone());
+        parameterSource.addValue("city", entity.getCity());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdUserId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdUserId);

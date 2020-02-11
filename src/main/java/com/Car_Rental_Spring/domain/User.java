@@ -23,6 +23,19 @@ public class User {
     public User() {
     }
 
+
+    public User(String firstName, String lastName, String login, String pass, Date created, Long id_role, String email, String phone, String city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.pass = pass;
+        this.created = created;
+        this.id_role = id_role;
+        this.email = email;
+        this.phone = phone;
+        this.city = city;
+    }
+
     public User(Long id, String firstName, String lastName, String login, String pass, Date created, Long id_role, String email, String phone, String city) {
         this.id = id;
         this.firstName = firstName;

@@ -9,48 +9,35 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class User {
-    private Long id;
+    private Long userId;
     private String firstName;
     private String lastName;
-    private String login;
-    private String pass;
-    private Date created;
-    private Long id_role;
-    private String email;
-    private String phone;
-    private String city;
+    private String userLogin;
+    private String userPass;
+    private Date userCreated;
+    private Long idRole;
+    private String userEmail;
+    private String userPhone;
+    private String userCity;
 
     public User() {
     }
 
-
-    public User(String firstName, String lastName, String login, String pass, Date created, Long id_role, String email, String phone, String city) {
+    public User(String firstName, String lastName, String userLogin, String userPass, Date userCreated, Long idRole, String userEmail, String userPhone, String userCity) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.login = login;
-        this.pass = pass;
-        this.created = created;
-        this.id_role = id_role;
-        this.email = email;
-        this.phone = phone;
-        this.city = city;
+        this.userLogin = userLogin;
+        this.userPass = userPass;
+        this.userCreated = userCreated;
+        this.idRole = idRole;
+        this.userEmail = userEmail;
+        this.userPhone = userPhone;
+        this.userCity = userCity;
     }
 
-    public User(Long id, String firstName, String lastName, String login, String pass, Date created, Long id_role, String email, String phone, String city) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.login = login;
-        this.pass = pass;
-        this.created = created;
-        this.id_role = id_role;
-        this.email = email;
-        this.phone = phone;
-        this.city = city;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setFirstName(String firstName) {
@@ -61,36 +48,36 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setUserCreated(Date userCreated) {
+        this.userCreated = userCreated;
     }
 
-    public void setId_role(Long id_role) {
-        this.id_role = id_role;
+    public void setIdRole(Long idRole) {
+        this.idRole = idRole;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setUserCity(String userCity) {
+        this.userCity = userCity;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
     public String getFirstName() {
@@ -101,32 +88,32 @@ public class User {
         return lastName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public String getPass() {
-        return pass;
+    public String getUserPass() {
+        return userPass;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getUserCreated() {
+        return userCreated;
     }
 
-    public Long getId_role() {
-        return id_role;
+    public Long getIdRole() {
+        return idRole;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public String getCity() {
-        return city;
+    public String getUserCity() {
+        return userCity;
     }
 
     @Override
@@ -134,21 +121,21 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
+        return Objects.equals(userId, user.userId) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(pass, user.pass) &&
-                Objects.equals(created, user.created) &&
-                Objects.equals(id_role, user.id_role) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(phone, user.phone) &&
-                Objects.equals(city, user.city);
+                Objects.equals(userLogin, user.userLogin) &&
+                Objects.equals(userPass, user.userPass) &&
+                Objects.equals(userCreated, user.userCreated) &&
+                Objects.equals(idRole, user.idRole) &&
+                Objects.equals(userEmail, user.userEmail) &&
+                Objects.equals(userPhone, user.userPhone) &&
+                Objects.equals(userCity, user.userCity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, login, pass, created, id_role, email, phone, city);
+        return Objects.hash(userId, firstName, lastName, userLogin, userPass, userCreated, idRole, userEmail, userPhone, userCity);
     }
 
     @Override

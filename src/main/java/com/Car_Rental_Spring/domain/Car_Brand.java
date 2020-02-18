@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Objects;
 
-public class Car_Brand extends car_model {
+public class Car_Brand  {
     private Long id;
     private String name;
     private Double price_hour;
@@ -14,20 +14,6 @@ public class Car_Brand extends car_model {
     }
 
     public Car_Brand(Long id, String name, Double price_hour) {
-        this.id = id;
-        this.name = name;
-        this.price_hour = price_hour;
-    }
-
-    public Car_Brand(Long id_model, String name_model, int engine_capacity, int date, Long id, String name, Double price_hour) {
-        super(id_model, name_model, engine_capacity, date);
-        this.id = id;
-        this.name = name;
-        this.price_hour = price_hour;
-    }
-
-    public Car_Brand(Long id_color, String color, Long id_model, String name_model, int engine_capacity, int date, Long id, String name, Double price_hour) {
-        super(id_color, color, id_model, name_model, engine_capacity, date);
         this.id = id;
         this.name = name;
         this.price_hour = price_hour;
@@ -55,74 +41,6 @@ public class Car_Brand extends car_model {
 
     public void setPrice_hour(Double price_hour) {
         this.price_hour = price_hour;
-    }
-
-    public Car_Brand(Long id_model, String name_model, int engine_capacity, int date) {
-        super(id_model, name_model, engine_capacity, date);
-    }
-
-    public Car_Brand(Long id_color, String color, Long id_model, String name_model, int engine_capacity, int date) {
-        super(id_color, color, id_model, name_model, engine_capacity, date);
-    }
-
-    @Override
-    public Long getId_model() {
-        return super.getId_model();
-    }
-
-    @Override
-    public void setId_model(Long id_model) {
-        super.setId_model(id_model);
-    }
-
-    @Override
-    public String getName_model() {
-        return super.getName_model();
-    }
-
-    @Override
-    public void setName_model(String name_model) {
-        super.setName_model(name_model);
-    }
-
-    @Override
-    public int getEngine_capacity() {
-        return super.getEngine_capacity();
-    }
-
-    @Override
-    public void setEngine_capacity(int engine_capacity) {
-        super.setEngine_capacity(engine_capacity);
-    }
-
-    @Override
-    public int getDate() {
-        return super.getDate();
-    }
-
-    @Override
-    public void setDate(int date) {
-        super.setDate(date);
-    }
-
-    @Override
-    public Long getId_color() {
-        return super.getId_color();
-    }
-
-    @Override
-    public void setId_color(Long id_color) {
-        super.setId_color(id_color);
-    }
-
-    @Override
-    public String getColor() {
-        return super.getColor();
-    }
-
-    @Override
-    public void setColor(String color) {
-        super.setColor(color);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.Car_Rental_Spring.repository.impl;
 import com.Car_Rental_Spring.domain.User;
 import com.Car_Rental_Spring.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -31,35 +30,22 @@ public class UserDaoImpl implements UserDao {
     public static final String CITY = "city";
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private User getUserRowMapper(ResultSet resultSet, int i) throws SQLException {
         User user = new User();
-        user.setId(resultSet.getLong(USER_ID));
+        user.setUserId(resultSet.getLong(USER_ID));
         user.setFirstName(resultSet.getString(FIRST_NAME));
         user.setLastName(resultSet.getString(LAST_NAME));
-        user.setLogin(resultSet.getString(LOGIN));
-        user.setPass(resultSet.getString(PASS));
-        user.setCreated(resultSet.getDate(CREATED));
-        user.setId_role(resultSet.getLong(ROLE));
-        user.setEmail(resultSet.getString(EMAIL));
-        user.setPhone(resultSet.getString(PHONE));
-        user.setCity(resultSet.getString(CITY));
+        user.setUserLogin(resultSet.getString(LOGIN));
+        user.setUserPass(resultSet.getString(PASS));
+        user.setUserCreated(resultSet.getDate(CREATED));
+        user.setIdRole(resultSet.getLong(ROLE));
+        user.setUserEmail(resultSet.getString(EMAIL));
+        user.setUserPhone(resultSet.getString(PHONE));
+        user.setUserCity(resultSet.getString(CITY));
 
         return user;
-    }
-
-    @Override
-    public User findOne(Long Id) {
-        final String findOneQuery = "select * " +
-                "from m_user " +
-                "where Id = :id";
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
-        return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getUserRowMapper);
     }
 
     @Override
@@ -69,11 +55,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(Long id) {
-        final String findById = "select * from m_user where id = :id";
+    public User findById(Long Id) {
+        final String findOneQuery = "select * " +
+                "from m_user " +
+                "where id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-        return namedParameterJdbcTemplate.queryForObject(findById, params, this::getUserRowMapper);
+        params.addValue("id", Id);
+        return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getUserRowMapper);
     }
 
     @Override
@@ -85,54 +73,55 @@ public class UserDaoImpl implements UserDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("userId", id_user);
         namedParameterJdbcTemplate.update(delete, params);
-        throw new RuntimeException();
     }
 
     @Override
-    //@Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public User save(User entity) {
         final String creatQuery = "INSERT INTO m_user (first_name, last_name, login, pass, created, id_role, email,  phone, city) " +
-        "VALUES (:first_name, :last_name, :login, :pass, :created, :id_role, :email, :phone, :city);";
+                "VALUES (:first_name, :last_name, :login, :pass, :created, :id_role, :email, :phone, :city);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("first_name", entity.getFirstName());
         parameterSource.addValue("last_name", entity.getLastName());
-        parameterSource.addValue("login", entity.getLogin());
-        parameterSource.addValue("pass", entity.getPass());
-        parameterSource.addValue("created", entity.getCreated());
-        parameterSource.addValue("id_role", entity.getId_role());
-        parameterSource.addValue("email", entity.getEmail());
-        parameterSource.addValue("phone", entity.getPhone());
-        parameterSource.addValue("city", entity.getCity());
+        parameterSource.addValue("login", entity.getUserLogin());
+        parameterSource.addValue("pass", entity.getUserPass());
+        parameterSource.addValue("created", entity.getUserCreated());
+        parameterSource.addValue("id_role", entity.getIdRole());
+        parameterSource.addValue("email", entity.getUserEmail());
+        parameterSource.addValue("phone", entity.getUserPhone());
+        parameterSource.addValue("city", entity.getUserCity());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdUserId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdUserId);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public User update(User entity) {
-        final String creatQuery = "UPDATE user set firstName =:userFirstName" +
-                "lastName =:userLastName," +
+        final String creatQuery = "UPDATE m_user " +
+                "set first_name =:firstName," +
+                "last_name =:lastName," +
                 "login = :userLogin," +
                 "pass = :userPass," +
                 "created = :userCreated," +
-                "id_role =:userId_role," +
+                "id_role =:idRole," +
                 "email = :userEmail," +
                 "phone = :userPhone," +
-                "city = :userCity" +
-                "where id =: userId";
+                "city = :userCity " +
+                "WHERE id = :userId;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("userId", entity.getId());
-        parameterSource.addValue("userFirsName", entity.getFirstName());
-        parameterSource.addValue("userLastName", entity.getLastName());
-        parameterSource.addValue("userLogin", entity.getLogin());
-        parameterSource.addValue("userPass", entity.getPass());
-        parameterSource.addValue("userCreated", entity.getCreated());
-        parameterSource.addValue("userId_role", entity.getId_role());
-        parameterSource.addValue("userEmail", entity.getEmail());
-        parameterSource.addValue("userPhone", entity.getPhone());
-        parameterSource.addValue("userCity", entity.getCity());
+        parameterSource.addValue("userId", entity.getUserId());
+        parameterSource.addValue("firstName", entity.getFirstName());
+        parameterSource.addValue("lastName", entity.getLastName());
+        parameterSource.addValue("userLogin", entity.getUserLogin());
+        parameterSource.addValue("userPass", entity.getUserPass());
+        parameterSource.addValue("userCreated", entity.getUserCreated());
+        parameterSource.addValue("idRole", entity.getIdRole());
+        parameterSource.addValue("userEmail", entity.getUserEmail());
+        parameterSource.addValue("userPhone", entity.getUserPhone());
+        parameterSource.addValue("userCity", entity.getUserCity());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
-        return findById(entity.getId());
+        return findById(entity.getUserId());
     }
 }

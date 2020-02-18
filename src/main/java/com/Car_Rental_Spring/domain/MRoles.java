@@ -2,13 +2,13 @@ package com.Car_Rental_Spring.domain;
 
 import java.util.Objects;
 
-public class m_roles {
+public class MRoles {
     private Long id_roles;
     private String Name_roles;
 
-    public m_roles(){}
+    public MRoles(){}
 
-    public m_roles(Long id_roles, String name_roles) {
+    public MRoles(Long id_roles, String name_roles) {
         this.id_roles = id_roles;
         Name_roles = name_roles;
     }
@@ -33,9 +33,9 @@ public class m_roles {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        m_roles m_roles = (m_roles) o;
-        return Objects.equals(id_roles, m_roles.id_roles) &&
-                Objects.equals(Name_roles, m_roles.Name_roles);
+        MRoles MRoles = (MRoles) o;
+        return Objects.equals(id_roles, MRoles.id_roles) &&
+                Objects.equals(Name_roles, MRoles.Name_roles);
     }
 
     @Override

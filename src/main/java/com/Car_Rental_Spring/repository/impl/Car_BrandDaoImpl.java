@@ -27,7 +27,7 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
     private Car_Brand getUserRowMapper(ResultSet resultSet, int i) throws SQLException {
         Car_Brand car_brand = new Car_Brand();
         car_brand.setId(resultSet.getLong(CAR_BRAND_ID));
-        car_brand.setName (resultSet.getString(CAR_BRAND_NAME));
+        car_brand.setName(resultSet.getString(CAR_BRAND_NAME));
         car_brand.setPrice_hour(resultSet.getDouble(CAR_BRAND_PRICE_HOUR));
         return car_brand;
     }
@@ -49,7 +49,7 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
     }
 
     @Override
-    @Transactional (rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void delete(Long Id) {
         final String delete = "delete " +
                 "from car_brand " +
@@ -74,7 +74,7 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
     }
 
     @Override
-    @Transactional (rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public Car_Brand update(Car_Brand entity) {
         final String creatQuery = "UPDATE car_brand " +
                 "set name =:carName," +
@@ -86,5 +86,20 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
         parameterSource.addValue("priceHour", entity.getPrice_hour());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId());
+    }
+
+    @Override
+    public List<Car_Brand> findPrice(double sum) {
+        try {
+            final String query = "SELECT * " +
+                    "FROM car_brand " +
+                    "WHERE price_hour < :sum";
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            parameterSource.addValue("sum", sum);
+            return namedParameterJdbcTemplate.query(query, parameterSource, this::getUserRowMapper);
+        } catch (Exception ex) {
+            System.out.println("Машины дешевле не найдено ");
+            return null;
+        }
     }
 }

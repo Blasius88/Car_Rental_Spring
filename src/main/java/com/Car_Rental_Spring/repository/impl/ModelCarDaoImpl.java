@@ -108,4 +108,19 @@ public class ModelCarDaoImpl implements ModelCarDao {
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_color());
     }
+
+    @Override
+    public Car_Model findModelName(String name) {
+        try {
+            final String query = "SELECT * " +
+                    "FROM model_car " +
+                    "WHERE modul_name = :name";
+            MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+            mapSqlParameterSource.addValue("name", name);
+            return namedParameterJdbcTemplate.queryForObject(query, mapSqlParameterSource, this::getModelCarRowMapper);
+        } catch (Exception ex) {
+            System.out.println("Данной модели не найдено");
+            return null;
+        }
+    }
 }

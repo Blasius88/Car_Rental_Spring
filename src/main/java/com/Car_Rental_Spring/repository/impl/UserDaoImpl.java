@@ -124,4 +124,25 @@ public class UserDaoImpl implements UserDao {
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getUserId());
     }
+
+    @Override
+    public List <User> findCityUser(String city) {
+        final String findQuery = "SELECT * " +
+                "FROM m_user " +
+                "WHERE city = :city ";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("city", city);
+        return namedParameterJdbcTemplate.query(findQuery, params,  this::getUserRowMapper);
+    }
+
+    @Override
+    public User findLoginAndPass(String first_name) {
+        final String findQuery = "SELECT * " +
+                "FROM m_user " +
+                "WHERE first_name = :first_name ";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("first_name", first_name);
+        return namedParameterJdbcTemplate.queryForObject(findQuery, params, this::getUserRowMapper);
+    }
 }
+

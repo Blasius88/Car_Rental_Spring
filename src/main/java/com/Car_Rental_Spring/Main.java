@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         start();
     }
@@ -23,9 +24,18 @@ public class Main {
             System.out.println(user.toString());
         }
         try {
+            System.out.println("Вывод логина и пароля ");
+            System.out.println(userDao.findLoginAndPass("ADMIN"));
 //            User us = DataInput();
 //            userDao.save(us);
 //
+            System.out.println("Введите город");
+            String str = sc.next();
+       
+            for (User user : userDao.findCityUser(str)) {
+                System.out.println(user.toString());
+            }
+
             System.out.println("Введите Id для удаление ");
             Long num = sc.nextLong();
 //            userDao.delete(num);

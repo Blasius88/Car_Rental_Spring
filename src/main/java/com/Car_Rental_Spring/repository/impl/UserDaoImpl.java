@@ -60,18 +60,18 @@ public class UserDaoImpl implements UserDao {
                 "from m_user " +
                 "where id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(USER_ID, Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getUserRowMapper);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Long id_user) {
+    public void delete(Long id) {
         final String delete = "delete " +
                 "from m_user " +
-                "where id = :userId";
+                "where id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("userId", id_user);
+        params.addValue(USER_ID, id);
         namedParameterJdbcTemplate.update(delete, params);
     }
 
@@ -82,15 +82,15 @@ public class UserDaoImpl implements UserDao {
                 "VALUES (:first_name, :last_name, :login, :pass, :created, :id_role, :email, :phone, :city);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("first_name", entity.getFirstName());
-        parameterSource.addValue("last_name", entity.getLastName());
-        parameterSource.addValue("login", entity.getUserLogin());
-        parameterSource.addValue("pass", entity.getUserPass());
-        parameterSource.addValue("created", entity.getUserCreated());
-        parameterSource.addValue("id_role", entity.getIdRole());
-        parameterSource.addValue("email", entity.getUserEmail());
-        parameterSource.addValue("phone", entity.getUserPhone());
-        parameterSource.addValue("city", entity.getUserCity());
+        parameterSource.addValue(FIRST_NAME, entity.getFirstName());
+        parameterSource.addValue(LAST_NAME, entity.getLastName());
+        parameterSource.addValue(LOGIN, entity.getUserLogin());
+        parameterSource.addValue(PASS, entity.getUserPass());
+        parameterSource.addValue(CREATED, entity.getUserCreated());
+        parameterSource.addValue(ROLE, entity.getIdRole());
+        parameterSource.addValue(EMAIL, entity.getUserEmail());
+        parameterSource.addValue(PHONE, entity.getUserPhone());
+        parameterSource.addValue(CITY, entity.getUserCity());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdUserId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdUserId);
@@ -100,27 +100,27 @@ public class UserDaoImpl implements UserDao {
     @Transactional(rollbackFor = Exception.class)
     public User update(User entity) {
         final String creatQuery = "UPDATE m_user " +
-                "set first_name =:firstName," +
-                "last_name =:lastName," +
-                "login = :userLogin," +
-                "pass = :userPass," +
-                "created = :userCreated," +
-                "id_role =:idRole," +
-                "email = :userEmail," +
-                "phone = :userPhone," +
-                "city = :userCity " +
-                "WHERE id = :userId;";
+                "set first_name =:first_name," +
+                "last_name =:last_name," +
+                "login = :login," +
+                "pass = :pass," +
+                "created = :created," +
+                "id_role =:id_role," +
+                "email = :email," +
+                "phone = :phone," +
+                "city = :city " +
+                "WHERE id = :id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("userId", entity.getUserId());
-        parameterSource.addValue("firstName", entity.getFirstName());
-        parameterSource.addValue("lastName", entity.getLastName());
-        parameterSource.addValue("userLogin", entity.getUserLogin());
-        parameterSource.addValue("userPass", entity.getUserPass());
-        parameterSource.addValue("userCreated", entity.getUserCreated());
-        parameterSource.addValue("idRole", entity.getIdRole());
-        parameterSource.addValue("userEmail", entity.getUserEmail());
-        parameterSource.addValue("userPhone", entity.getUserPhone());
-        parameterSource.addValue("userCity", entity.getUserCity());
+        parameterSource.addValue(USER_ID, entity.getUserId());
+        parameterSource.addValue(FIRST_NAME, entity.getFirstName());
+        parameterSource.addValue(LAST_NAME, entity.getLastName());
+        parameterSource.addValue(LOGIN, entity.getUserLogin());
+        parameterSource.addValue(PASS, entity.getUserPass());
+        parameterSource.addValue(CREATED, entity.getUserCreated());
+        parameterSource.addValue(ROLE, entity.getIdRole());
+        parameterSource.addValue(EMAIL, entity.getUserEmail());
+        parameterSource.addValue(PHONE, entity.getUserPhone());
+        parameterSource.addValue(CITY, entity.getUserCity());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getUserId());
     }
@@ -131,7 +131,7 @@ public class UserDaoImpl implements UserDao {
                 "FROM m_user " +
                 "WHERE city = :city ";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("city", city);
+        params.addValue(CITY, city);
         return namedParameterJdbcTemplate.query(findQuery, params,  this::getUserRowMapper);
     }
 
@@ -141,7 +141,7 @@ public class UserDaoImpl implements UserDao {
                 "FROM m_user " +
                 "WHERE first_name = :first_name ";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("first_name", first_name);
+        params.addValue(FIRST_NAME, first_name);
         return namedParameterJdbcTemplate.queryForObject(findQuery, params, this::getUserRowMapper);
     }
 }

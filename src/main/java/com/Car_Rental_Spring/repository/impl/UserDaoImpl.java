@@ -82,6 +82,13 @@ public class UserDaoImpl implements UserDao {
                 "VALUES (:first_name, :last_name, :login, :pass, :created, :id_role, :email, :phone, :city);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        Params(entity, parameterSource);
+        namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
+        long createdUserId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        return findById(createdUserId);
+    }
+
+    private void Params(User entity, MapSqlParameterSource parameterSource) {
         parameterSource.addValue(FIRST_NAME, entity.getFirstName());
         parameterSource.addValue(LAST_NAME, entity.getLastName());
         parameterSource.addValue(LOGIN, entity.getUserLogin());
@@ -91,9 +98,6 @@ public class UserDaoImpl implements UserDao {
         parameterSource.addValue(EMAIL, entity.getUserEmail());
         parameterSource.addValue(PHONE, entity.getUserPhone());
         parameterSource.addValue(CITY, entity.getUserCity());
-        namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
-        long createdUserId = Objects.requireNonNull(keyHolder.getKey()).longValue();
-        return findById(createdUserId);
     }
 
     @Override
@@ -112,15 +116,7 @@ public class UserDaoImpl implements UserDao {
                 "WHERE id = :id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(USER_ID, entity.getUserId());
-        parameterSource.addValue(FIRST_NAME, entity.getFirstName());
-        parameterSource.addValue(LAST_NAME, entity.getLastName());
-        parameterSource.addValue(LOGIN, entity.getUserLogin());
-        parameterSource.addValue(PASS, entity.getUserPass());
-        parameterSource.addValue(CREATED, entity.getUserCreated());
-        parameterSource.addValue(ROLE, entity.getIdRole());
-        parameterSource.addValue(EMAIL, entity.getUserEmail());
-        parameterSource.addValue(PHONE, entity.getUserPhone());
-        parameterSource.addValue(CITY, entity.getUserCity());
+        Params(entity, parameterSource);
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getUserId());
     }

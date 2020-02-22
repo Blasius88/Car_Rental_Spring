@@ -43,7 +43,7 @@ public class BillDaoImpl implements BillDao {
                 "from bill " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(BILL_ID, Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getBillRowMapper);
     }
     @Override
@@ -53,7 +53,7 @@ public class BillDaoImpl implements BillDao {
                 "from bill " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(BILL_ID, Id);
         namedParameterJdbcTemplate.update(delete, params);
     }
 
@@ -64,8 +64,8 @@ public class BillDaoImpl implements BillDao {
                 "VALUES ( :id_order, :status);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("id_order", entity.getId_order());
-        parameterSource.addValue("status", entity.isStatus());
+        parameterSource.addValue(BILL_ID_ORDER, entity.getId_order());
+        parameterSource.addValue(BILL_STATUS, entity.isStatus());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdBillId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdBillId);
@@ -79,9 +79,9 @@ public class BillDaoImpl implements BillDao {
                 "status = :status" +
                 "WHERE id = :Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("Id", entity.getId_bill());
-        parameterSource.addValue("model_name", entity.getId_order());
-        parameterSource.addValue("engine+capacity", entity.isStatus());
+        parameterSource.addValue(BILL_ID, entity.getId_bill());
+        parameterSource.addValue(BILL_ID_ORDER, entity.getId_order());
+        parameterSource.addValue(BILL_STATUS, entity.isStatus());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_bill());
     }

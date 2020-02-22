@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,36 +45,49 @@ public class WorkerUserDaoImpl implements WorkerUserDao {
                 "from worker " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(WORKER_ID, Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getWorkerUserRowMapper);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delete(Long Id) {
         final String delete = "delete " +
                 "from worker " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(WORKER_ID, Id);
         namedParameterJdbcTemplate.update(delete, params);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WorkerUser save(WorkerUser entity) {
         final String creatQuery = "INSERT INTO worker (id_user, percentage_of_salary, salary) " +
                 "VALUES ( :id_user, :precentage_of_salary, salary);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("id_user", entity.getId_user());
-        parameterSource.addValue("percentage_of_salary", entity.getPercentage_of_salary());
-        parameterSource.addValue("salary", entity.getSalary());
+        parameterSource.addValue(WORKER_ID_USER, entity.getId_user());
+        parameterSource.addValue(WORKER_PERCENTAGE_OF_SALARY, entity.getPercentage_of_salary());
+        parameterSource.addValue(WORKER_SALARY, entity.getSalary());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdBillId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdBillId);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WorkerUser update(WorkerUser entity) {
-        return null;
+        final String creatQuery = "UPDATE worker " +
+                "set id_user =:id_user, " +
+                "percentage_of_salary = :percentage_of_salary, " +
+                "salary = :salary " +
+                "WHERE id = : Id;";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(WORKER_ID_USER, entity.getId_user());
+        parameterSource.addValue(WORKER_PERCENTAGE_OF_SALARY, entity.getPercentage_of_salary());
+        parameterSource.addValue(WORKER_SALARY, entity.getSalary());
+        namedParameterJdbcTemplate.update(creatQuery, parameterSource);
+        return findById(entity.getId_worker());
     }
 }

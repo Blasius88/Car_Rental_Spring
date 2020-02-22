@@ -90,16 +90,12 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
 
     @Override
     public List<Car_Brand> findPrice(double sum) {
-        try {
-            final String query = "SELECT * " +
-                    "FROM car_brand " +
-                    "WHERE price_hour < :sum";
-            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-            parameterSource.addValue("sum", sum);
-            return namedParameterJdbcTemplate.query(query, parameterSource, this::getUserRowMapper);
-        } catch (Exception ex) {
-            System.out.println("Машины дешевле не найдено ");
-            return null;
-        }
+        final String query = "SELECT * " +
+                "FROM car_brand " +
+                "WHERE price_hour < :sum";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("sum", sum);
+        return namedParameterJdbcTemplate.query(query, parameterSource, this::getUserRowMapper);
+
     }
 }

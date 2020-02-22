@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.Color;
 import com.Car_Rental_Spring.repository.ColorDao;
+import javafx.scene.effect.ColorAdjust;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -41,7 +42,7 @@ public class ColorDaoImpl implements ColorDao {
                 "from color " +
                 "where id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(COLOR_ID, Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getColorRowMapper);
     }
 
@@ -52,7 +53,7 @@ public class ColorDaoImpl implements ColorDao {
                 "from m_user " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(COLOR_ID, Id);
         namedParameterJdbcTemplate.update(delete, params);
     }
 
@@ -63,7 +64,7 @@ public class ColorDaoImpl implements ColorDao {
                 "VALUES ( :color );";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("color", entity.getColor());
+        parameterSource.addValue(COLOR, entity.getColor());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdColorId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdColorId);
@@ -76,8 +77,8 @@ public class ColorDaoImpl implements ColorDao {
                 "set color =:color," +
                 "WHERE id = : Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("Id", entity.getId_color());
-        parameterSource.addValue("color", entity.getColor());
+        parameterSource.addValue(COLOR_ID, entity.getId_color());
+        parameterSource.addValue(COLOR, entity.getColor());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_color());
     }

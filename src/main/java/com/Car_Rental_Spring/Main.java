@@ -1,7 +1,9 @@
 package com.Car_Rental_Spring;
 
 import com.Car_Rental_Spring.confing.AppConfig;
+import com.Car_Rental_Spring.domain.Car_Brand;
 import com.Car_Rental_Spring.domain.User;
+import com.Car_Rental_Spring.repository.Car_BrandDao;
 import com.Car_Rental_Spring.repository.UserDao;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -19,7 +21,13 @@ public class Main {
     private static void start() {
         ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         Scanner sc = new Scanner(System.in);
+
+        Car_BrandDao car_brandDao = (Car_BrandDao) context.getBean("car_BrandDaoImpl");
         UserDao userDao = (UserDao) context.getBean("userDaoImpl");
+
+        for (Car_Brand car_brand : car_brandDao.findAll()) {
+            System.out.println(car_brand.toString());
+        }
         for (User user : userDao.findAll()) {
             System.out.println(user.toString());
         }
@@ -31,7 +39,7 @@ public class Main {
 //
             System.out.println("Введите город");
             String str = sc.next();
-       
+
             for (User user : userDao.findCityUser(str)) {
                 System.out.println(user.toString());
             }

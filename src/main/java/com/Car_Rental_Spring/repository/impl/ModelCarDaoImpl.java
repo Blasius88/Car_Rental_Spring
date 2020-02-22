@@ -53,7 +53,7 @@ public class ModelCarDaoImpl implements ModelCarDao {
                 "from modul_car " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(ID_MODEL_CAR, Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getModelCarRowMapper);
     }
 
@@ -64,7 +64,7 @@ public class ModelCarDaoImpl implements ModelCarDao {
                 "from model_car " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(ID_MODEL_CAR, Id);
         namedParameterJdbcTemplate.update(delete, params);
     }
 
@@ -75,12 +75,7 @@ public class ModelCarDaoImpl implements ModelCarDao {
                 "VALUES ( :name_model, :engine_capacity, :date, :vin, :id_color, :id_car);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("name_model", entity.getName_model());
-        parameterSource.addValue("engine_capacity", entity.getEngine_capacity());
-        parameterSource.addValue("date", entity.getDate());
-        parameterSource.addValue("vin", entity.getVin());
-        parameterSource.addValue("id_color", entity.getId_color());
-        parameterSource.addValue("id_car", entity.getId_car());
+        Parameters(entity, parameterSource);
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdModelCarId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdModelCarId);
@@ -98,15 +93,19 @@ public class ModelCarDaoImpl implements ModelCarDao {
                 "id_car =:id_car " +
                 "WHERE id = : Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("Id", entity.getId_model());
-        parameterSource.addValue("model_name", entity.getName_model());
-        parameterSource.addValue("engine+capacity", entity.getEngine_capacity());
-        parameterSource.addValue("date", entity.getDate());
-        parameterSource.addValue("vin", entity.getVin());
-        parameterSource.addValue("id_color", entity.getId_color());
-        parameterSource.addValue("id_car", entity.getId_car());
+        parameterSource.addValue(ID_MODEL_CAR, entity.getId_model());
+        Parameters(entity, parameterSource);
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_color());
+    }
+
+    private void Parameters(Car_Model entity, MapSqlParameterSource parameterSource) {
+        parameterSource.addValue(MODEL_CAR_NAME, entity.getName_model());
+        parameterSource.addValue(MODEL_CAR_ENGINE_CAPACITY, entity.getEngine_capacity());
+        parameterSource.addValue(MODEL_CAR_DATA, entity.getDate());
+        parameterSource.addValue(MODEL_CAR_VIN, entity.getVin());
+        parameterSource.addValue(MODEL_CAR_ID_COLOR, entity.getId_color());
+        parameterSource.addValue(MODEL_CAR_ID_CAR, entity.getId_car());
     }
 
     @Override

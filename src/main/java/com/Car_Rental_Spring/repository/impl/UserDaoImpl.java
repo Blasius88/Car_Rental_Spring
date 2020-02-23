@@ -122,13 +122,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List <User> findCityUser(String city) {
+    public List<User> findCityUser(String city) {
         final String findQuery = "SELECT * " +
                 "FROM m_user " +
                 "WHERE city = :city ";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(CITY, city);
-        return namedParameterJdbcTemplate.query(findQuery, params,  this::getUserRowMapper);
+        return namedParameterJdbcTemplate.query(findQuery, params, this::getUserRowMapper);
     }
 
     @Override
@@ -140,5 +140,18 @@ public class UserDaoImpl implements UserDao {
         params.addValue(FIRST_NAME, first_name);
         return namedParameterJdbcTemplate.queryForObject(findQuery, params, this::getUserRowMapper);
     }
+
+    @Override
+    public List<User> search(String str) {
+        final String searchQuery = "SELECT * " +
+                "FROM m_user " +
+                "WHERE lower (first_name) " +
+                "LIKE lower(:str) or lower(last_name) LIKE lower(:str)";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("str", "%" + str +"%");
+        return namedParameterJdbcTemplate.query(searchQuery, params, this::getUserRowMapper);
+    }
+
+
 }
 

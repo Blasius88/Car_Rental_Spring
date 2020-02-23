@@ -1,4 +1,4 @@
-package com.Car_Rental_Spring.confing;
+package com.Car_Rental_Spring.confing.core;
 
 
 import org.springframework.context.annotation.ComponentScan;

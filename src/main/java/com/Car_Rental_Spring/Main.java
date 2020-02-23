@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring;
 
-import com.Car_Rental_Spring.confing.AppConfig;
+import com.Car_Rental_Spring.confing.core.AppConfig;
 import com.Car_Rental_Spring.domain.Car_Brand;
 import com.Car_Rental_Spring.domain.User;
 import com.Car_Rental_Spring.repository.Car_BrandDao;

@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserDao extends GenericDao<User, Long > {
     List<User> findCityUser(String str);
     User findLoginAndPass (String str);
+    List<User> search (String str);
 }

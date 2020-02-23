@@ -2,7 +2,6 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.Color;
 import com.Car_Rental_Spring.repository.ColorDao;
-import javafx.scene.effect.ColorAdjust;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;

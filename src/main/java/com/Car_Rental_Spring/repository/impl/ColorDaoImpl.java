@@ -84,4 +84,15 @@ public class ColorDaoImpl implements ColorDao {
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_color());
     }
+
+    @Override
+    public List<Color> search(String str, Integer limit, Integer offset) {
+        final String searchQuery = "SELECT * " +
+                "FROM m_color " +
+                "WHERE lower (color) " +
+                "LIKE lower(:str)  LIKE lower(:str)";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("str", "%" + str + "%");
+        return namedParameterJdbcTemplate.query(searchQuery, params, this::getColorRowMapper);
+    }
 }

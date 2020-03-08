@@ -24,7 +24,7 @@ public class ColorController {
     private ColorDao colorDao;
 
     @GetMapping
-    public ResponseEntity<List<Color>> getColors() {
+    public ResponseEntity<List<Color>> getColor() {
         return new ResponseEntity<>(colorDao.findAll(), HttpStatus.OK);
     }
 

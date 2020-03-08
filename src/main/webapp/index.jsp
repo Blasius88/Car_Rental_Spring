@@ -6,19 +6,19 @@
     <title></title>
     <meta charset="utf-8" />
 </head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            One of three columns
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    One of three columns
+                </div>
+                <div class="col-sm">
+                    One of three columns
+                </div>
+                <div class="col-sm">
+                    One of three columns
+                </div>
+            </div>
         </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

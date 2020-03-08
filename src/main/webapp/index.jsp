@@ -1,15 +1,24 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8" %>
 <html>
-    <body>
-        <h2>Hello World!</h2>
-        <form method="post">
-            <label>Name:
-                <input type="text" name="name"><br />
-            </label>
-
-            <label>Password:
-                <input type="password" name="pass"><br />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+    </div>
+</div>
+</body>
 </html>

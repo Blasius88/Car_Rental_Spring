@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.Car_Brand;
 import com.Car_Rental_Spring.repository.Car_BrandDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
+@RequiredArgsConstructor
+@Transactional
 public class Car_BrandDaoImpl implements Car_BrandDao {
     public static final String CAR_BRAND_ID = "id";
     public static final String CAR_BRAND_NAME = "name";

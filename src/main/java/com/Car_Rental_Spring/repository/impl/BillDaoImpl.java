@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.Bill;
 import com.Car_Rental_Spring.repository.BillDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
+@RequiredArgsConstructor
+@Transactional
 public class BillDaoImpl implements BillDao {
   private static final String BILL_ID = "id";
   private static final String BILL_ID_ORDER ="id_order";

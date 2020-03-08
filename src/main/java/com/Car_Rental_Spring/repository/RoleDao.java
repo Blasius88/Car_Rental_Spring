@@ -3,6 +3,8 @@ package com.Car_Rental_Spring.repository;
 import com.Car_Rental_Spring.domain.MRoles;
 import com.Car_Rental_Spring.repository.GenericDao;
 
-public interface RoleDao extends GenericDao<MRoles, Long> {
+import java.util.List;
 
+public interface RoleDao extends GenericDao<MRoles, Long> {
+    List<MRoles> getRolesByUserId(Long userId);
 }

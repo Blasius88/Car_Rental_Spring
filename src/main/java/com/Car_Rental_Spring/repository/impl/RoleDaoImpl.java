@@ -2,6 +2,8 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.MRoles;
 import com.Car_Rental_Spring.repository.RoleDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -15,13 +17,17 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
+@Transactional
 public class RoleDaoImpl implements RoleDao {
-
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String ROLE_ID = "id";
     private static final String ROLE_NAME = "name";
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private MRoles getMRoleRowMapper(ResultSet resultSet, int i) throws SQLException {
         MRoles mRoles = new MRoles();
@@ -31,10 +37,15 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    public List<MRoles> getRolesByUserId(Long userId) {
+        final String getRolesByUserId = "select * from m_roles where id = ?";
+        return jdbcTemplate.query(getRolesByUserId, new Object[]{userId}, this::getMRoleRowMapper);
+    }
+
+    @Override
     public List<MRoles> findAll() {
         final String findAllQuery = "select * from m_roles";
         return namedParameterJdbcTemplate.query(findAllQuery, this::getMRoleRowMapper);
-
     }
 
     @Override

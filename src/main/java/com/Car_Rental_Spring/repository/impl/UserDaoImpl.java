@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.User;
 import com.Car_Rental_Spring.repository.UserDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
+@RequiredArgsConstructor
+@Transactional
 public class UserDaoImpl implements UserDao {
 
     public static final String USER_ID = "id";
@@ -132,6 +135,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findByLogin(String login) {
+        final String findById = "select * " +
+                "from m_user " +
+                "where login = :login";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("login", login);
+
+        return namedParameterJdbcTemplate.queryForObject(findById, params, this::getUserRowMapper);
+    }
+
+    @Override
     public User findLoginAndPass(String first_name) {
         final String findQuery = "SELECT * " +
                 "FROM m_user " +
@@ -142,7 +156,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> search(String str) {
+    public List<User> search(String str, Integer limit, Integer offset) {
         final String searchQuery = "SELECT * " +
                 "FROM m_user " +
                 "WHERE lower (first_name) " +
@@ -151,7 +165,5 @@ public class UserDaoImpl implements UserDao {
         params.addValue("str", "%" + str +"%");
         return namedParameterJdbcTemplate.query(searchQuery, params, this::getUserRowMapper);
     }
-
-
 }
 

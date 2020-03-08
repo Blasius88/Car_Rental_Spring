@@ -5,7 +5,6 @@ import com.Car_Rental_Spring.repository.UserDao;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping(value ="/api")
 public class HelloController {
+
     @Autowired
     private UserDao userDao;
 
@@ -28,16 +29,13 @@ public class HelloController {
         return "hello";
     }
 
+
     @RequestMapping(value = "/user/search", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String printHello(@RequestParam("query") String query, ModelMap model) {
-        List<User> search = userDao.search(query);
+        List<User> search = userDao.search(query, 10, 0);
         model.addAttribute("userName",
-                StringUtils
-                        .join(search
-                                .stream()
-                                .map(User::getFirstName)
-                                .collect(Collectors.toList()), ","));
+                StringUtils.join(search.stream().map(User::getFirstName).collect(Collectors.toList()), ","));
         return "hello";
     }
 }

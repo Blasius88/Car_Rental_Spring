@@ -1,22 +1,17 @@
 package com.Car_Rental_Spring.confing.core;
 
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
-@ComponentScan("com.Car_Rental_Spring")
 public class JdbcTemplateConfig {
 
     @Autowired
-    @Qualifier("dataSource")
     private BasicDataSource dataSource;
 
     //https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/jdbc.html

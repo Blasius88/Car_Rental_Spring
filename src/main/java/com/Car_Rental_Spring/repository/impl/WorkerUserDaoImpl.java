@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.repository.impl;
 
 import com.Car_Rental_Spring.domain.WorkerUser;
 import com.Car_Rental_Spring.repository.WorkerUserDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -15,7 +16,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
+@RequiredArgsConstructor
+@Transactional
 public class WorkerUserDaoImpl implements WorkerUserDao {
+
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String WORKER_ID="id";
@@ -31,7 +35,6 @@ public class WorkerUserDaoImpl implements WorkerUserDao {
         workerUser.setSalary(resultSet.getDouble(WORKER_SALARY));
         return workerUser;
     }
-
 
     @Override
     public List<WorkerUser> findAll() {

@@ -6,5 +6,5 @@ import com.Car_Rental_Spring.repository.GenericDao;
 import java.util.List;
 
 public interface RoleDao extends GenericDao<MRoles, Long> {
-    List<MRoles> getRolesByUserId(Long userId);
+    MRoles findRole(String str);
 }

@@ -37,12 +37,6 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<MRoles> getRolesByUserId(Long roleId) {
-        final String getRolesByUserId = "select * from m_roles where id = ?";
-        return jdbcTemplate.query(getRolesByUserId, new Object[]{roleId}, this::getMRoleRowMapper);
-    }
-
-    @Override
     public List<MRoles> findAll() {
         final String findAllQuery = "select * from m_roles";
         return namedParameterJdbcTemplate.query(findAllQuery, this::getMRoleRowMapper);
@@ -93,5 +87,15 @@ public class RoleDaoImpl implements RoleDao {
         parameterSource.addValue(ROLE_NAME, entity.getName_roles());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_roles());
+    }
+
+    @Override
+    public MRoles findRole(String str) {
+        final String findOneQuery = "select * " +
+                "from m_roles " +
+                "where name = :name";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(ROLE_NAME, str);
+        return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getMRoleRowMapper);
     }
 }

@@ -85,7 +85,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    @Transactional (rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public Order update(Order entity) {
         final String creatQuery = "UPDATE m_order " +
                 "set id_user =:id_user," +
@@ -107,5 +107,26 @@ public class OrderDaoImpl implements OrderDao {
         parameterSource.addValue(ORDER_ID_WORKER, entity.getOrderWorkerId());
         parameterSource.addValue(RENTAL_START, entity.getRentalStart());
         parameterSource.addValue(RENTAL_END, entity.getRentalEnd());
+    }
+
+    @Override
+    public Order findOrder(String str) {
+        try {
+            Long id = Long.parseLong(str);
+            final String findOneQuery = "select * " +
+                    "from m_order " +
+                    "where id = :id";
+            MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue(ORDER_ID, id);
+            return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getOrderRowMapper);
+
+        } catch (Exception e) {
+            final String findOneQuery = "select * " +
+                    "from m_order " +
+                    "where rental_start= :rental_start";
+            MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue(RENTAL_START, str);
+            return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getOrderRowMapper);
+        }
     }
 }

@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface Car_BrandDao extends GenericDao<Car_Brand, Long> {
         List<Car_Brand> findPrice (double sum);
+        Car_Brand findCarBrand (String str);
 
 }

@@ -47,7 +47,7 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
                 "from car_brand " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(CAR_BRAND_ID, Id);
         return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getUserRowMapper);
     }
 
@@ -58,7 +58,7 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
                 "from car_brand " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", Id);
+        params.addValue(CAR_BRAND_ID, Id);
         namedParameterJdbcTemplate.update(delete, params);
     }
 
@@ -69,8 +69,8 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
                 "VALUES (:name, :price_hour );";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("name", entity.getName());
-        parameterSource.addValue("price_hour", entity.getPrice_hour());
+        parameterSource.addValue(CAR_BRAND_NAME, entity.getName());
+        parameterSource.addValue(CAR_BRAND_PRICE_HOUR, entity.getPrice_hour());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdCar_brandId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdCar_brandId);
@@ -84,9 +84,9 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
                 "price_hour =:priceHour " +
                 "WHERE id = : Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("Id", entity.getId());
-        parameterSource.addValue("carName", entity.getName());
-        parameterSource.addValue("priceHour", entity.getPrice_hour());
+        parameterSource.addValue(CAR_BRAND_ID, entity.getId());
+        parameterSource.addValue(CAR_BRAND_NAME, entity.getName());
+        parameterSource.addValue(CAR_BRAND_PRICE_HOUR, entity.getPrice_hour());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId());
     }
@@ -97,8 +97,18 @@ public class Car_BrandDaoImpl implements Car_BrandDao {
                 "FROM car_brand " +
                 "WHERE price_hour < :sum";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("sum", sum);
+        parameterSource.addValue(CAR_BRAND_PRICE_HOUR, sum);
         return namedParameterJdbcTemplate.query(query, parameterSource, this::getUserRowMapper);
 
+    }
+
+    @Override
+    public Car_Brand findCarBrand(String str) {
+        final String findOneQuery = "select * " +
+                "from car_brand " +
+                "where name = :name";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(CAR_BRAND_NAME, str);
+        return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getUserRowMapper);
     }
 }

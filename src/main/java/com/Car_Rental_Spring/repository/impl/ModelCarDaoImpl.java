@@ -118,7 +118,7 @@ public class ModelCarDaoImpl implements ModelCarDao {
                     "FROM model_car " +
                     "WHERE modul_name = :name";
             MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-            mapSqlParameterSource.addValue("name", name);
+            mapSqlParameterSource.addValue(MODEL_CAR_NAME, name);
             return namedParameterJdbcTemplate.queryForObject(query, mapSqlParameterSource, this::getModelCarRowMapper);
         } catch (Exception ex) {
             System.out.println("Данной модели не найдено");

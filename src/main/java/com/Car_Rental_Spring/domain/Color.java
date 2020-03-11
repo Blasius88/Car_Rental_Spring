@@ -12,6 +12,6 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class Color {
-    private Long id_color;
+    private Long id;
     private String color;
 }

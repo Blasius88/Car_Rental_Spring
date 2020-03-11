@@ -8,14 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Color</title>
+    <title>Title</title>
 </head>
-    <body>
-        <DIV>
-            <form>
-                <h2>${id}</h2>>
-                <h2>${color}</h2>
-            </form>
-        </DIV>
-    </body>
+<body>
+<DIV>
+    <form>
+        <h2>${id}</h2>>
+        <h2>${color}</h2>
+    </form>
+</DIV>>
+</body>
 </html>

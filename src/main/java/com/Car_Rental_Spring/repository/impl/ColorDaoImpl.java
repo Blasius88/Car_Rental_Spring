@@ -3,6 +3,7 @@ package com.Car_Rental_Spring.repository.impl;
 import com.Car_Rental_Spring.domain.Color;
 import com.Car_Rental_Spring.repository.ColorDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -23,18 +24,20 @@ public class ColorDaoImpl implements ColorDao {
     public static final String COLOR_ID = "id";
     public static final String COLOR = "color";
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Autowired
+    private  NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private Color getColorRowMapper(ResultSet resultSet, int i) throws SQLException {
         Color color = new Color();
-        color.setId_color(resultSet.getLong(COLOR_ID));
+        color.setId(resultSet.getLong(COLOR_ID));
         color.setColor(resultSet.getString(COLOR));
         return color;
     }
 
     @Override
     public List<Color> findAll() {
-        final String findAllQuery = "select * from color";
+        final String findAllQuery = "select * " +
+                "from color";
         return namedParameterJdbcTemplate.query(findAllQuery, this::getColorRowMapper);
     }
 
@@ -52,7 +55,7 @@ public class ColorDaoImpl implements ColorDao {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long Id) {
         final String delete = "delete " +
-                "from m_user " +
+                "from m_color " +
                 "where id = :Id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(COLOR_ID, Id);
@@ -79,20 +82,19 @@ public class ColorDaoImpl implements ColorDao {
                 "set color =:color," +
                 "WHERE id = : Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue(COLOR_ID, entity.getId_color());
+        parameterSource.addValue(COLOR_ID, entity.getId());
         parameterSource.addValue(COLOR, entity.getColor());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
-        return findById(entity.getId_color());
+        return findById(entity.getId());
     }
 
     @Override
-    public List<Color> search(String str, Integer limit, Integer offset) {
-        final String searchQuery = "SELECT * " +
-                "FROM m_color " +
-                "WHERE lower (color) " +
-                "LIKE lower(:str)  LIKE lower(:str)";
+    public Color findColor(String str) {
+        final String findOneQuery = "select * " +
+                "from color " +
+                "where color = :color";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("str", "%" + str + "%");
-        return namedParameterJdbcTemplate.query(searchQuery, params, this::getColorRowMapper);
+        params.addValue(COLOR, str);
+        return namedParameterJdbcTemplate.queryForObject(findOneQuery, params, this::getColorRowMapper);
     }
 }

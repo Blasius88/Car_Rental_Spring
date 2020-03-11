@@ -37,9 +37,9 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<MRoles> getRolesByUserId(Long userId) {
+    public List<MRoles> getRolesByUserId(Long roleId) {
         final String getRolesByUserId = "select * from m_roles where id = ?";
-        return jdbcTemplate.query(getRolesByUserId, new Object[]{userId}, this::getMRoleRowMapper);
+        return jdbcTemplate.query(getRolesByUserId, new Object[]{roleId}, this::getMRoleRowMapper);
     }
 
     @Override

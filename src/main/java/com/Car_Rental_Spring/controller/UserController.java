@@ -25,7 +25,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value ="/rest/users")
+@RequestMapping(value = "/rest/users")
 public class UserController {
 
     @Autowired

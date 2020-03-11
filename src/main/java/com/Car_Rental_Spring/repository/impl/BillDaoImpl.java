@@ -3,6 +3,7 @@ package com.Car_Rental_Spring.repository.impl;
 import com.Car_Rental_Spring.domain.Bill;
 import com.Car_Rental_Spring.repository.BillDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -23,6 +24,7 @@ public class BillDaoImpl implements BillDao {
   private static final String BILL_ID_ORDER ="id_order";
   private static final String BILL_STATUS ="status";
 
+  @Autowired
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   private Bill getBillRowMapper (ResultSet resultSet, int i) throws SQLException {
@@ -87,5 +89,10 @@ public class BillDaoImpl implements BillDao {
         parameterSource.addValue(BILL_STATUS, entity.isStatus());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_bill());
+    }
+
+    @Override
+    public Bill findBill(String str) {
+        return null;
     }
 }

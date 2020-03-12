@@ -3,6 +3,7 @@ package com.Car_Rental_Spring.repository.impl;
 import com.Car_Rental_Spring.domain.WorkerUser;
 import com.Car_Rental_Spring.repository.WorkerUserDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -20,9 +21,11 @@ import java.util.Objects;
 @Transactional
 public class WorkerUserDaoImpl implements WorkerUserDao {
 
+    @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String WORKER_ID="id";
+    private static final String NAME_WORK = "nameWork";
     private static final String WORKER_ID_USER = "id_user";
     private static final String WORKER_PERCENTAGE_OF_SALARY = "percentage_of_salary";
     private static final String WORKER_SALARY = "salary";
@@ -70,6 +73,7 @@ public class WorkerUserDaoImpl implements WorkerUserDao {
                 "VALUES ( :id_user, :precentage_of_salary, salary);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(NAME_WORK, entity.getNameWork());
         parameterSource.addValue(WORKER_ID_USER, entity.getId_user());
         parameterSource.addValue(WORKER_PERCENTAGE_OF_SALARY, entity.getPercentage_of_salary());
         parameterSource.addValue(WORKER_SALARY, entity.getSalary());
@@ -87,6 +91,7 @@ public class WorkerUserDaoImpl implements WorkerUserDao {
                 "salary = :salary " +
                 "WHERE id = : Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(NAME_WORK, entity.getNameWork());
         parameterSource.addValue(WORKER_ID_USER, entity.getId_user());
         parameterSource.addValue(WORKER_PERCENTAGE_OF_SALARY, entity.getPercentage_of_salary());
         parameterSource.addValue(WORKER_SALARY, entity.getSalary());

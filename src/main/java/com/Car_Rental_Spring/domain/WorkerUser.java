@@ -12,7 +12,9 @@ import lombok.*;
 @ToString
 public class WorkerUser {
     private Long id_worker;
+    private String nameWork;
     private Long id_user;
+
     private double percentage_of_salary;
     private double salary;
 }

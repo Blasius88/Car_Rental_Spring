@@ -1,0 +1,7 @@
+datasource:
+  driverName: org.postgresql.Driver
+  url: "jdbc:postgresql://localhost:5432/Car_Rental?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
+  login: postgres
+  password: root
+  initialSize: 10
+  maxActive: 7

@@ -1,10 +1,8 @@
 package com.Car_Rental_Spring.controller.messages;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

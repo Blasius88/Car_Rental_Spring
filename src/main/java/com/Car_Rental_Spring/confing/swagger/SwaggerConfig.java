@@ -15,22 +15,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
-    }
-
-    private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Spring Boot REST API")
-                .description("HTP Test REST API")
-                .contact(new Contact("Dolbik-Vorobei Roman ", "www.htp.com", "dolbik-w.by@mail.ru"))
-                .license("Apache 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("1.0.0")
-                .build();
-    }
+//    @Bean
+//    public Docket api() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .select()
+//                .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
+//
+//    private ApiInfo apiEndPointsInfo() {
+//        return new ApiInfoBuilder().title("Spring Boot REST API")
+//                .description("HTP Test REST API")
+//                .contact(new Contact("Dolbik-Vorobei Roman ", "www.htp.com", "dolbik-w.by@mail.ru"))
+//                .license("Apache 2.0")
+//                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+//                .version("1.0.0")
+//                .build();
+//    }
 }

@@ -1,13 +1,11 @@
 package com.Car_Rental_Spring.controller.messages;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.validation.FieldError;
 
 import java.util.List;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -18,4 +16,9 @@ public class ErrorsListMessage {
     private List<FieldError> errors;
 
     private String message;
+
+    public ErrorsListMessage(List<FieldError> errors, String message) {
+        this.errors = errors;
+        this.message = message;
+    }
 }

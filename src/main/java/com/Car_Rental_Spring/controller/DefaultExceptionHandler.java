@@ -27,6 +27,12 @@ public class DefaultExceptionHandler {
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ErrorMessage> handleNPException(NullPointerException e) {
+        LOG.error(e.getMessage(), e);
+        return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> handleOthersException(Exception e) {
         /* Handles all other exceptions. Status code 500. */

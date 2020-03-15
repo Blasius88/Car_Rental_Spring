@@ -98,4 +98,9 @@ public class WorkerUserDaoImpl implements WorkerUserDao {
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId_worker());
     }
+
+    @Override
+    public WorkerUser findWorkName(String str) {
+        return null;
+    }
 }

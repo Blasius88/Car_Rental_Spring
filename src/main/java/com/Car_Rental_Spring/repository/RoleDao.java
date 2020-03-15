@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RoleDao extends GenericDao<MRoles, Long> {
     MRoles findRole(String str);
+    List<MRoles> getRolesByUserId(Long userId);
+
 }

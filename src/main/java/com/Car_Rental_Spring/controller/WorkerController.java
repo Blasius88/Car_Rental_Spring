@@ -54,6 +54,7 @@ public class WorkerController {
         WorkerUser workerUser= workerUserDao.findWorkName(str);
         return new ResponseEntity<>(workerUser, HttpStatus.OK);
     }
+
     @PostMapping
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
@@ -81,7 +82,6 @@ public class WorkerController {
         workerUser.setSalary(request.getSalary());
     }
 
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteWorkerUser(@PathVariable("id") Long workerUserId) {
@@ -89,4 +89,3 @@ public class WorkerController {
         return new ResponseEntity<>(workerUserId, HttpStatus.OK);
     }
 }
-

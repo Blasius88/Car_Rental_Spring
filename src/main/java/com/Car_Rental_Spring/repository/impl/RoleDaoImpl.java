@@ -43,6 +43,12 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    public List<MRoles> getRolesByUserId(Long userId) {
+        final String getRolesByUserId = "select * from roles where role_user_id = ?";
+        return jdbcTemplate.query(getRolesByUserId, new Object[]{userId}, this::getMRoleRowMapper);
+    }
+
+    @Override
     public MRoles findById(Long Id) {
         final String findOneQuery = "select * " +
                 "from m_roles " +

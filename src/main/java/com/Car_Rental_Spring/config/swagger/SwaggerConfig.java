@@ -1,4 +1,4 @@
-package com.Car_Rental_Spring.confing.swagger;
+package com.Car_Rental_Spring.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

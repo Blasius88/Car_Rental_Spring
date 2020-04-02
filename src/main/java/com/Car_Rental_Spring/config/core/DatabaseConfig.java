@@ -1,17 +1,13 @@
-package com.Car_Rental_Spring.confing.core;
+package com.Car_Rental_Spring.config.core;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 import java.util.Objects;
 
 @Configuration
-@ConfigurationProperties("datasource")
+@PropertySource("classpath:database.properties")
 public class DatabaseConfig {
 
     @Value("${driverName}")
@@ -23,13 +19,13 @@ public class DatabaseConfig {
     @Value("${login}")
     private String login;
 
-    @Value("${password")
+    @Value("${password}")
     private String password;
 
     @Value("${initialSize}")
     private String initialSize;
 
-    @Value("{maxActive}")
+    @Value("${maxActive}")
     private String maxActive;
 
     @Bean(value = "dataSource", destroyMethod = "close")

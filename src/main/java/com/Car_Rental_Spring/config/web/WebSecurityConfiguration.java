@@ -1,5 +1,4 @@
-package com.Car_Rental_Spring.confing.web;
-
+package com.Car_Rental_Spring.config.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,12 +45,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/v2/api-docs", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/swagger-ui.html#").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui.html#").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/rest/**").permitAll()
-                .antMatchers("/ADMIN/**").permitAll()
+                .antMatchers("/admin/**").permitAll()
                 .anyRequest().authenticated();
     }
 

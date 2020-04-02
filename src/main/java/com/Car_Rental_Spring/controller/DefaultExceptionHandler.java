@@ -9,22 +9,36 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
+
 @ControllerAdvice
 public class DefaultExceptionHandler {
-
     private static final Logger LOG = Logger.getLogger(DefaultExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorMessage> handleNoSuchEntityException(MethodArgumentNotValidException e){
+    public ResponseEntity<ErrorMessage> handleNoSuchEntityException(MethodArgumentNotValidException e) {
         LOG.error(e.getMessage(), e);
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()),
                 HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleNoSuchEntityException(EntityNotFoundException e){
+        LOG.error(e.getMessage(), e);
+        return new ResponseEntity<>(new ErrorMessage(e.getMessage()),
+                HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErrorMessage> handleAuthenticationException(AuthenticationException e){
+    public ResponseEntity<ErrorMessage> handleAuthenticationException(AuthenticationException e) {
         LOG.error(e.getMessage(), e);
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ErrorMessage> handleNPException(NullPointerException e) {
+        LOG.error(e.getMessage(), e);
+        return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)

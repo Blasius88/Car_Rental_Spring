@@ -18,4 +18,9 @@ public class ErrorsListMessage {
     private List<FieldError> errors;
 
     private String message;
+
+    public ErrorsListMessage(List<FieldError> errors, String message) {
+        this.errors = errors;
+        this.message = message;
+    }
 }

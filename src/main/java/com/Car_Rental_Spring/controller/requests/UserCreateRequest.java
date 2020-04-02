@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +18,8 @@ import java.sql.Timestamp;
 @ToString
 public class UserCreateRequest {
 
+    @NotEmpty
+    @NotNull
     @Size(min = 1, max = 100)
     private String userFirstName;
 
@@ -30,6 +31,7 @@ public class UserCreateRequest {
 
     @NotNull
     @NotEmpty
+    @Size(min = 6, max = 20)
     private String password;
 
     private Date Created;

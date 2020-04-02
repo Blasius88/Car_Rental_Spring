@@ -3,11 +3,13 @@ package com.Car_Rental_Spring.controller;
 import com.Car_Rental_Spring.controller.requests.BillCreateRequest;
 import com.Car_Rental_Spring.domain.Bill;
 import com.Car_Rental_Spring.repository.BillDao;
-import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +17,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-@Controller
+@RestController
+@CrossOrigin
 @RequestMapping(value = "/rest/Bill")
+@RequiredArgsConstructor
 public class BillController {
 
-    @Autowired
-    private BillDao billDao;
+    private final BillDao billDao;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Bill>> getBills() {
         return new ResponseEntity<>(billDao.findAll(), HttpStatus.OK);
     }

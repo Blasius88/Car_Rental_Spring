@@ -1,7 +1,7 @@
 package com.Car_Rental_Spring.controller;
 
-import com.Car_Rental_Spring.controller.requests.UserCreateRequest;
-import com.Car_Rental_Spring.controller.requests.UserUpdateRequest;
+import com.Car_Rental_Spring.controller.requests.user.UserCreateRequest;
+import com.Car_Rental_Spring.controller.requests.user.UserUpdateRequest;
 import com.Car_Rental_Spring.domain.User;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.UserRepository;

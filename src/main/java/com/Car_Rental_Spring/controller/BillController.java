@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.controller;
 
-import com.Car_Rental_Spring.controller.requests.BillCreateRequest;
+import com.Car_Rental_Spring.controller.requests.bill.BillCreateRequest;
 import com.Car_Rental_Spring.domain.Bill;
 import com.Car_Rental_Spring.repository.BillDao;
 import io.swagger.annotations.ApiOperation;

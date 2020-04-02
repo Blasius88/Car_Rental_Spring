@@ -1,6 +1,6 @@
-package com.Car_Rental_Spring.controller.convert;
+package com.Car_Rental_Spring.controller.convert.user;
 
-import com.Car_Rental_Spring.controller.requests.UserCreateRequest;
+import com.Car_Rental_Spring.controller.requests.user.UserCreateRequest;
 import com.Car_Rental_Spring.domain.User;
 import org.springframework.stereotype.Component;
 

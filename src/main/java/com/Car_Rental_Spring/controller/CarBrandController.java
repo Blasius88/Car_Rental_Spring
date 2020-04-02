@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.controller;
 
-import com.Car_Rental_Spring.controller.requests.CarBrandCreateRequest;
+import com.Car_Rental_Spring.controller.requests.carBrand.CarBrandCreateRequest;
 import com.Car_Rental_Spring.domain.Car_Brand;
 import com.Car_Rental_Spring.repository.Car_BrandDao;
 import io.swagger.annotations.ApiOperation;

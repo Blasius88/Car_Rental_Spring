@@ -1,6 +1,7 @@
-package com.Car_Rental_Spring.controller.convert;
+package com.Car_Rental_Spring.controller.convert.user;
 
-import com.Car_Rental_Spring.controller.requests.UserCreateRequest;
+import com.Car_Rental_Spring.controller.convert.EntityConverter;
+import com.Car_Rental_Spring.controller.requests.user.UserCreateRequest;
 import com.Car_Rental_Spring.domain.User;
 
 public abstract class UserRequestConverter<S, T> extends EntityConverter<S, T> {
@@ -16,6 +17,7 @@ public abstract class UserRequestConverter<S, T> extends EntityConverter<S, T> {
         user.setUserEmail(request.getEmail());
         user.setUserPhone(request.getPhone());
         user.setUserCity(request.getCity());
+
         return user;
     }
 }

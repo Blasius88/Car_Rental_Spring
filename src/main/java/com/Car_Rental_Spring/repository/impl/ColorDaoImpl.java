@@ -30,7 +30,7 @@ public class ColorDaoImpl implements ColorDao {
     private Color getColorRowMapper(ResultSet resultSet, int i) throws SQLException {
         Color color = new Color();
         color.setId(resultSet.getLong(COLOR_ID));
-        color.setColor(resultSet.getString(COLOR));
+        color.setColorName(resultSet.getString(COLOR));
         return color;
     }
 
@@ -69,7 +69,7 @@ public class ColorDaoImpl implements ColorDao {
                 "VALUES ( :color );";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue(COLOR, entity.getColor());
+        parameterSource.addValue(COLOR, entity.getColorName());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource, keyHolder);
         long createdColorId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return findById(createdColorId);
@@ -83,7 +83,7 @@ public class ColorDaoImpl implements ColorDao {
                 "WHERE id = : Id;";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(COLOR_ID, entity.getId());
-        parameterSource.addValue(COLOR, entity.getColor());
+        parameterSource.addValue(COLOR, entity.getColorName());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
         return findById(entity.getId());
     }

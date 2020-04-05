@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.controller;
 
-import com.Car_Rental_Spring.controller.requests.ModelCarCreateRequest;
+import com.Car_Rental_Spring.controller.requests.modelCar.ModelCarCreateRequest;
 import com.Car_Rental_Spring.domain.Car_Model;
 import com.Car_Rental_Spring.repository.ModelCarDao;
 import io.swagger.annotations.ApiOperation;

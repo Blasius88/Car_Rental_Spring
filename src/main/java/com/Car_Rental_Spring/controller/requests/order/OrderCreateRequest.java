@@ -1,4 +1,4 @@
-package com.Car_Rental_Spring.controller.requests;
+package com.Car_Rental_Spring.controller.requests.order;
 
 import lombok.*;
 

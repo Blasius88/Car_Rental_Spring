@@ -1,4 +1,4 @@
-package com.Car_Rental_Spring.controller.requests;
+package com.Car_Rental_Spring.controller.requests.color;
 
 
 import lombok.*;
@@ -8,8 +8,6 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 @Builder
 @EqualsAndHashCode
 @ToString

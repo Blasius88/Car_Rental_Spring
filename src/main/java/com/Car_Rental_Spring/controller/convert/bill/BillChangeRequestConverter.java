@@ -13,8 +13,10 @@ public class BillChangeRequestConverter extends BillRequestConverter<BillUpdateR
     @Override
     public Bill convert(BillUpdateRequest request) {
         Bill bill =
-                ofNullable(entityManager.find(Bill.class, request.getBillId()))
-                        .orElseThrow(() -> new EntityNotFoundException(Bill.class, request.getBillId()));
+                ofNullable(entityManager.find(
+                        Bill.class, request.getBillId()))
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                Bill.class, request.getBillId()));
         return doConvert(bill, request);
     }
 }

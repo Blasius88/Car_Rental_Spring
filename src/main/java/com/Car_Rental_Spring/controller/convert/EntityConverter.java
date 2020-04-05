@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 public abstract class EntityConverter<S, R> implements Converter<S, R> {
+
     @PersistenceContext
     protected EntityManager entityManager;
 

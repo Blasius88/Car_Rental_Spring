@@ -13,8 +13,10 @@ public class UserChangeRequestConverter extends UserRequestConverter<UserUpdateR
     @Override
     public User convert(UserUpdateRequest request) {
         User user =
-                ofNullable(entityManager.find(User.class, request.getUserId()))
-                        .orElseThrow(() -> new EntityNotFoundException(User.class, request.getUserId()));
+                ofNullable(entityManager.find(
+                        User.class, request.getUserId()))
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                User.class, request.getUserId()));
         return doConvert(user, request);
     }
 }

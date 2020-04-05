@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component;
 import static java.util.Optional.ofNullable;
 
 @Component
-public class CarBrandChangeRequestConvertor extends CarBrandRequestConverter<CarBrandUpdateRequest,Car_Brand> {
+public class CarBrandChangeRequestConvertor extends CarBrandRequestConverter<CarBrandUpdateRequest, Car_Brand> {
 
     @Override
-    public Car_Brand convert(CarBrandUpdateRequest request){
-        Car_Brand carBrand = ofNullable(entityManager.find(Car_Brand.class, request.getCarBrandId()))
-                .orElseThrow(() -> new EntityNotFoundException(Car_Brand.class, request.getCarBrandId()));
+    public Car_Brand convert(CarBrandUpdateRequest request) {
+        Car_Brand carBrand =
+                ofNullable(entityManager.find(
+                        Car_Brand.class, request.getCarBrandId()))
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                Car_Brand.class, request.getCarBrandId()));
         return doConvert(carBrand, request);
     }
 }

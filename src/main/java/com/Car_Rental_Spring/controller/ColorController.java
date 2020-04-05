@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.controller;
 
-import com.Car_Rental_Spring.controller.requests.ColorCreateRequest;
+import com.Car_Rental_Spring.controller.requests.color.ColorCreateRequest;
 import com.Car_Rental_Spring.domain.Color;
 import com.Car_Rental_Spring.repository.ColorDao;
 import io.swagger.annotations.*;
@@ -87,7 +87,7 @@ public class ColorController {
     }
 
     private void data(@RequestBody ColorCreateRequest request, Color color) {
-        color.setColor(request.getColorName());
+        color.setColorName(request.getColorName());
     }
 
 

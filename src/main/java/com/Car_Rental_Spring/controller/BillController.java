@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/rest/Bill")
@@ -59,6 +58,7 @@ public class BillController {
         Bill bill = billDao.findBill(str);
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
+
     @PostMapping
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)

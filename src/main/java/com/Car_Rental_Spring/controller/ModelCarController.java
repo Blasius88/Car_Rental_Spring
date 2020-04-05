@@ -2,12 +2,16 @@ package com.Car_Rental_Spring.controller;
 
 import com.Car_Rental_Spring.controller.requests.modelCar.ModelCarCreateRequest;
 import com.Car_Rental_Spring.domain.Car_Model;
-import com.Car_Rental_Spring.repository.ModelCarDao;
+import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
+import com.Car_Rental_Spring.repository.springdata.ModelCarRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,17 +22,24 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/rest/modelCar")
 public class ModelCarController {
 
     @Autowired
-    private ModelCarDao modelCarDao;
+    private ModelCarRepository modelCarDao;
 
-    @GetMapping
+    @Autowired
+    @Qualifier(value = "mvcConversionService")
+    private ConversionService conversionService;
+
+    @GetMapping("/all")
     public ResponseEntity<List<Car_Model>> getModelsCars() {
         return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
     }
 
+    //---------------------------------------------------------------
     @ApiOperation(value = "Get Order from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting Order"),
@@ -37,53 +48,40 @@ public class ModelCarController {
             @ApiResponse(code = 404, message = "Order was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Car_Model> getOrderById(@ApiParam("Order Path Id") @PathVariable Long id) {
-        Car_Model car_model = modelCarDao.findById(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Car_Model> getOrderById(
+            @ApiParam("Order Path Id") @PathVariable String id) {
+        Car_Model car_model = modelCarDao
+                .findById(Long.valueOf(id))
+                .orElseThrow(() -> new EntityNotFoundException(Car_Model.class, id));
         return new ResponseEntity<>(car_model, HttpStatus.OK);
     }
-
-
-    @ApiOperation(value = "Get Order from server by Order")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Successful getting Order"),
-            @ApiResponse(code = 400, message = "Invalid Order supplied"),
-            @ApiResponse(code = 401, message = "Lol kek"),
-            @ApiResponse(code = 404, message = "Order was not found"),
-            @ApiResponse(code = 500, message = "Server error, something wrong")
-    })
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<Car_Model> getOrderName(String str) {
-        Car_Model car_model = modelCarDao.findModelName(str);
-        return new ResponseEntity<>(car_model, HttpStatus.OK);
-    }
+//----------------------------------------------------------------
 
     @PostMapping
     @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Car_Model> createCarModel(@RequestBody @Valid ModelCarCreateRequest request) {
-        Car_Model car_model = new Car_Model();
-        data(request, car_model);
-
-        Car_Model savedCar_Model = modelCarDao.save(car_model);
-
-        return new ResponseEntity<>(savedCar_Model, HttpStatus.OK);
-    }
-
-    private void data(@RequestBody ModelCarCreateRequest request, Car_Model car_model) {
-        car_model.setName_model(request.getModuleName());
-        car_model.setEngine_capacity(request.getEngineCapacity());
-        car_model.setDate(request.getData());
-        car_model.setVin(request.getVin());
-        car_model.setId_color(request.getIdColor());
-        car_model.setId_car(request.getIdCar());
-    }
-
-
-    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteCarModel(@PathVariable("id") Long carModelId) {
-        modelCarDao.delete(carModelId);
-        return new ResponseEntity<>(carModelId, HttpStatus.OK);
+    public ResponseEntity<Car_Model> createCarModel(
+            @ModelAttribute @Valid ModelCarCreateRequest request) {
+        Car_Model car_model = conversionService.convert(request, Car_Model.class);
+        return new ResponseEntity<>(modelCarDao.saveAndFlush(car_model), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("delete/{id}")
+    @Transactional
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> deleteCarModelById(
+            @ApiParam("Contractor Id") @PathVariable("id") Long id) {
+        modelCarDao.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @PostMapping("update/{id}")
+    @Transactional
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> updateModelCarById(
+            @ModelAttribute @Valid ModelCarRepository request) {
+        Car_Model convertedUser = conversionService.convert(request, Car_Model.class);
+        return new ResponseEntity(modelCarDao.save(convertedUser), HttpStatus.OK);
     }
 }

@@ -20,23 +20,22 @@ public class Order {
     @Column(name = "id")
     private Long orderId;
 
-    @Column(name = "id_user")
-    private Long orderUserId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
+    private User orderUserId;
 
-    @Column(name = "id_car")
-    private Long orderCarId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_car")
+    private Car_Model orderCarId;
 
-    @Column(name = "id_worker")
-    private Long orderWorkerId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_worker")
+    private WorkerUser orderWorkerId;
 
     @Column(name = "rental_start")
     private String rentalStart;
 
     @Column(name = "rental_end")
     private String rentalEnd;
-//
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "order_id")
-//    @JsonBackReference
-//    private Bill bill;
+
 }

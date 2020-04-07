@@ -18,13 +18,12 @@ public class Bill {
     @Column(name = "id")
     private Long id_bill;
 
-    @Column
-    private Long id_order;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    private Order id_order;
 
     @Column
     private boolean status;
-//
-//    @JsonManagedReference
-//    @OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
-//    private Order order;
+
+
 }

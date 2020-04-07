@@ -42,9 +42,6 @@ public class User {
     @Column(name = "created")
     private Date userCreated;
 
-    @Column(name = "id_role")
-    private Long idRole;
-
     @Column(name = "email")
     private String userEmail;
 
@@ -55,7 +52,9 @@ public class User {
     private String userCity;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_role")
     private MRoles role;
+
 
 }

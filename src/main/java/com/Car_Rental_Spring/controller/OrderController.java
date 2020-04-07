@@ -1,8 +1,10 @@
 package com.Car_Rental_Spring.controller;
 
 import com.Car_Rental_Spring.controller.requests.order.OrderCreateRequest;
+import com.Car_Rental_Spring.controller.requests.order.OrderUpdateRequest;
 import com.Car_Rental_Spring.domain.Order;
-import com.Car_Rental_Spring.repository.OrderDao;
+import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
+import com.Car_Rental_Spring.repository.springdata.OrderRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -27,7 +29,7 @@ import java.util.List;
 @RequestMapping(value = "/rest/order")
 public class OrderController {
 
-    private final OrderDao orderDao;
+    private final OrderRepository orderDao;
 
     @Autowired
     @Qualifier(value = "mvcConversionService")
@@ -55,51 +57,40 @@ public class OrderController {
             @ApiResponse(code = 404, message = "Order was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Order> getOrderById(@ApiParam("Order Path Id") @PathVariable Long id) {
-        Order order = orderDao.findById(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Order> getOrderById(
+            @ApiParam("Order Path Id") @PathVariable String id) {
+        Order order = orderDao
+                .findById(Long.valueOf(id))
+                .orElseThrow(() -> new EntityNotFoundException(Order.class, id));
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
 
-    @ApiOperation(value = "Get Order from server by Order")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Successful getting Order"),
-            @ApiResponse(code = 400, message = "Invalid Order supplied"),
-            @ApiResponse(code = 401, message = "Lol kek"),
-            @ApiResponse(code = 404, message = "Order was not found"),
-            @ApiResponse(code = 500, message = "Server error, something wrong")
-    })
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<Order> getOrderName(String str) {
-        Order order = orderDao.findOrder(str);
-        return new ResponseEntity<>(order, HttpStatus.OK);
-    }
     @PostMapping
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Order> createOrder(@RequestBody @Valid OrderCreateRequest request) {
-        Order order = new Order();
-        data(request, order);
-
-        Order savedOrder = orderDao.save(order);
-
-        return new ResponseEntity<>(savedOrder, HttpStatus.OK);
+    public ResponseEntity<Order> createOrder(
+            @ModelAttribute @Valid OrderCreateRequest request) {
+        Order order = conversionService.convert(request, Order.class);
+        return new ResponseEntity<>(orderDao.saveAndFlush(order), HttpStatus.OK);
     }
 
-    private void data(@RequestBody OrderCreateRequest request, Order order) {
-        order.setOrderUserId(request.getIdUser());
-        order.setOrderCarId(request.getIdCar());
-        order.setOrderWorkerId(request.getIdWorker());
-        order.setRentalStart(request.getRentalStart());
-        order.setRentalEnd(request.getRentalEnd());
-    }
-
-
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
+    @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteOrder(@PathVariable("id") Long orderId) {
-        orderDao.delete(orderId);
+    public ResponseEntity<Long> deleteOrder(
+            @PathVariable("id") Long orderId) {
+        orderDao.deleteById(orderId);
         return new ResponseEntity<>(orderId, HttpStatus.OK);
+    }
+
+    @PostMapping("update/{id}")
+    @Transactional
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Long> updateOrderById (
+            @ModelAttribute @Valid OrderUpdateRequest request) {
+        Order convertedOrder = conversionService.convert(request, Order.class);
+        return new ResponseEntity(orderDao.save(convertedOrder), HttpStatus.OK);
     }
 }

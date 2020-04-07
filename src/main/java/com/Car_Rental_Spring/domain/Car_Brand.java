@@ -1,21 +1,27 @@
 package com.Car_Rental_Spring.domain;
 
 import lombok.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.Objects;
+import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Getter
-@Builder
-@EqualsAndHashCode
-@ToString
+@RequiredArgsConstructor
+@EqualsAndHashCode()
+@ToString()
+@Entity
+@Table(name = "car_brand")
 public class Car_Brand  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
+
+    @Column
     private String name;
+
+    @Column
     private Double price_hour;
 }

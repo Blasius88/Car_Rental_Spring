@@ -1,7 +1,6 @@
 package com.Car_Rental_Spring.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,10 +29,10 @@ public class MRoles {
     @Column(name = "name")
     @Size(max = 50, message = "{name_roles.maximum.size}")
     private String Name_roles;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "m_roles_id")
-    @JsonBackReference
-    //@MapsId
-    private User user;
+//
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "m_roles_id")
+//    @JsonBackReference
+//    //@MapsId
+//    private User user;
 }

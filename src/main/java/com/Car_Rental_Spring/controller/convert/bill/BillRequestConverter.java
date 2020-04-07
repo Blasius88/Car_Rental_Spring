@@ -8,7 +8,7 @@ public abstract class BillRequestConverter<S, T> extends EntityConverter<S, T> {
 
     protected Bill doConvert (Bill bill, BillCreateRequest request){
 
-        bill.setId_order(request.getId_order());
+       // bill.setId_order(request.getId_order());
         bill.setStatus(request.isStatus());
 
         return bill;

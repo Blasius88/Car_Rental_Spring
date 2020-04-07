@@ -35,9 +35,9 @@ public class OrderDaoImpl implements OrderDao {
     private Order getOrderRowMapper(ResultSet resultSet, int i) throws SQLException {
         Order order = new Order();
         order.setOrderId(resultSet.getLong(ORDER_ID));
-        order.setOrderUserId(resultSet.getLong(ORDER_ID_USER));
-        order.setOrderCarId(resultSet.getLong(ORDER_ID_CAR));
-        order.setOrderWorkerId(resultSet.getLong(ORDER_ID_WORKER));
+      //  order.setOrderUserId(resultSet.getLong(ORDER_ID_USER));
+       // order.setOrderCarId(resultSet.getLong(ORDER_ID_CAR));
+        //order.setOrderWorkerId(resultSet.getLong(ORDER_ID_WORKER));
         order.setRentalStart(resultSet.getString(RENTAL_START));
         order.setRentalEnd(resultSet.getString(RENTAL_END));
 

@@ -13,7 +13,7 @@ public abstract class UserRequestConverter<S, T> extends EntityConverter<S, T> {
         user.setUserLogin(request.getLogin());
         user.setUserPass(request.getPassword());
         user.setUserCreated(request.getCreated());
-        user.setIdRole(request.getIdRole());
+       // user.setIdRole(request.getIdRole());
         user.setUserEmail(request.getEmail());
         user.setUserPhone(request.getPhone());
         user.setUserCity(request.getCity());

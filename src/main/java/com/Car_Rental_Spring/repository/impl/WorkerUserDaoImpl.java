@@ -33,7 +33,7 @@ public class WorkerUserDaoImpl implements WorkerUserDao {
     private WorkerUser getWorkerUserRowMapper (ResultSet resultSet, int i) throws SQLException{
         WorkerUser workerUser = new WorkerUser();
         workerUser.setId_worker(resultSet.getLong(WORKER_ID));
-        workerUser.setId_user(resultSet.getLong(WORKER_ID_USER));
+      //  workerUser.setId_user(resultSet.getLong(WORKER_ID_USER));
         workerUser.setPercentage_of_salary(resultSet.getDouble(WORKER_PERCENTAGE_OF_SALARY));
         workerUser.setSalary(resultSet.getDouble(WORKER_SALARY));
         return workerUser;

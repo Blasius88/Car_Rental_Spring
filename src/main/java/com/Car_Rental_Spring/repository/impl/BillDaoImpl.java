@@ -30,7 +30,7 @@ public class BillDaoImpl implements BillDao {
   private Bill getBillRowMapper (ResultSet resultSet, int i) throws SQLException {
       Bill bill = new Bill();
       bill.setId_bill(resultSet.getLong(BILL_ID));
-      bill.setId_order(resultSet.getLong(BILL_ID_ORDER));
+    //  bill.setId_order(resultSet.getLong(BILL_ID_ORDER));
       bill.setStatus(resultSet.getBoolean(BILL_STATUS));
       return bill;
   }

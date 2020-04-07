@@ -1,7 +1,6 @@
 package com.Car_Rental_Spring.domain;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 

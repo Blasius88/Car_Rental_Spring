@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
         user.setUserLogin(resultSet.getString(LOGIN));
         user.setUserPass(resultSet.getString(PASS));
         user.setUserCreated(resultSet.getDate(CREATED));
-        user.setIdRole(resultSet.getLong(ROLE));
+       // user.setIdRole(resultSet.getLong(ROLE));
         user.setUserEmail(resultSet.getString(EMAIL));
         user.setUserPhone(resultSet.getString(PHONE));
         user.setUserCity(resultSet.getString(CITY));
@@ -97,7 +97,7 @@ public class UserDaoImpl implements UserDao {
         parameterSource.addValue(LOGIN, entity.getUserLogin());
         parameterSource.addValue(PASS, entity.getUserPass());
         parameterSource.addValue(CREATED, entity.getUserCreated());
-        parameterSource.addValue(ROLE, entity.getIdRole());
+       // parameterSource.addValue(ROLE, entity.getIdRole());
         parameterSource.addValue(EMAIL, entity.getUserEmail());
         parameterSource.addValue(PHONE, entity.getUserPhone());
         parameterSource.addValue(CITY, entity.getUserCity());

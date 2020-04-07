@@ -9,7 +9,7 @@ public abstract class WorkerRequestConverter<S,T> extends EntityConverter<S,T> {
     protected WorkerUser doConvert (WorkerUser workerUser, WorkerUserCreateRequest request){
 
         workerUser.setNameWork(request.getNameWork());
-        workerUser.setId_user(request.getIdUser());
+      //  workerUser.setId_user(request.getIdUser());
         workerUser.setPercentage_of_salary(request.getPercentageOfSalary());
         workerUser.setSalary(request.getSalary());
 

@@ -38,8 +38,8 @@ public class ModelCarDaoImpl implements ModelCarDao {
         car_model.setEngine_capacity(resultSet.getInt(MODEL_CAR_ENGINE_CAPACITY));
         car_model.setDate(resultSet.getInt(MODEL_CAR_DATA));
         car_model.setVin(resultSet.getString(MODEL_CAR_VIN));
-        car_model.setId_color(resultSet.getLong(MODEL_CAR_ID_COLOR));
-        car_model.setId_car(resultSet.getLong(MODEL_CAR_ID_CAR));
+    //    car_model.setId_color(resultSet.getLong(MODEL_CAR_ID_COLOR));
+      //  car_model.setId_car(resultSet.getLong(MODEL_CAR_ID_CAR));
 
         return car_model;
     }
@@ -99,7 +99,7 @@ public class ModelCarDaoImpl implements ModelCarDao {
         parameterSource.addValue(ID_MODEL_CAR, entity.getId_model());
         Parameters(entity, parameterSource);
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
-        return findById(entity.getId_color());
+        return findById(entity.getId_model());
     }
 
     private void Parameters(Car_Model entity, MapSqlParameterSource parameterSource) {

@@ -12,10 +12,10 @@ import java.util.Date;
 @Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode(exclude = {
-        "userId", "roles", "professions"
+        "userId"
 })
 @ToString(exclude = {
-        "roles", "professions"
+        "role"
 })
 @Entity
 @Table(name = "m_user")

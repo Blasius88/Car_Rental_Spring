@@ -11,10 +11,10 @@ import javax.validation.constraints.Size;
 @Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode(exclude = {
-        "roleId", "user"
+        "id_roles"
 })
 @ToString(exclude = {
-        "user"
+        "id_roles"
 })
 @Entity
 @Table(name = "m_roles")
@@ -29,10 +29,4 @@ public class MRoles {
     @Column(name = "name")
     @Size(max = 50, message = "{name_roles.maximum.size}")
     private String Name_roles;
-//
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "m_roles_id")
-//    @JsonBackReference
-//    //@MapsId
-//    private User user;
 }

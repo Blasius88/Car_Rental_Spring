@@ -1,5 +1,6 @@
 package com.Car_Rental_Spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,8 +9,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @RequiredArgsConstructor
-@EqualsAndHashCode()
-@ToString()
+@EqualsAndHashCode(exclude = {"id_worker", "id_user"})
+@ToString(exclude = {"id_worker", "id_user"})
 @Entity
 @Table(name = "worker")
 public class WorkerUser {
@@ -22,6 +23,7 @@ public class WorkerUser {
     @Column
     private String nameWork;
 
+    @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn
     private User id_user;

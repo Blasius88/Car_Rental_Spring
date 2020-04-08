@@ -34,7 +34,16 @@ public class WorkerController {
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
-    @GetMapping
+    @ApiOperation(value = "Get all worker from server")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successful getting data"),
+            @ApiResponse(code = 400, message = "Something wrong"),
+            @ApiResponse(code = 401, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Worker not found"),
+            @ApiResponse(code = 500, message = "Server error, something wrong")
+    })
+    @GetMapping ("/all")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<WorkerUser>> getWorkers() {
         return new ResponseEntity<>(workerUserDao.findAll(), HttpStatus.OK);
     }
@@ -48,7 +57,7 @@ public class WorkerController {
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
     @GetMapping(value = "/{id}")
-    public ResponseEntity<WorkerUser> getColorById(
+    public ResponseEntity<WorkerUser> getWorkerById(
             @ApiParam("worker Path Id") @PathVariable String id) {
         WorkerUser workerUser = workerUserDao
                 .findById(Long.valueOf(id))
@@ -59,7 +68,7 @@ public class WorkerController {
     @PostMapping
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<WorkerUser> createColor
+    public ResponseEntity<WorkerUser> createWorker
             (@ModelAttribute @Valid WorkerUserCreateRequest request) {
         WorkerUser workerUser = conversionService.convert(request, WorkerUser.class);
         return new ResponseEntity<>(workerUserDao.saveAndFlush(workerUser), HttpStatus.OK);

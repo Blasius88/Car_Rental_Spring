@@ -49,6 +49,7 @@ public class BillController {
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
     @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Bill> getBillById(
             @ApiParam("Bill Path Id") @PathVariable Long id) {
         Bill bill = billRepository
@@ -67,7 +68,7 @@ public class BillController {
     })
     @PostMapping
     @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Bill> createBill(@RequestBody @Valid BillCreateRequest request) {
         Bill converterBill = conversionService.convert(request, Bill.class);
         return new ResponseEntity<>(billRepository.saveAndFlush(converterBill), HttpStatus.CREATED);

@@ -58,6 +58,7 @@ public class ColorController {
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
     @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Color> getColorById(
             @ApiParam("Color Path Id") @PathVariable String id) {
         Color color = colorDao
@@ -68,7 +69,7 @@ public class ColorController {
 
     @PostMapping
     @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Color> createColor(
             @ModelAttribute @Valid ColorCreateRequest request) {
         Color color = conversionService.convert(request, Color.class);

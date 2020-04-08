@@ -1,5 +1,6 @@
 package com.Car_Rental_Spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,8 +10,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @RequiredArgsConstructor
-@EqualsAndHashCode()
-@ToString()
+@EqualsAndHashCode(exclude = {"id_model", "id_color", "id_car"})
+@ToString(exclude = {"id_model", "id_color", "id_car"})
 @Entity
 @Table(name = "model_car")
 public class Car_Model {
@@ -26,17 +27,19 @@ public class Car_Model {
     @Column
     private int engine_capacity;
 
-    @Column
+    @Column(name = "data")
     private int date;
 
     @Column
     private String vin;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn
     private Color id_color;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn
     private Car_Brand id_car;
 }

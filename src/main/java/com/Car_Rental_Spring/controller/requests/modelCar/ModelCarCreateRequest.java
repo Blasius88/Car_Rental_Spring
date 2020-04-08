@@ -7,11 +7,11 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 @Builder
-@ToString
 @EqualsAndHashCode
+@ToString
 public class ModelCarCreateRequest {
 
     @Size(min =1)

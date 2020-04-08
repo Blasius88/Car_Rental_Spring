@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -21,6 +22,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/rest/worker")
 public class WorkerController {
 

@@ -17,7 +17,6 @@ import java.util.Date;
 @ToString(exclude = {
         "roles", "professions"
 })
-@NamedQuery(name = "m_users_multiple_ids_search", query = "select tu from User tu where tu.userId in (:userIds)")
 @Entity
 @Table(name = "m_user")
 public class User {

@@ -2,7 +2,6 @@ package com.Car_Rental_Spring.controller.requests.bill;
 
 import lombok.*;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

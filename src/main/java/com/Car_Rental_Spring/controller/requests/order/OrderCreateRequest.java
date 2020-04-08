@@ -9,9 +9,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString
-@EqualsAndHashCode
 @Builder
+@EqualsAndHashCode
+@ToString
 public class OrderCreateRequest {
 
     @Size(min = 1)

@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @Controller
-@CrossOrigin
+@RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/rest/order")
 public class OrderController {

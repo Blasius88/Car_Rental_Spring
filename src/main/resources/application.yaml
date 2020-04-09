@@ -9,6 +9,6 @@ spring:
     show-sql: true
 logging:
   level:
-    ROOT: debug
-    org.springframework: debug
-    org.hibernate: debug
+    ROOT: info
+    org.springframework: info
+    org.hibernate: info

@@ -35,11 +35,11 @@ public class Car_Model {
 
     @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn (name ="id_color")
     private Color id_color;
 
     @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn (name = "id_car")
     private Car_Brand id_car;
 }

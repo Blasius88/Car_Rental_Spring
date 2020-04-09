@@ -25,7 +25,7 @@ public class WorkerUser {
 
     @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn (name = "id_user")
     private User id_user;
 
     @Column

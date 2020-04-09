@@ -11,16 +11,12 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 
 import javax.persistence.EntityManagerFactory;
 
-
 @Configuration
-@ComponentScan("com.Car_Rental_Spring")
 public class JdbcTemplateConfig {
 
     @Autowired
     private BasicDataSource dataSource;
 
-    //https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/jdbc.html
-    //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html
     @Bean("jdbcTemplate")
     public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(dataSource);
@@ -35,8 +31,5 @@ public class JdbcTemplateConfig {
     public JpaTransactionManager getTransactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
-
-    //https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/aop.html#aop-understanding-aop-proxies
-    //https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/transaction.html
 
 }

@@ -2,7 +2,7 @@ package com.Car_Rental_Spring.controller;
 
 import com.Car_Rental_Spring.controller.requests.bill.BillCreateRequest;
 import com.Car_Rental_Spring.controller.requests.bill.BillUpdateRequest;
-import com.Car_Rental_Spring.domain.Bill;
+import com.Car_Rental_Spring.entity.Bill;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.BillRepository;
 import io.swagger.annotations.ApiOperation;

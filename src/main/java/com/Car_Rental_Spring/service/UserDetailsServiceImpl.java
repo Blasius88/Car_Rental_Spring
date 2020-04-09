@@ -1,9 +1,11 @@
 package com.Car_Rental_Spring.service;
 
-import com.Car_Rental_Spring.domain.MRoles;
-import com.Car_Rental_Spring.domain.User;
+import com.Car_Rental_Spring.entity.MRoles;
+import com.Car_Rental_Spring.entity.User;
 import com.Car_Rental_Spring.repository.RoleDao;
 import com.Car_Rental_Spring.repository.UserDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

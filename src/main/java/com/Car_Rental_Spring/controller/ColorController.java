@@ -2,7 +2,7 @@ package com.Car_Rental_Spring.controller;
 
 import com.Car_Rental_Spring.controller.requests.color.ColorCreateRequest;
 import com.Car_Rental_Spring.controller.requests.color.ColorUpdateRequest;
-import com.Car_Rental_Spring.domain.Color;
+import com.Car_Rental_Spring.entity.Color;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.ColorRepository;
 import io.swagger.annotations.ApiOperation;

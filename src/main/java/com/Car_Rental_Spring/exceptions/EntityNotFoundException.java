@@ -1,7 +1,9 @@
 package com.Car_Rental_Spring.exceptions;
 
 public class EntityNotFoundException extends RuntimeException {
-    private static final String MESSAGE_ID_TEMPLATE = "%s with id=%s not found";
+
+    private static final String MESSAGE_ID_TEMPLATE = "%s with id= %s not found";
+    private static final String MESSAGE_SOURCES_TEMPLATE = "%s with sources= %s not found";
     private static final String MESSAGE_TEMPLATE = "%s not found";
 
     public EntityNotFoundException() {
@@ -27,4 +29,8 @@ public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(Class<?> entityClass, Object id) {
         super(String.format(MESSAGE_ID_TEMPLATE, entityClass.getSimpleName(), id));
     }
+    public EntityNotFoundException( Object sources, Class<?> entityClass) {
+        super(String.format(MESSAGE_SOURCES_TEMPLATE, entityClass.getSimpleName(), sources));
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.repository.impl;
 
-import com.Car_Rental_Spring.domain.MRoles;
+import com.Car_Rental_Spring.entity.MRoles;
 import com.Car_Rental_Spring.repository.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

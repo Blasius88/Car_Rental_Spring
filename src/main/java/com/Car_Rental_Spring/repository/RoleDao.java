@@ -1,7 +1,6 @@
 package com.Car_Rental_Spring.repository;
 
-import com.Car_Rental_Spring.domain.MRoles;
-import com.Car_Rental_Spring.repository.GenericDao;
+import com.Car_Rental_Spring.entity.MRoles;
 
 import java.util.List;
 

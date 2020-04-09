@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.repository.impl;
 
-import com.Car_Rental_Spring.domain.User;
+import com.Car_Rental_Spring.entity.User;
 import com.Car_Rental_Spring.repository.UserDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

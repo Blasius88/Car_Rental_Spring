@@ -1,7 +1,7 @@
 package com.Car_Rental_Spring.controller;
 
 import com.Car_Rental_Spring.controller.requests.worker.WorkerUserCreateRequest;
-import com.Car_Rental_Spring.domain.WorkerUser;
+import com.Car_Rental_Spring.entity.WorkerUser;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.WorkerRepository;
 import io.swagger.annotations.ApiOperation;

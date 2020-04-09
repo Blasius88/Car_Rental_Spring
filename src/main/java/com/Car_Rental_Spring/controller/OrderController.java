@@ -2,7 +2,7 @@ package com.Car_Rental_Spring.controller;
 
 import com.Car_Rental_Spring.controller.requests.order.OrderCreateRequest;
 import com.Car_Rental_Spring.controller.requests.order.OrderUpdateRequest;
-import com.Car_Rental_Spring.domain.Order;
+import com.Car_Rental_Spring.entity.Order;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.OrderRepository;
 import io.swagger.annotations.ApiOperation;

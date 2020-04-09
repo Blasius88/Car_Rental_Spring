@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.controller;
 
-import com.Car_Rental_Spring.domain.MRoles;
+import com.Car_Rental_Spring.entity.MRoles;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.RoleRepository;
 import io.swagger.annotations.ApiOperation;

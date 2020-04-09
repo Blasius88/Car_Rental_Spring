@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Car_Rental?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    login: postgres
+    password: root
+    initialSize: 10
+    maxActive: 7
+  jpa:
+    show-sql: true
+logging:
+  level:
+    ROOT: debug
+    org.springframework: debug
+    org.hibernate: debug

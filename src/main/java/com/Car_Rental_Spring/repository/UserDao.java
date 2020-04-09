@@ -1,6 +1,6 @@
 package com.Car_Rental_Spring.repository;
 
-import com.Car_Rental_Spring.domain.User;
+import com.Car_Rental_Spring.entity.User;
 
 import java.util.List;
 

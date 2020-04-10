@@ -59,7 +59,7 @@ public class ModelCarController {
 //----------------------------------------------------------------
 
     @PostMapping
-    @Transactional
+    @Transactional (rollbackFor = Exception.class)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Car_Model> createCarModel(
             @ModelAttribute @Valid ModelCarCreateRequest request) {

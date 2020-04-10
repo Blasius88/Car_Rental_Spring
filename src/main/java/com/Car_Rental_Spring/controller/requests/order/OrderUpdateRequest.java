@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderUpdateRequest extends OrderCreateRequest{
-    private  Long orderId;
+    private Long orderId;
 }

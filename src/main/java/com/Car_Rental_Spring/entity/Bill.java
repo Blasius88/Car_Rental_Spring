@@ -17,7 +17,7 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id_bill;
+    private int id_bill;
 
     @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER)

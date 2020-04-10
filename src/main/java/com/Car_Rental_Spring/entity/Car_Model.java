@@ -23,14 +23,13 @@ public class Car_Model {
 
     @Column(name = "modul_name")
     private String name_model;
-
-    @Column
-    private int engine_capacity;
+    @Column (name = "engine_capacity")
+    private Long engine_capacity;
 
     @Column(name = "data")
-    private int date;
+    private Long date;
 
-    @Column
+    @Column(name ="vin")
     private String vin;
 
     @JsonManagedReference

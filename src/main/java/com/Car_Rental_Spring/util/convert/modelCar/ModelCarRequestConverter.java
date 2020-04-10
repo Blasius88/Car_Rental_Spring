@@ -9,12 +9,10 @@ public abstract class ModelCarRequestConverter<S,T> extends EntityConverter <S, 
     protected Car_Model doConvert(Car_Model car_model, ModelCarCreateRequest request)
     {
         car_model.setName_model(request.getModuleName());
-        car_model.setEngine_capacity(request.getEngineCapacity());
-        car_model.setDate(request.getData());
+        car_model.setEngine_capacity(Long.valueOf(request.getEngineCapacity()));
+        car_model.setDate(Long.valueOf(request.getData()));
         car_model.setVin(request.getVin());
-       // car_model.setId_color(request.getIdColor());
-        //car_model.setId_car(request.getIdCar());
-
         return car_model;
     }
+
 }

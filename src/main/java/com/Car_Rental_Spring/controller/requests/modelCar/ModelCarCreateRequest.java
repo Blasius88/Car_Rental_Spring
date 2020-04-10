@@ -2,6 +2,8 @@ package com.Car_Rental_Spring.controller.requests.modelCar;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -14,22 +16,28 @@ import javax.validation.constraints.Size;
 @ToString
 public class ModelCarCreateRequest {
 
+    @NotNull
+    @NotEmpty
     @Size(min =1)
     private String moduleName;
 
-    @Size(min =1)
-    private int engineCapacity;
+    @NotNull
+    @NotEmpty
+    private Long engineCapacity;
 
-    @Size(min =1)
-    private int data;
+    @NotNull
+    @NotEmpty
+    private String data;
 
-    @Size(min =1)
+    @NotNull
+    @NotEmpty
     private String vin;
 
-    @Size(min =1)
+    @NotNull
+    @NotEmpty
     private Long idColor;
 
-    @Size(min =1)
+    @NotNull
+    @NotEmpty
     private Long idCar;
-
 }

@@ -5,8 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
-@Setter
-@Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode(exclude = {"id"})
 @ToString(exclude = { "id"})

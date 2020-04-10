@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 
     private User getUserRowMapper(ResultSet resultSet, int i) throws SQLException {
         User user = new User();
-        user.setUserId(resultSet.getLong(USER_ID));
+        user.setUserId(resultSet.getInt(USER_ID));
         user.setFirstName(resultSet.getString(FIRST_NAME));
         user.setLastName(resultSet.getString(LAST_NAME));
         user.setUserLogin(resultSet.getString(LOGIN));
@@ -121,7 +121,7 @@ public class UserDaoImpl implements UserDao {
         parameterSource.addValue(USER_ID, entity.getUserId());
         Params(entity, parameterSource);
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
-        return findById(entity.getUserId());
+        return findById(Long.valueOf(entity.getUserId()));
     }
 
     @Override

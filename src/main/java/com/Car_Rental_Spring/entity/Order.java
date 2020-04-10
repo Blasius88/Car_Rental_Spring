@@ -18,7 +18,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long orderId;
+    private int orderId;
 
     @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER)

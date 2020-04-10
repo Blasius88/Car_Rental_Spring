@@ -31,7 +31,7 @@ public class RoleDaoImpl implements RoleDao {
 
     private MRoles getMRoleRowMapper(ResultSet resultSet, int i) throws SQLException {
         MRoles mRoles = new MRoles();
-        mRoles.setId_roles(resultSet.getLong(ROLE_ID));
+        mRoles.setId_roles(resultSet.getInt(ROLE_ID));
         mRoles.setName_roles(resultSet.getString(ROLE_NAME));
         return mRoles;
     }
@@ -43,7 +43,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<MRoles> getRolesByUserId(Long userId) {
+    public List<MRoles> getRolesByUserId(int userId) {
         final String getRolesByUserId = "select * from roles where role_user_id = ?";
         return jdbcTemplate.query(getRolesByUserId, new Object[]{userId}, this::getMRoleRowMapper);
     }
@@ -92,7 +92,7 @@ public class RoleDaoImpl implements RoleDao {
         parameterSource.addValue(ROLE_ID, entity.getId_roles());
         parameterSource.addValue(ROLE_NAME, entity.getName_roles());
         namedParameterJdbcTemplate.update(creatQuery, parameterSource);
-        return findById(entity.getId_roles());
+        return findById(Long.valueOf(entity.getId_roles()));
     }
 
     @Override

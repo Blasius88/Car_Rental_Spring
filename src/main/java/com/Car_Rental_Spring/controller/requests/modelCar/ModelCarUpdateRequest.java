@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.controller.requests.modelCar;
 
 import lombok.*;
 
+@Data
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = true)

@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class WorkerUserCreateRequest {
 
     @Size(min = 1)
-    private Long idUser;
+    private int idUser;
 
     @Size (min = 1)
     private String nameWork;

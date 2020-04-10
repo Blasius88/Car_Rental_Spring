@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             User user = userDao.findByLogin(username);
             List<MRoles> roles = roleDao.getRolesByUserId(user.getUserId());
-            if (user.getUserId() == null) {
+            if (Long.valueOf(user.getUserId()) == null) {
                 throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
             } else {
                 return new org.springframework.security.core.userdetails.User(

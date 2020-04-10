@@ -68,9 +68,8 @@ public class CarBrandController {
     })
     @PostMapping
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Car_Brand> createCarBrand(
-            @ModelAttribute @Valid CarBrandCreateRequest request) {
+            @RequestBody @Valid CarBrandCreateRequest request) {
         Car_Brand carBrand = conversionService.convert(request, Car_Brand.class);
         return new ResponseEntity<>(carBrandRepository.saveAndFlush(carBrand), HttpStatus.CREATED);
     }

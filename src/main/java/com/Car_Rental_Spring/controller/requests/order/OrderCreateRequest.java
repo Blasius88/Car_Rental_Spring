@@ -14,13 +14,10 @@ import javax.validation.constraints.Size;
 @ToString
 public class OrderCreateRequest {
 
-    @Size(min = 1)
     private Long idUser;
 
-    @Size(min = 1)
     private Long idCar;
 
-    @Size(min = 1)
     private Long idWorker;
 
     @Size(min = 1, max = 10)

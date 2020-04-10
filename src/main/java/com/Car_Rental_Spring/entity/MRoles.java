@@ -23,7 +23,7 @@ public class MRoles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id_roles;
+    private int id_roles;
 
 
     @Column(name = "name")

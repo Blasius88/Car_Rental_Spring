@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserUpdateRequest extends UserCreateRequest {
-    private int userId;
+    private Long userId;
 }

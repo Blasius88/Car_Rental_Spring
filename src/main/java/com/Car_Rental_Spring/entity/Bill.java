@@ -20,7 +20,7 @@ public class Bill {
     private int id_bill;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Order.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "id_order")
     private Order id_order;
 

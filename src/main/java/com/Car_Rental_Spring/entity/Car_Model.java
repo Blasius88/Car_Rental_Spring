@@ -1,5 +1,6 @@
 package com.Car_Rental_Spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -19,10 +20,11 @@ public class Car_Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id_model;
+    private int id_model;
 
     @Column(name = "modul_name")
     private String name_model;
+
     @Column (name = "engine_capacity")
     private Long engine_capacity;
 
@@ -32,13 +34,13 @@ public class Car_Model {
     @Column(name ="vin")
     private String vin;
 
-    @JsonManagedReference
-    @OneToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Color.class, cascade = CascadeType.ALL)
     @JoinColumn (name ="id_color")
     private Color id_color;
 
-    @JsonManagedReference
-    @OneToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Car_Model.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "id_car")
     private Car_Brand id_car;
 }

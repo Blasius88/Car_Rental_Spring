@@ -10,6 +10,8 @@ public class WorkerCreateRequestConverter extends WorkerRequestConverter<WorkerU
     @Override
     public WorkerUser convert(WorkerUserCreateRequest source) {
         WorkerUser workerUser = new WorkerUser();
+        workerUser.setId_user(findUser(source.getClass(), Math.toIntExact(source.getIdUser())));
+
         return doConvert(workerUser, source);
     }
 }

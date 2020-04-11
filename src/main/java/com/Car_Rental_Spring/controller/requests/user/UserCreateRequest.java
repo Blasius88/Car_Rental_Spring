@@ -1,6 +1,8 @@
 package com.Car_Rental_Spring.controller.requests.user;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -11,14 +13,13 @@ import java.sql.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
-@Builder
 @EqualsAndHashCode
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@DynamicUpdate
+@Builder
 public class UserCreateRequest {
 
-    @NotEmpty
     @NotNull
     @Size(min = 1, max = 100)
     private String userFirstName;
@@ -30,14 +31,13 @@ public class UserCreateRequest {
     private String login;
 
     @NotNull
-    @NotEmpty
     @Size(min = 6, max = 20)
     private String password;
 
+    @NotNull
     private Date Created;
 
     @NotNull
-    @NotEmpty
     private Long IdRole;
 
     @Email
@@ -47,6 +47,5 @@ public class UserCreateRequest {
     private String Phone;
 
     @NotNull
-    @NotEmpty
     private String City;
 }

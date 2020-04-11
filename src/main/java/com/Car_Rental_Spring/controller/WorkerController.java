@@ -65,16 +65,22 @@ public class WorkerController {
         return new ResponseEntity<>(workerUser, HttpStatus.OK);
     }
 
-    @PostMapping
-    @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("create")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<WorkerUser> createWorker
             (@ModelAttribute @Valid WorkerUserCreateRequest request) {
         WorkerUser workerUser = conversionService.convert(request, WorkerUser.class);
-        return new ResponseEntity<>(workerUserDao.saveAndFlush(workerUser), HttpStatus.OK);
+
+        try{
+        return new ResponseEntity<>(workerUserDao.saveAndFlush(workerUser), HttpStatus.CREATED);
+    } catch (Exception ex)
+        {
+        }
+        return new ResponseEntity<>(workerUserDao.saveAndFlush(workerUser), HttpStatus.CREATED);
     }
 
     @DeleteMapping("delete/{id}")
+    @Transactional(rollbackFor = Exception.class)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteWorkerUser(
             @PathVariable("id") Long workerUserId) {

@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.controller.requests.order;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -13,11 +14,13 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode
 @ToString
 public class OrderCreateRequest {
-
+    @NotNull
     private Long idUser;
 
+    @NotNull
     private Long idCar;
 
+    @NotNull
     private Long idWorker;
 
     @Size(min = 1, max = 10)

@@ -31,7 +31,7 @@ public class RoleDaoImpl implements RoleDao {
 
     private MRoles getMRoleRowMapper(ResultSet resultSet, int i) throws SQLException {
         MRoles mRoles = new MRoles();
-        mRoles.setId_roles(resultSet.getInt(ROLE_ID));
+        mRoles.setId_roles(resultSet.getLong(ROLE_ID));
         mRoles.setName_roles(resultSet.getString(ROLE_NAME));
         return mRoles;
     }

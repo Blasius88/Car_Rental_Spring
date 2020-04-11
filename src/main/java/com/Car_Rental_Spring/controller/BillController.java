@@ -100,7 +100,6 @@ public class BillController {
     })
     @PostMapping("update/{id}")
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> updateBillById (@ModelAttribute @Valid BillUpdateRequest request) {
         Bill convertedUser = conversionService.convert(request, Bill.class);
         return new ResponseEntity(billRepository.save(convertedUser), HttpStatus.OK);

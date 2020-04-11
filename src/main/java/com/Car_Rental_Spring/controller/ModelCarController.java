@@ -49,7 +49,7 @@ public class ModelCarController {
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Car_Model> getOrderById(
+    public ResponseEntity<Car_Model> getCarModelsById(
             @ApiParam("Order Path Id") @PathVariable String id) {
         Car_Model car_model = modelCarDao
                 .findById(Long.valueOf(id))
@@ -59,10 +59,9 @@ public class ModelCarController {
 //----------------------------------------------------------------
 
     @PostMapping
-    @Transactional (rollbackFor = Exception.class)
-    @ResponseStatus(HttpStatus.OK)
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<Car_Model> createCarModel(
-            @ModelAttribute @Valid ModelCarCreateRequest request) {
+            @RequestBody @Valid ModelCarCreateRequest request) {
         Car_Model car_model = conversionService.convert(request, Car_Model.class);
         return new ResponseEntity<>(modelCarDao.saveAndFlush(car_model), HttpStatus.CREATED);
     }

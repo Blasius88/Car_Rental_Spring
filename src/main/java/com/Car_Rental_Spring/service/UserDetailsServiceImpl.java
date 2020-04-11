@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             User user = userDao.findByLogin(username);
-            List<MRoles> roles = roleDao.getRolesByUserId(user.getUserId());
+            List<MRoles> roles = roleDao.getRolesByUserId(Math.toIntExact(Long.valueOf(user.getUserId())));
             if (Long.valueOf(user.getUserId()) == null) {
                 throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
             } else {

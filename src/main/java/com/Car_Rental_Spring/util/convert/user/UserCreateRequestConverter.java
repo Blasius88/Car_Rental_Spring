@@ -10,6 +10,7 @@ public class UserCreateRequestConverter extends UserRequestConverter<UserCreateR
     @Override
     public User convert(UserCreateRequest request) {
         User user = new User();
+        user.setRole(findRole(request.getClass() , Math.toIntExact(request.getIdRole())));
         return doConvert(user, request);
     }
 }

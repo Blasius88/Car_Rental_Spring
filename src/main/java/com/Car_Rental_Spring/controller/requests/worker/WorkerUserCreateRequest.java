@@ -1,27 +1,31 @@
 package com.Car_Rental_Spring.controller.requests.worker;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
-@Builder
 @EqualsAndHashCode
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@DynamicUpdate
+@Builder
 public class WorkerUserCreateRequest {
 
-    @Size(min = 1)
-    private int idUser;
+    @NotNull
+    private Long idUser;
 
-    @Size (min = 1)
+    @NotNull
     private String nameWork;
 
-    @Size(min = 1)
+    @NotNull
     private Double percentageOfSalary;
 
+    @NotNull
     private Double salary;
 }

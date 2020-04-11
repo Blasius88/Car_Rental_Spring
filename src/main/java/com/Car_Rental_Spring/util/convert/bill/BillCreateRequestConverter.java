@@ -10,6 +10,7 @@ public class BillCreateRequestConverter extends BillRequestConverter<BillCreateR
     @Override
     public Bill convert(BillCreateRequest request) {
         Bill bill = new Bill();
+        bill.setId_order(findOrder(request.getClass(), Math.toIntExact(request.getId_order())));
         return doConvert(bill, request);
     }
 }

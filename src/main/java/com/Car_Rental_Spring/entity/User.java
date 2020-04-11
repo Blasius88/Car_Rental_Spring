@@ -50,7 +50,7 @@ public class User {
     private String userCity;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = MRoles.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_role")
     private MRoles role;
 

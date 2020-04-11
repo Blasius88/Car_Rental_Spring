@@ -25,7 +25,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @Controller
-@CrossOrigin
+@RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/rest/users")
 public class UserController {
@@ -75,11 +75,11 @@ public class UserController {
             @ApiResponse(code = 404, message = "User was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
+
     @PostMapping
-    @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<User> createUser(
-            @ModelAttribute @Valid UserCreateRequest request) {
+            @RequestBody @Valid UserCreateRequest request) {
         User user = conversionService.
                 convert(request, User.class);
         return new ResponseEntity<>(userRepository
@@ -95,7 +95,6 @@ public class UserController {
     })
     @PostMapping("update/{id}")
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<User> updateUser(
             @ModelAttribute @Valid UserUpdateRequest request) {
         User convertedUser = conversionService
@@ -114,7 +113,6 @@ public class UserController {
     })
     @DeleteMapping(value = "delete/{id}")
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteUserById (
             @ApiParam("User Path Id")  @PathVariable("id") Long id){
         userRepository.deleteById(id);

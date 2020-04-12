@@ -20,7 +20,7 @@ public class Car_Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id_model;
+    private Long id_model;
 
     @Column(name = "modul_name")
     private String name_model;
@@ -43,4 +43,7 @@ public class Car_Model {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Car_Model.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "id_car")
     private Car_Brand id_car;
+
+    @Column(name = "image_byte")
+    private byte[] imageBytes;
 }

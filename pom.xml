@@ -10,6 +10,7 @@
 
     <packaging>jar</packaging>
 
+
     <properties>
         <aspectj.version>1.6.11</aspectj.version>
         <dbcp-version>1.4</dbcp-version>
@@ -19,6 +20,10 @@
         <jackson.version>2.9.8</jackson.version>
         <jakarta.version>2.3.2</jakarta.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
+
+        <!--<flyway.user>databaseUser</flyway.user>
+        <flyway.password>databasePassword</flyway.password>
+        <flyway.schemas>schemaName</flyway.schemas>-->
     </properties>
 
     <parent>
@@ -144,13 +149,21 @@
             <version>6.1.2.Final</version>
         </dependency>
 
+
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
 
+
         <!--DB-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -161,6 +174,7 @@
             <artifactId>commons-dbcp</artifactId>
             <version>${dbcp-version}</version>
         </dependency>
+
 
         <!--web TO DO-->
         <dependency>
@@ -175,6 +189,7 @@
             <version>${jakarta.version}</version>
         </dependency>
 
+
         <!--Logger-->
         <dependency>
             <groupId>log4j</groupId>
@@ -182,10 +197,22 @@
             <version>${log4j.version}</version>
         </dependency>
 
+<!--
+        &lt;!&ndash;Flyway&ndash;&gt;
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            &lt;!&ndash;<version>6.3.1</version>&ndash;&gt;
+        </dependency>
+-->
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
+
     </dependencies>
+
+
 </project>

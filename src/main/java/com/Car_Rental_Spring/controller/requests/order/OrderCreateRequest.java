@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -24,8 +25,10 @@ public class OrderCreateRequest {
     private Long idWorker;
 
     @Size(min = 1, max = 10)
-    private String rentalStart;
+    private Timestamp rentalStart;
 
     @Size(min = 1, max = 10)
-    private String rentalEnd;
+    private Timestamp rentalEnd;
+
+    private Double orderPrice;
 }

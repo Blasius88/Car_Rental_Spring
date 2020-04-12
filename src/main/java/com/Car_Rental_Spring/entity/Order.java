@@ -3,13 +3,15 @@ package com.Car_Rental_Spring.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
-@Setter
-@Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(exclude = {"orderId","orderUserId", "orderCarId", "orderWorkerId"})
 @ToString(exclude = {"orderId","orderUserId", "orderCarId", "orderWorkerId"})
 @Entity
@@ -21,24 +23,24 @@ public class Order {
     @Column(name = "id")
     private Long orderId;
 
-    @JsonBackReference
-    @ManyToOne (fetch = FetchType.EAGER, targetEntity = User.class, cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.EAGER, targetEntity = User.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
     private User orderUserId;
 
-    @JsonBackReference
-    @ManyToOne (fetch = FetchType.EAGER, targetEntity = Car_Model.class, cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.EAGER, targetEntity = Car_Model.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_car")
     private Car_Model orderCarId;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = WorkerUser.class, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = WorkerUser.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_worker")
     private WorkerUser orderWorkerId;
 
     @Column(name = "rental_start")
-    private String rentalStart;
+    private Timestamp rentalStart;
 
     @Column(name = "rental_end")
-    private String rentalEnd;
+    private Timestamp rentalEnd;
+
+    @Column(name = "order_price")
+    private Double orderPrice;
 }

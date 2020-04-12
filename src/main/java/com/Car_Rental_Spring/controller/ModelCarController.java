@@ -17,9 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RestController
@@ -83,4 +84,20 @@ public class ModelCarController {
         Car_Model convertedUser = conversionService.convert(request, Car_Model.class);
         return new ResponseEntity(modelCarDao.save(convertedUser), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "Uploading image to server by id")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Successful getting image"),
+            @ApiResponse(code = 400, message = "Invalid image ID supplied"),
+            @ApiResponse(code = 500, message = "Server error, something wrong")
+    })
+    @PostMapping("/photo/{idCarModel}")
+    public ResponseEntity<Map<String, Object>> createCarModelPhotoPostgers(@PathVariable String idCarModel,
+                                                                           @RequestBody MultipartFile multipartFile)
+                                                                            throws Exception {
+        modelCarDao.creteCarModelPhoto(Long.valueOf(idCarModel), multipartFile.getBytes());
+        return new ResponseEntity<>(Collections.singletonMap("imageLink", "test"), HttpStatus.CREATED);
+    }
+
+
 }

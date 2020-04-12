@@ -35,4 +35,7 @@ public class ModelCarCreateRequest {
 
     @NotNull
     private Long idCar;
+
+    @NotNull
+    private byte[] imageBytes;
 }

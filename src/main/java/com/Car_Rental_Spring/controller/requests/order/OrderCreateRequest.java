@@ -2,6 +2,7 @@ package com.Car_Rental_Spring.controller.requests.order;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -24,11 +25,22 @@ public class OrderCreateRequest {
     @NotNull
     private Long idWorker;
 
-    @Size(min = 1, max = 10)
-    private Timestamp rentalStart;
+    @NotNull
+    @NotEmpty
+    private String rentalStart;
 
-    @Size(min = 1, max = 10)
-    private Timestamp rentalEnd;
+    @NotNull
+    @NotEmpty
+    private String rentalStartTime;
 
+    @NotNull
+    @NotEmpty
+    private String rentalEnd;
+
+    @NotNull
+    @NotEmpty
+    private String rentalEndTime;
+
+    @NotNull
     private Double orderPrice;
 }

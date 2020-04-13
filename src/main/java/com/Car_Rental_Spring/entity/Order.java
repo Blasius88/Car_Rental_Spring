@@ -36,10 +36,17 @@ public class Order {
     private WorkerUser orderWorkerId;
 
     @Column(name = "rental_start")
-    private Timestamp rentalStart;
+    private String rentalStart;
+
+    @Column (name = "rental_start_time")
+    private String rentalStartTime;
+
+
+    @Column (name = "rental_end_time")
+    private String rentalEndTime;
 
     @Column(name = "rental_end")
-    private Timestamp rentalEnd;
+    private String rentalEnd;
 
     @Column(name = "order_price")
     private Double orderPrice;

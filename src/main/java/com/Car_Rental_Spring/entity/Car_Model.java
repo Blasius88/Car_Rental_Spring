@@ -46,4 +46,8 @@ public class Car_Model {
 
     @Column(name = "image_byte")
     private byte[] imageBytes;
+
+    @Column
+    private Double price_hour;
+
 }

@@ -15,14 +15,17 @@ public class OrderRequestConverter implements Converter<OrderCreateRequest, Orde
     public Order convert(OrderCreateRequest entity) {
         Order order = new Order();
         order.setRentalStart(entity.getRentalStart());
+        order.setRentalStartTime(entity.getRentalStartTime());
         order.setRentalEnd(entity.getRentalEnd());
+        order.setRentalEndTime(entity.getRentalEndTime());
         return order;
     }
 
     public Order convertUpdate(OrderCreateRequest entity, Order order) {
         order.setRentalStart(entity.getRentalStart());
+        order.setRentalStartTime(entity.getRentalStartTime());
         order.setRentalEnd(entity.getRentalEnd());
-        order.setOrderPrice(entity.getOrderPrice());
+        order.setRentalEndTime(entity.getRentalEndTime());
         return order;
     }
 

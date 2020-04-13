@@ -8,7 +8,6 @@ public abstract class CarBrandRequestConverter<S, T> extends EntityConverter<S, 
 
     protected Car_Brand doConvert(Car_Brand carBrand, CarBrandCreateRequest request) {
         carBrand.setName(request.getCarBrandName());
-        carBrand.setPrice_hour(request.getCarBrandPriceHour());
         return carBrand;
     }
 }

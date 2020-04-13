@@ -19,7 +19,4 @@ public class Car_Brand  {
 
     @Column
     private String name;
-
-    @Column
-    private Double price_hour;
 }

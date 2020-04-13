@@ -5,6 +5,7 @@ import com.Car_Rental_Spring.controller.requests.order.OrderUpdateRequest;
 import com.Car_Rental_Spring.entity.Order;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.OrderRepository;
+import com.Car_Rental_Spring.service.impl.OrderFormation;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -30,6 +31,7 @@ public class OrderController {
 
     private final OrderRepository orderDao;
 
+    private final OrderFormation orderFormation;
     @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
@@ -91,5 +93,13 @@ public class OrderController {
             @ModelAttribute @Valid OrderUpdateRequest request) {
         Order convertedOrder = conversionService.convert(request, Order.class);
         return new ResponseEntity(orderDao.save(convertedOrder), HttpStatus.OK);
+    }
+
+    @PostMapping ("/user/createdOrder")
+    @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Order> createOrderUser(
+            @ModelAttribute @Valid OrderCreateRequest request) {
+        return new ResponseEntity<>(orderFormation.save(request), HttpStatus.OK);
     }
 }

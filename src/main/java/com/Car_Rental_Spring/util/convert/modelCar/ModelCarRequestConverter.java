@@ -18,6 +18,7 @@ public abstract class ModelCarRequestConverter<S, T> extends EntityConverter<S, 
         car_model.setEngine_capacity(Long.valueOf(request.getEngineCapacity()));
         car_model.setDate(Long.valueOf(request.getData()));
         car_model.setVin(request.getVin());
+        car_model.setPrice_hour(request.getCarBrandPriceHour());
         return car_model;
 
 

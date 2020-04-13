@@ -38,4 +38,7 @@ public class ModelCarCreateRequest {
 
     @NotNull
     private byte[] imageBytes;
+
+    @NotNull
+    private Double carBrandPriceHour;
 }

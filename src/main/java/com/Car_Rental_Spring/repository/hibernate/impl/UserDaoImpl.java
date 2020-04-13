@@ -1,7 +1,7 @@
-package com.Car_Rental_Spring.repository.impl;
+package com.Car_Rental_Spring.repository.hibernate.impl;
 
 import com.Car_Rental_Spring.entity.User;
-import com.Car_Rental_Spring.repository.UserDao;
+import com.Car_Rental_Spring.repository.hibernate.UserDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 
     private User getUserRowMapper(ResultSet resultSet, int i) throws SQLException {
         User user = new User();
-        user.setUserId(resultSet.getInt(USER_ID));
+        user.setUserId(resultSet.getLong(USER_ID));
         user.setFirstName(resultSet.getString(FIRST_NAME));
         user.setLastName(resultSet.getString(LAST_NAME));
         user.setUserLogin(resultSet.getString(LOGIN));

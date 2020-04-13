@@ -5,7 +5,7 @@ import com.Car_Rental_Spring.controller.requests.order.OrderUpdateRequest;
 import com.Car_Rental_Spring.entity.Order;
 import com.Car_Rental_Spring.exceptions.EntityNotFoundException;
 import com.Car_Rental_Spring.repository.springdata.OrderRepository;
-import com.Car_Rental_Spring.service.impl.OrderFormation;
+import com.Car_Rental_Spring.service.OrderForm;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -31,7 +31,7 @@ public class OrderController {
 
     private final OrderRepository orderDao;
 
-    private final OrderFormation orderFormation;
+    private final OrderForm orderForm;
     @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
@@ -67,16 +67,6 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-
-    @PostMapping
-    @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Order> createOrder(
-            @ModelAttribute @Valid OrderCreateRequest request) {
-        Order order = conversionService.convert(request, Order.class);
-        return new ResponseEntity<>(orderDao.saveAndFlush(order), HttpStatus.OK);
-    }
-
     @DeleteMapping("delete/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
@@ -86,20 +76,17 @@ public class OrderController {
         return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
 
-    @PostMapping("update/{id}")
+    @PutMapping("update/{id}")
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> updateOrderById (
-            @ModelAttribute @Valid OrderUpdateRequest request) {
-        Order convertedOrder = conversionService.convert(request, Order.class);
-        return new ResponseEntity(orderDao.save(convertedOrder), HttpStatus.OK);
+    public ResponseEntity<Long> updateOrderById ( @PathVariable("id") String id,
+            @RequestBody @Valid OrderUpdateRequest request ) {
+        return new ResponseEntity(orderForm.update(request, Long.valueOf(id)), HttpStatus.OK);
     }
 
-    @PostMapping ("/user/createdOrder")
-    @Transactional
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping ("createdOrder")
+    @Transactional (rollbackFor = Exception.class)
     public ResponseEntity<Order> createOrderUser(
-            @ModelAttribute @Valid OrderCreateRequest request) {
-        return new ResponseEntity<>(orderFormation.save(request), HttpStatus.OK);
+            @RequestBody @Valid OrderCreateRequest request) {
+        return new ResponseEntity<>(orderForm.save(request), HttpStatus.CREATED);
     }
 }

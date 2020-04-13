@@ -9,11 +9,23 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@EqualsAndHashCode(exclude = {"orderId","orderUserId", "orderCarId", "orderWorkerId"})
-@ToString(exclude = {"orderId","orderUserId", "orderCarId", "orderWorkerId"})
+@Setter
+@Getter
+@RequiredArgsConstructor
+@EqualsAndHashCode(
+        exclude = {
+                "orderId",
+                "orderUserId",
+                "orderCarId",
+                "orderWorkerId"
+        })
+@ToString(
+        exclude = {
+                "orderId",
+                "orderUserId",
+                "orderCarId",
+                "orderWorkerId"
+        })
 @Entity
 @Table(name = "m_order")
 public class Order {

@@ -10,8 +10,14 @@ import javax.persistence.*;
 @Setter
 @Getter
 @RequiredArgsConstructor
-@EqualsAndHashCode(exclude = {"id"})
-@ToString(exclude = {"id"})
+@EqualsAndHashCode(
+        exclude = {
+                "id"
+        })
+@ToString(
+        exclude = {
+                "id"
+        })
 @Entity
 @Table(name = "color")
 public class Color {

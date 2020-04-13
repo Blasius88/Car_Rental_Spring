@@ -11,8 +11,18 @@ import javax.persistence.*;
 @Setter
 @Getter
 @RequiredArgsConstructor
-@EqualsAndHashCode(exclude = {"id_model", "id_color", "id_car"})
-@ToString(exclude = {"id_model", "id_color", "id_car"})
+@EqualsAndHashCode(
+        exclude = {
+                "id_model",
+                "id_color",
+                "id_car"
+        })
+@ToString(
+        exclude = {
+                "id_model",
+                "id_color",
+                "id_car"
+        })
 @Entity
 @Table(name = "model_car")
 public class Car_Model {
@@ -40,7 +50,7 @@ public class Car_Model {
     private Color id_color;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Car_Model.class, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Car_Brand.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "id_car")
     private Car_Brand id_car;
 

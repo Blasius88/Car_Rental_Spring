@@ -1,7 +1,7 @@
-package com.Car_Rental_Spring.repository.impl;
+package com.Car_Rental_Spring.repository.hibernate.impl;
 
 import com.Car_Rental_Spring.entity.MRoles;
-import com.Car_Rental_Spring.repository.RoleDao;
+import com.Car_Rental_Spring.repository.hibernate.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

@@ -9,8 +9,16 @@ import javax.persistence.*;
 @Setter
 @Getter
 @RequiredArgsConstructor
-@EqualsAndHashCode(exclude = {"id_bill", "id_order"})
-@ToString(exclude = {"id_bill", "id_order"})
+@EqualsAndHashCode(
+        exclude = {
+                "id_bill",
+                "id_order"
+        })
+@ToString(
+        exclude = {
+                "id_bill",
+                "id_order"
+        })
 @Entity
 @Table(name = "bill")
 public class Bill {

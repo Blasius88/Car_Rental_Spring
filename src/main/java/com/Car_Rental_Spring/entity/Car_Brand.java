@@ -6,8 +6,14 @@ import javax.persistence.*;
 
 @Data
 @RequiredArgsConstructor
-@EqualsAndHashCode(exclude = {"id"})
-@ToString(exclude = { "id"})
+@EqualsAndHashCode(
+        exclude = {
+                "id"
+        })
+@ToString(
+        exclude = {
+                "id"
+        })
 @Entity
 @Table(name = "car_brand")
 public class Car_Brand  {

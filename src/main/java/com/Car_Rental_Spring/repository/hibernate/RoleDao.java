@@ -1,4 +1,4 @@
-package com.Car_Rental_Spring.repository;
+package com.Car_Rental_Spring.repository.hibernate;
 
 import com.Car_Rental_Spring.entity.MRoles;
 

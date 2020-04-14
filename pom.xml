@@ -20,10 +20,8 @@
         <jackson.version>2.9.8</jackson.version>
         <jakarta.version>2.3.2</jakarta.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
-
-        <!--<flyway.user>databaseUser</flyway.user>
-        <flyway.password>databasePassword</flyway.password>
-        <flyway.schemas>schemaName</flyway.schemas>-->
+        <org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
+        <org.hibernate.version>6.1.2.Final</org.hibernate.version>
     </properties>
 
     <parent>
@@ -39,14 +37,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${org.apache.maven.plugins.version}</version>
                 <configuration>
                     <release>13</release>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
@@ -65,6 +65,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -146,16 +147,14 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.1.2.Final</version>
+            <version>${org.hibernate.version}</version>
         </dependency>
-
 
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
 
         <!--DB-->
         <dependency>
@@ -175,7 +174,6 @@
             <version>${dbcp-version}</version>
         </dependency>
 
-
         <!--web TO DO-->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -189,22 +187,12 @@
             <version>${jakarta.version}</version>
         </dependency>
 
-
         <!--Logger-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
-<!--
-        &lt;!&ndash;Flyway&ndash;&gt;
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            &lt;!&ndash;<version>6.3.1</version>&ndash;&gt;
-        </dependency>
--->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -213,6 +201,5 @@
         </dependency>
 
     </dependencies>
-
 
 </project>

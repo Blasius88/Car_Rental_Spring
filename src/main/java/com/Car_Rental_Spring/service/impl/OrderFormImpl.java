@@ -13,9 +13,11 @@ import com.Car_Rental_Spring.repository.springdata.OrderRepository;
 import com.Car_Rental_Spring.repository.springdata.UserRepository;
 import com.Car_Rental_Spring.repository.springdata.WorkerRepository;
 import com.Car_Rental_Spring.service.OrderForm;
-import com.Car_Rental_Spring.util.convert.order.OrderRequestConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 @Service
@@ -36,13 +38,13 @@ public class OrderFormImpl implements OrderForm {
     }
 
     User findUser(Long idUser) {
-    return userRepository.findById(idUser)
-            .orElseThrow(()-> new EntityNotFoundException(User.class, idUser));
+        return userRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, idUser));
     }
 
     WorkerUser findWorker(Long idWorker) {
-        return  workerRepository.findById(idWorker)
-                .orElseThrow(()-> new EntityNotFoundException(WorkerUser.class, idWorker));
+        return workerRepository.findById(idWorker)
+                .orElseThrow(() -> new EntityNotFoundException(WorkerUser.class, idWorker));
     }
 
     @Override
@@ -65,53 +67,32 @@ public class OrderFormImpl implements OrderForm {
         return null;
     }
 
-    private static double orderValueCalculation(String startData,  String startTime,String endData, String endTime, Car_Model car_model) {
+    private static double orderValueCalculation(Date startData, String startTime, Date endData, String endTime, Car_Model car_model) {
         try {
-            boolean flag = false;
             double sum = 0.0;
-            double hour = 0.0;
-            int minStart = 0;
-            int minEnd = 0;
-            Long startDataMin = dataParsing(startData) + timeParsing(startTime);
-            Long endDataMin = dataParsing(endData) + timeParsing(endTime);
-            if ((endDataMin - startDataMin) < 0)
-                throw new DateOrTimeEnteredIncorrectly();
-            else {
-                hour = (endDataMin - startDataMin) / 60;
-                sum = car_model.getPrice_hour() * hour;
-            }
+            double hour = dataParsing(startData, endData) + (timeParsing(endTime) - timeParsing(startTime));
             double price = car_model.getPrice_hour();
             sum = hour * price;
             return sum;
         } catch (Exception e) {
-
             return 0.0;
         }
     }
 
-    private static Long dataParsing(String data) {
-        String[] strMas = data.split("/");
-        Long[] mas1 = new Long[strMas.length];
-        Long minStart = 0L;
-        for (int i = 0; i < strMas.length; i++) {
-            mas1[i] = Long.parseLong(strMas[i]);
+    private static Long dataParsing(Date dateStart, Date dateEnd) {
+        Long hours = 0L;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            Date date1 = (Date) dateFormat.parse(String.valueOf(dateStart));
+            Date date2 = (Date) dateFormat.parse(String.valueOf(dateEnd));
+            long milliseconds = date2.getTime() - date1.getTime();
+            if (milliseconds > 0) {
+                hours = (milliseconds / (60 * 60 * 1000));
+                return hours;
+            } else throw new DateOrTimeEnteredIncorrectly();
+        } catch (Exception e) {
+            return hours;
         }
-        if (mas1[2] % 4 == 0 && mas1[2] % 100 != 0 || mas1[2] % 400 == 0) {
-            if (mas1[1] == 1 && mas1[1] == 3 && mas1[1] == 5 && mas1[1] == 7 && mas1[1] == 8 && mas1[1] == 10 && mas1[1] == 12)
-                minStart = mas1[0] * 24 * 60 + mas1[1] * 31 * 24 * 60 + mas1[2] * 12 * 31 * 24 * 60;
-            else if (mas1[1] == 2)
-                minStart = mas1[0] * 24 * 60 + mas1[1] * 29 * 24 * 60 + mas1[2] * 12 * 31 * 24 * 60;
-            else
-                minStart = mas1[0] * 24 * 60 + mas1[1] * 30 * 24 * 60 + mas1[2] * 12 * 31 * 24 * 60;
-        } else {
-            if (mas1[1] == 1 && mas1[1] == 3 && mas1[1] == 5 && mas1[1] == 7 && mas1[1] == 8 && mas1[1] == 10 && mas1[1] == 12)
-                minStart = mas1[0] * 24 * 60 + mas1[1] * 31 * 24 * 60 + mas1[2] * 12 * 31 * 24 * 60;
-            else if (mas1[1] == 2)
-                minStart = mas1[0] * 24 * 60 + mas1[1] * 28 * 24 * 60 + mas1[2] * 12 * 31 * 24 * 60;
-            else
-                minStart = mas1[0] + mas1[1] * 60 + mas1[0] * 24 * 60 + mas1[1] * 30 * 24 * 60 + mas1[2] * 12 * 31 * 24 * 60;
-        }
-        return minStart;
     }
 
     private static Long timeParsing(String time) {
@@ -121,7 +102,7 @@ public class OrderFormImpl implements OrderForm {
             masStartTime[i] = Long.parseLong(strMas[i]);
         }
         Long minStart = 0L;
-        minStart = masStartTime[0]*60 + masStartTime[1];
+        minStart = masStartTime[0] * 60 + masStartTime[1];
 
         return minStart;
     }

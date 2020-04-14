@@ -1,12 +1,9 @@
 package com.Car_Rental_Spring.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Setter
@@ -48,7 +45,7 @@ public class Order {
     private WorkerUser orderWorkerId;
 
     @Column(name = "rental_start")
-    private String rentalStart;
+    private Date rentalStart;
 
     @Column (name = "rental_start_time")
     private String rentalStartTime;
@@ -58,7 +55,7 @@ public class Order {
     private String rentalEndTime;
 
     @Column(name = "rental_end")
-    private String rentalEnd;
+    private Date rentalEnd;
 
     @Column(name = "order_price")
     private Double orderPrice;

@@ -5,7 +5,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -26,19 +26,15 @@ public class OrderCreateRequest {
     private Long idWorker;
 
     @NotNull
-    @NotEmpty
-    private String rentalStart;
+    private Date rentalStart;
 
     @NotNull
-    @NotEmpty
     private String rentalStartTime;
 
     @NotNull
-    @NotEmpty
-    private String rentalEnd;
+    private Date rentalEnd;
 
     @NotNull
-    @NotEmpty
     private String rentalEndTime;
 
     private Double orderPrice;

@@ -86,7 +86,7 @@ public class OrderController {
     @PostMapping ("createdOrder")
     @Transactional (rollbackFor = Exception.class)
     public ResponseEntity<Order> createOrderUser(
-            @RequestBody @Valid OrderCreateRequest request) {
+            @ModelAttribute @Valid OrderCreateRequest request) {
         return new ResponseEntity<>(orderForm.save(request), HttpStatus.CREATED);
     }
 }

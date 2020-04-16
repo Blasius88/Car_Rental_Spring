@@ -2,15 +2,15 @@ package com.Car_Rental.controller;
 
 import com.Car_Rental.controller.requests.bill.BillCreateRequest;
 import com.Car_Rental.controller.requests.bill.BillUpdateRequest;
-import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.entity.Bill;
+import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.repository.springdata.BillRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RestController
 @RequiredArgsConstructor
@@ -30,13 +31,17 @@ public class BillController {
 
     private final BillRepository billRepository;
 
-    @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Bill>> getBills() {
+        try {
+            return new ResponseEntity<>(billRepository.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(billRepository.findAll(), HttpStatus.OK);
     }
 
@@ -55,6 +60,11 @@ public class BillController {
         Bill bill = billRepository
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(Bill.class, id));
+        try {
+            return new ResponseEntity<>(bill, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
@@ -71,6 +81,11 @@ public class BillController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Bill> createBill(@RequestBody @Valid BillCreateRequest request) {
         Bill converterBill = conversionService.convert(request, Bill.class);
+        try {
+            return new ResponseEntity<>(billRepository.saveAndFlush(converterBill), HttpStatus.CREATED);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(billRepository.saveAndFlush(converterBill), HttpStatus.CREATED);
     }
 
@@ -87,6 +102,11 @@ public class BillController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteBill(@ApiParam("User Path Id") @PathVariable("id") Long id) {
         billRepository.deleteById(id);
+        try {
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -100,8 +120,13 @@ public class BillController {
     })
     @PostMapping("/update/{id}")
     @Transactional
-    public ResponseEntity<Long> updateBillById (@ModelAttribute @Valid BillUpdateRequest request) {
+    public ResponseEntity<Long> updateBillById(@ModelAttribute @Valid BillUpdateRequest request) {
         Bill convertedUser = conversionService.convert(request, Bill.class);
+        try {
+            return new ResponseEntity(billRepository.save(convertedUser), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity(billRepository.save(convertedUser), HttpStatus.OK);
     }
 }

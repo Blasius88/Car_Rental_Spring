@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+@Slf4j
 @Controller
 @RestController
 @RequiredArgsConstructor
@@ -32,7 +34,6 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
@@ -47,6 +48,11 @@ public class UserController {
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<User>> getUsers() {
+        try {
+            return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
@@ -64,6 +70,11 @@ public class UserController {
         User user = userRepository
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+        try {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -82,8 +93,12 @@ public class UserController {
             @RequestBody @Valid UserCreateRequest request) {
         User user = conversionService.
                 convert(request, User.class);
-        return new ResponseEntity<>(userRepository
-                .saveAndFlush(user), CREATED);
+        try {
+            return new ResponseEntity<>(userRepository.saveAndFlush(user), CREATED);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
+        return new ResponseEntity<>(userRepository.saveAndFlush(user), CREATED);
     }
 
     @ApiOperation(value = "Update user by userId")
@@ -97,10 +112,13 @@ public class UserController {
     @Transactional
     public ResponseEntity<User> updateUser(
             @ModelAttribute @Valid UserUpdateRequest request) {
-        User convertedUser = conversionService
-                .convert(request, User.class);
-        return new ResponseEntity<>(userRepository
-                .save(convertedUser), HttpStatus.OK);
+        User convertedUser = conversionService.convert(request, User.class);
+        try {
+            return new ResponseEntity<>(userRepository.save(convertedUser), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
+        return new ResponseEntity<>(userRepository.save(convertedUser), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete user from server by id")
@@ -113,9 +131,14 @@ public class UserController {
     })
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Long> deleteUserById (
-            @ApiParam("User Path Id")  @PathVariable("id") Long id){
+    public ResponseEntity<Long> deleteUserById(
+            @ApiParam("User Path Id") @PathVariable("id") Long id) {
         userRepository.deleteById(id);
+        try {
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

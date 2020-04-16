@@ -2,8 +2,8 @@ package com.Car_Rental.controller;
 
 import com.Car_Rental.controller.requests.order.OrderCreateRequest;
 import com.Car_Rental.controller.requests.order.OrderUpdateRequest;
-import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.entity.Order;
+import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.repository.springdata.OrderRepository;
 import com.Car_Rental.service.OrderForm;
 import io.swagger.annotations.ApiOperation;
@@ -11,9 +11,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.convert.ConversionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RestController
 @RequiredArgsConstructor
@@ -43,7 +42,12 @@ public class OrderController {
     })
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Order>> getOrders(){
+    public ResponseEntity<List<Order>> getOrders() {
+        try {
+            return new ResponseEntity<>(orderDao.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(orderDao.findAll(), HttpStatus.OK);
     }
 
@@ -61,6 +65,11 @@ public class OrderController {
         Order order = orderDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(Order.class, id));
+        try {
+
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
@@ -75,15 +84,26 @@ public class OrderController {
 
     @PutMapping("update/{id}")
     @Transactional
-    public ResponseEntity<Long> updateOrderById ( @PathVariable("id") String id,
-            @RequestBody @Valid OrderUpdateRequest request ) {
+    public ResponseEntity<Long> updateOrderById(@PathVariable("id") String id,
+                                                @RequestBody @Valid OrderUpdateRequest request) {
+        try {
+            return new ResponseEntity(orderForm.update(request, Long.valueOf(id)), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity(orderForm.update(request, Long.valueOf(id)), HttpStatus.OK);
     }
 
     @PostMapping
-    @Transactional (rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<Order> createOrderUser(
             @ModelAttribute @Valid OrderCreateRequest request) {
+        try {
+            return new ResponseEntity<>(orderForm.save(request), HttpStatus.CREATED);
+        } catch (
+                Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(orderForm.save(request), HttpStatus.CREATED);
     }
 }

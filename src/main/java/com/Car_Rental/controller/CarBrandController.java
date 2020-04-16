@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RestController
 @RequiredArgsConstructor
@@ -29,13 +31,17 @@ public class CarBrandController {
 
     private final CarBrandRepository carBrandRepository;
 
-    @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<CarBrand>> getCarBrands() {
+        try {
+            return new ResponseEntity<>(carBrandRepository.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(carBrandRepository.findAll(), HttpStatus.OK);
     }
 
@@ -53,6 +59,11 @@ public class CarBrandController {
         CarBrand carBrand = carBrandRepository
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(CarBrand.class, id));
+        try {
+            return new ResponseEntity<>(carBrand, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(carBrand, HttpStatus.OK);
     }
 
@@ -69,6 +80,11 @@ public class CarBrandController {
     public ResponseEntity<CarBrand> createCarBrand(
             @RequestBody @Valid CarBrandCreateRequest request) {
         CarBrand carBrand = conversionService.convert(request, CarBrand.class);
+        try {
+            return new ResponseEntity<>(carBrandRepository.saveAndFlush(carBrand), HttpStatus.CREATED);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(carBrandRepository.saveAndFlush(carBrand), HttpStatus.CREATED);
     }
 
@@ -83,9 +99,14 @@ public class CarBrandController {
     @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteCarBrand( @ApiParam("User Path Id")
-            @PathVariable("id") Long id) {
-        carBrandRepository.deleteById(id);
+    public ResponseEntity<Long> deleteCarBrand(@ApiParam("User Path Id")
+                                               @PathVariable("id") Long id) {
+        try {
+            carBrandRepository.deleteById(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

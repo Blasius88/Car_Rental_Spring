@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Controller
 @RestController
 @RequiredArgsConstructor
@@ -30,12 +33,16 @@ public class ModelCarController {
 
     private final ModelCarRepository modelCarDao;
 
-    @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
     @GetMapping("/all")
     public ResponseEntity<List<CarModel>> getModelsCars() {
+        try {
+            return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
     }
 
@@ -53,6 +60,11 @@ public class ModelCarController {
         CarModel car_model = modelCarDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(CarModel.class, id));
+        try {
+            return new ResponseEntity<>(car_model, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(car_model, HttpStatus.OK);
     }
 
@@ -61,6 +73,11 @@ public class ModelCarController {
     public ResponseEntity<CarModel> createCarModel(
             @RequestBody @Valid ModelCarCreateRequest request) {
         CarModel car_model = conversionService.convert(request, CarModel.class);
+        try {
+            return new ResponseEntity<>(modelCarDao.saveAndFlush(car_model), HttpStatus.CREATED);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(modelCarDao.saveAndFlush(car_model), HttpStatus.CREATED);
     }
 
@@ -70,6 +87,11 @@ public class ModelCarController {
     public ResponseEntity<Long> deleteCarModelById(
             @ApiParam("Contractor Id") @PathVariable("id") Long id) {
         modelCarDao.deleteById(id);
+        try {
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -79,6 +101,11 @@ public class ModelCarController {
     public ResponseEntity<Long> updateModelCarById(
             @ModelAttribute @Valid ModelCarRepository request) {
         CarModel convertedUser = conversionService.convert(request, CarModel.class);
+        try {
+            return new ResponseEntity(modelCarDao.save(convertedUser), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity(modelCarDao.save(convertedUser), HttpStatus.OK);
     }
 
@@ -90,11 +117,13 @@ public class ModelCarController {
     })
     @PostMapping("/photo/{idCarModel}")
     public ResponseEntity<Map<String, Object>> createCarModelPhotoPostgers(@PathVariable String idCarModel,
-                                                                           @RequestBody MultipartFile multipartFile)
-                                                                            throws Exception {
+                                                                           @RequestBody MultipartFile multipartFile) throws Exception {
         modelCarDao.creteCarModelPhoto(Long.valueOf(idCarModel), multipartFile.getBytes());
+        try {
+            return new ResponseEntity<>(Collections.singletonMap("imageLink", "test"), HttpStatus.CREATED);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(Collections.singletonMap("imageLink", "test"), HttpStatus.CREATED);
     }
-
-
 }

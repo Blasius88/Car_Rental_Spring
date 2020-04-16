@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @CrossOrigin
 @RequiredArgsConstructor
@@ -28,6 +30,11 @@ public class RoleController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Roles>> getRoles() {
+        try {
+            return new ResponseEntity<>(roleDao.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(roleDao.findAll(), HttpStatus.OK);
     }
 
@@ -43,7 +50,12 @@ public class RoleController {
     public ResponseEntity<Roles> getRolesById(@ApiParam("Role Path Id") @PathVariable String id) {
         Roles roles = roleDao
                 .findById(Long.valueOf(id))
-                .orElseThrow(()-> new EntityNotFoundException(Roles.class, id));
+                .orElseThrow(() -> new EntityNotFoundException(Roles.class, id));
+        try {
+            return new ResponseEntity<>(roles, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 }

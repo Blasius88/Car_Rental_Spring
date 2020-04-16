@@ -1,15 +1,16 @@
 package com.Car_Rental.controller;
 
-import com.Car_Rental.controller.requests.color.ColorUpdateRequest;
-import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.controller.requests.color.ColorCreateRequest;
+import com.Car_Rental.controller.requests.color.ColorUpdateRequest;
 import com.Car_Rental.entity.Color;
+import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.repository.springdata.ColorRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +32,6 @@ public class ColorController {
 
     private final ColorRepository colorDao;
 
-    @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
@@ -45,6 +46,11 @@ public class ColorController {
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Color>> getColors() {
+        try {
+            return new ResponseEntity<>(colorDao.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(colorDao.findAll(), HttpStatus.OK);
     }
 
@@ -63,6 +69,11 @@ public class ColorController {
         Color color = colorDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(Color.class, id));
+        try {
+            return new ResponseEntity<>(color, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(color, HttpStatus.OK);
     }
 
@@ -72,6 +83,11 @@ public class ColorController {
     public ResponseEntity<Color> createColor(
             @ModelAttribute @Valid ColorCreateRequest request) {
         Color color = conversionService.convert(request, Color.class);
+        try {
+            return new ResponseEntity<>(colorDao.saveAndFlush(color), HttpStatus.CREATED);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(colorDao.saveAndFlush(color), HttpStatus.CREATED);
     }
 
@@ -87,14 +103,24 @@ public class ColorController {
     public ResponseEntity<Color> updateUser(
             @ModelAttribute @Valid ColorUpdateRequest request) {
         Color color = conversionService.convert(request, Color.class);
+        try {
+            return new ResponseEntity<>(colorDao.save(color), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(colorDao.save(color), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteColor(@ApiParam("User Path Id")
-                                                @PathVariable("id") Long id) {
+                                            @PathVariable("id") Long id) {
         colorDao.deleteById(id);
+        try {
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

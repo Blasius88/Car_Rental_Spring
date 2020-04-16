@@ -29,7 +29,6 @@ public class CarBrandController {
 
     private final CarBrandRepository carBrandRepository;
 
-
     @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
@@ -57,7 +56,6 @@ public class CarBrandController {
         return new ResponseEntity<>(carBrand, HttpStatus.OK);
     }
 
-    //--------------------------------------
     @ApiOperation(value = "Create car brand")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful creating"),
@@ -82,7 +80,7 @@ public class CarBrandController {
             @ApiResponse(code = 404, message = "User was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteCarBrand( @ApiParam("User Path Id")

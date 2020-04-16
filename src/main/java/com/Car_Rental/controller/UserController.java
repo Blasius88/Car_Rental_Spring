@@ -49,7 +49,7 @@ public class UserController {
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
-//-----------------------------------------------
+
     @ApiOperation(value = "Get user from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting user"),
@@ -66,7 +66,7 @@ public class UserController {
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-//----------------------------------------------------------------
+
     @ApiOperation(value = "Create user from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful create user"),
@@ -76,7 +76,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
 
-    @PostMapping("/create")
+    @PostMapping
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<User> createUser(
             @RequestBody @Valid UserCreateRequest request) {
@@ -85,7 +85,7 @@ public class UserController {
         return new ResponseEntity<>(userRepository
                 .saveAndFlush(user), CREATED);
     }
-//--------------------------------------------------------
+
     @ApiOperation(value = "Update user by userId")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful user update"),
@@ -102,7 +102,7 @@ public class UserController {
         return new ResponseEntity<>(userRepository
                 .save(convertedUser), HttpStatus.OK);
     }
-//-------------------------------------------------------------
+
     @ApiOperation(value = "Delete user from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful deleting user"),

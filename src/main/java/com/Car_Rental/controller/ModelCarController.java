@@ -39,7 +39,6 @@ public class ModelCarController {
         return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
     }
 
-    //---------------------------------------------------------------
     @ApiOperation(value = "Get Order from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting Order"),
@@ -56,9 +55,8 @@ public class ModelCarController {
                 .orElseThrow(() -> new EntityNotFoundException(CarModel.class, id));
         return new ResponseEntity<>(car_model, HttpStatus.OK);
     }
-//----------------------------------------------------------------
 
-    @PostMapping("/createCarModel")
+    @PostMapping
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<CarModel> createCarModel(
             @RequestBody @Valid ModelCarCreateRequest request) {
@@ -75,7 +73,7 @@ public class ModelCarController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping("/update/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> updateModelCarById(

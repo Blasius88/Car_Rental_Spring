@@ -48,7 +48,6 @@ public class ColorController {
         return new ResponseEntity<>(colorDao.findAll(), HttpStatus.OK);
     }
 
-    //------------------------------------------------------------------------------
     @ApiOperation(value = "Get color from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting color"),
@@ -83,7 +82,7 @@ public class ColorController {
             @ApiResponse(code = 404, message = "User was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Color> updateUser(
             @ModelAttribute @Valid ColorUpdateRequest request) {
@@ -91,7 +90,7 @@ public class ColorController {
         return new ResponseEntity<>(colorDao.save(color), HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteColor(@ApiParam("User Path Id")
                                                 @PathVariable("id") Long id) {

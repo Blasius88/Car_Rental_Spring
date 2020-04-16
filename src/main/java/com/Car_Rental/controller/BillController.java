@@ -39,7 +39,7 @@ public class BillController {
     public ResponseEntity<List<Bill>> getBills() {
         return new ResponseEntity<>(billRepository.findAll(), HttpStatus.OK);
     }
-//-------------------------------------------------------------------
+
     @ApiOperation(value = "Get Bill from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting Bill"),
@@ -57,7 +57,7 @@ public class BillController {
                 .orElseThrow(() -> new EntityNotFoundException(Bill.class, id));
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
-//---------------------------------------------------------
+
     @ApiOperation(value = "Create bill")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful creating"),
@@ -73,7 +73,7 @@ public class BillController {
         Bill converterBill = conversionService.convert(request, Bill.class);
         return new ResponseEntity<>(billRepository.saveAndFlush(converterBill), HttpStatus.CREATED);
     }
-//---------------------------------------------------------------
+
     @ApiOperation(value = "Delete Bill from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful deleting bill"),
@@ -82,14 +82,14 @@ public class BillController {
             @ApiResponse(code = 404, message = "Bill was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> deleteBill(@ApiParam("User Path Id") @PathVariable("id") Long id) {
         billRepository.deleteById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
-//------------------------------------------------------------
+
     @ApiOperation(value = "Update bill from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful updating bill"),
@@ -98,7 +98,7 @@ public class BillController {
             @ApiResponse(code = 404, message = "User was not found"),
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
-    @PostMapping("update/{id}")
+    @PostMapping("/update/{id}")
     @Transactional
     public ResponseEntity<Long> updateBillById (@ModelAttribute @Valid BillUpdateRequest request) {
         Bill convertedUser = conversionService.convert(request, Bill.class);

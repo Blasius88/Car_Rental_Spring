@@ -33,10 +33,6 @@ public class OrderController {
 
     private final OrderForm orderForm;
 
-    @Autowired
-    @Qualifier(value = "mvcConversionService")
-    private ConversionService conversionService;
-
     @ApiOperation(value = "Get all orders from server")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting data"),

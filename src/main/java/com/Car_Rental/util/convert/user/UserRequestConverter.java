@@ -1,7 +1,7 @@
 package com.Car_Rental.util.convert.user;
 
 import com.Car_Rental.controller.requests.user.UserCreateRequest;
-import com.Car_Rental.entity.MRoles;
+import com.Car_Rental.entity.Roles;
 import com.Car_Rental.entity.User;
 import com.Car_Rental.exceptions.ConversionException;
 import com.Car_Rental.exceptions.EntityNotFoundException;
@@ -25,17 +25,17 @@ public abstract class UserRequestConverter<S, T> extends EntityConverter<S, T> {
         return user;
     }
 
-    MRoles findRole(Class<?> sClass, int idRole){
-        MRoles roles;
+    Roles findRole(Class<?> sClass, int idRole){
+        Roles roles;
         try{
-            roles = entityManager.createQuery("select r from MRoles r where r.id_roles =:name", MRoles.class)
+            roles = entityManager.createQuery("select r from Roles r where r.id_roles =:name", Roles.class)
                     .setParameter("name", idRole)
                     .getSingleResult();
         }catch (NumberFormatException e) {
-            throw new ConversionException(sClass, User.class, idRole, new ArgumentOfMethodNotValidException(MRoles.class,idRole));
+            throw new ConversionException(sClass, User.class, idRole, new ArgumentOfMethodNotValidException(Roles.class,idRole));
         } catch (NoResultException e) {
             throw new ConversionException (sClass, User.class, idRole,
-                    new EntityNotFoundException(" name = " + idRole, MRoles.class));
+                    new EntityNotFoundException(" name = " + idRole, Roles.class));
         }
         return roles;
     }

@@ -28,8 +28,7 @@ import java.util.*;
 @RequestMapping("/rest/modelCar")
 public class ModelCarController {
 
-    @Autowired
-    private ModelCarRepository modelCarDao;
+    private final ModelCarRepository modelCarDao;
 
     @Autowired
     @Qualifier(value = "mvcConversionService")

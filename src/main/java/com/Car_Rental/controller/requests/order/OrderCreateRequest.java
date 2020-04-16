@@ -28,9 +28,6 @@ public class OrderCreateRequest {
     private Long idCar;
 
     @NotNull
-    private Long idWorker;
-
-    @NotNull
     private Date rentalStart;
 
     @NotNull

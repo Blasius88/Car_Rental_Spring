@@ -1,6 +1,6 @@
 package com.Car_Rental.repository.hibernate.impl;
 
-import com.Car_Rental.entity.MRoles;
+import com.Car_Rental.entity.Roles;
 import com.Car_Rental.repository.hibernate.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,27 +29,27 @@ public class RoleDaoImpl implements RoleDao {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private MRoles getMRoleRowMapper(ResultSet resultSet, int i) throws SQLException {
-        MRoles mRoles = new MRoles();
-        mRoles.setId_roles(resultSet.getLong(ROLE_ID));
-        mRoles.setNameRoles(resultSet.getString(ROLE_NAME));
-        return mRoles;
+    private Roles getMRoleRowMapper(ResultSet resultSet, int i) throws SQLException {
+        Roles roles = new Roles();
+        roles.setId_roles(resultSet.getLong(ROLE_ID));
+        roles.setNameRoles(resultSet.getString(ROLE_NAME));
+        return roles;
     }
 
     @Override
-    public List<MRoles> findAll() {
+    public List<Roles> findAll() {
         final String findAllQuery = "select * from m_roles";
         return namedParameterJdbcTemplate.query(findAllQuery, this::getMRoleRowMapper);
     }
 
     @Override
-    public List<MRoles> getRolesByUserId(int userId) {
+    public List<Roles> getRolesByUserId(int userId) {
         final String getRolesByUserId = "select * from roles where role_user_id = ?";
         return jdbcTemplate.query(getRolesByUserId, new Object[]{userId}, this::getMRoleRowMapper);
     }
 
     @Override
-    public MRoles findById(Long Id) {
+    public Roles findById(Long Id) {
         final String findOneQuery = "select * " +
                 "from m_roles " +
                 "where id = :Id";
@@ -71,7 +71,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MRoles save(MRoles entity) {
+    public Roles save(Roles entity) {
         final String creatQuery = "INSERT INTO m_roles (name) " +
                 "VALUES ( :name);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -84,7 +84,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MRoles update(MRoles entity) {
+    public Roles update(Roles entity) {
         final String creatQuery = "UPDATE m_roles " +
                 "set name = :name, " +
                 "WHERE id = :id;";
@@ -96,7 +96,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public MRoles findRole(String str) {
+    public Roles findRole(String str) {
         final String findOneQuery = "select * " +
                 "from m_roles " +
                 "where name = :name";

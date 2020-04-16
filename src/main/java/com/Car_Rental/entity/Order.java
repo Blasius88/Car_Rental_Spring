@@ -14,14 +14,12 @@ import java.util.Date;
                 "orderId",
                 "orderUserId",
                 "orderCarId",
-                "orderWorkerId"
         })
 @ToString(
         exclude = {
                 "orderId",
                 "orderUserId",
                 "orderCarId",
-                "orderWorkerId"
         })
 @Entity
 @Table(name = "m_order")
@@ -40,11 +38,7 @@ public class Order {
     @JoinColumn(name = "id_car")
     private CarModel orderCarId;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = WorkerUser.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_worker")
-    private WorkerUser orderWorkerId;
-
-    @Column(name = "rental_start")
+       @Column(name = "rental_start")
     private Date rentalStart;
 
     @Column (name = "rental_start_time")

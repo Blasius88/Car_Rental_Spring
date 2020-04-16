@@ -1,7 +1,7 @@
 package com.Car_Rental.controller;
 
+import com.Car_Rental.entity.Roles;
 import com.Car_Rental.exceptions.EntityNotFoundException;
-import com.Car_Rental.entity.MRoles;
 import com.Car_Rental.repository.springdata.RoleRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,7 +27,7 @@ public class RoleController {
     private final RoleRepository roleDao;
 
     @GetMapping("/all")
-    public ResponseEntity<List<MRoles>> getRoles() {
+    public ResponseEntity<List<Roles>> getRoles() {
         return new ResponseEntity<>(roleDao.findAll(), HttpStatus.OK);
     }
 
@@ -40,10 +40,10 @@ public class RoleController {
             @ApiResponse(code = 500, message = "Server error, something wrong")
     })
     @GetMapping(value = "/{id}")
-    public ResponseEntity<MRoles> getRolesById(@ApiParam("Role Path Id") @PathVariable String id) {
-        MRoles mRoles = roleDao
+    public ResponseEntity<Roles> getRolesById(@ApiParam("Role Path Id") @PathVariable String id) {
+        Roles roles = roleDao
                 .findById(Long.valueOf(id))
-                .orElseThrow(()-> new EntityNotFoundException(MRoles.class, id));
-        return new ResponseEntity<>(mRoles, HttpStatus.OK);
+                .orElseThrow(()-> new EntityNotFoundException(Roles.class, id));
+        return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 }

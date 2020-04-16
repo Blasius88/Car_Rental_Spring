@@ -1,11 +1,11 @@
 package com.Car_Rental.repository.hibernate;
 
-import com.Car_Rental.entity.MRoles;
+import com.Car_Rental.entity.Roles;
 
 import java.util.List;
 
-public interface RoleDao extends GenericDao<MRoles, Long > {
-    MRoles findRole(String str);
-    List<MRoles> getRolesByUserId(int userId);
+public interface RoleDao extends GenericDao<Roles, Long > {
+    Roles findRole(String str);
+    List<Roles> getRolesByUserId(int userId);
 
 }

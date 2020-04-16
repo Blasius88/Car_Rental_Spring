@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 })
 @Entity
 @Table(name = "m_roles")
-public class MRoles {
+public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

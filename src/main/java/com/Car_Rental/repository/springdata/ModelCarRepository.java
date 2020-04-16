@@ -15,6 +15,6 @@ public interface ModelCarRepository extends JpaRepository<CarModel, Long>, CrudR
     @Modifying
     @Transactional(rollbackFor = Exception.class)
     @Query("update CarModel cm set cm.imageBytes =:image where cm.idModel = :id")
-            int creteCarModelPhoto(Long id, byte[] image);
+    int creteCarModelPhoto(Long id, byte[] image);
 
 }

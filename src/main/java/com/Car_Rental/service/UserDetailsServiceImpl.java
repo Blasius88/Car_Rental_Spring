@@ -1,6 +1,6 @@
 package com.Car_Rental.service;
 
-import com.Car_Rental.entity.MRoles;
+import com.Car_Rental.entity.Roles;
 import com.Car_Rental.entity.User;
 import com.Car_Rental.repository.hibernate.RoleDao;
 import com.Car_Rental.repository.hibernate.UserDao;
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             User user = userDao.findByLogin(username);
-            List<MRoles> roles = roleDao.getRolesByUserId(Math.toIntExact(Long.valueOf(user.getUserId())));
+            List<Roles> roles = roleDao.getRolesByUserId(Math.toIntExact(Long.valueOf(user.getUserId())));
             if (Long.valueOf(user.getUserId()) == null) {
                 throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
             } else {

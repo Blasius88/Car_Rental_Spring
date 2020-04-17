@@ -3,10 +3,11 @@ package com.Car_Rental.service;
 import com.Car_Rental.controller.requests.order.OrderCreateRequest;
 import com.Car_Rental.controller.requests.order.OrderUpdateRequest;
 import com.Car_Rental.entity.Order;
+import com.Car_Rental.exceptions.DateOrTimeEnteredIncorrectly;
 
 public interface OrderForm {
 
-    Order save (OrderCreateRequest request);
+    Order save (OrderCreateRequest request) throws DateOrTimeEnteredIncorrectly;
 
     Order update (OrderUpdateRequest request, Long id);
 }

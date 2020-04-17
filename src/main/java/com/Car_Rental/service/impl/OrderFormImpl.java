@@ -5,6 +5,7 @@ import com.Car_Rental.controller.requests.order.OrderUpdateRequest;
 import com.Car_Rental.entity.CarModel;
 import com.Car_Rental.entity.Order;
 import com.Car_Rental.entity.User;
+import com.Car_Rental.exceptions.DateOrTimeEnteredIncorrectly;
 import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.repository.springdata.ModelCarRepository;
 import com.Car_Rental.repository.springdata.OrderRepository;
@@ -12,6 +13,7 @@ import com.Car_Rental.repository.springdata.UserRepository;
 import com.Car_Rental.service.OrderForm;
 import com.Car_Rental.util.ValueCalculation;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 
@@ -35,6 +37,7 @@ public class OrderFormImpl implements OrderForm {
                 .orElseThrow(() -> new EntityNotFoundException(User.class, idUser));
     }
 
+    @SneakyThrows
     @Override
     public Order save(OrderCreateRequest request) {
 
@@ -45,17 +48,30 @@ public class OrderFormImpl implements OrderForm {
         order.setRentalStartTime(request.getRentalStartTime());
         order.setRentalEnd(request.getRentalEnd());
         order.setRentalEndTime(request.getRentalEndTime());
-        order.setOrderPrice(ValueCalculation.orderValueCalculation(request.getRentalStart(), request.getRentalStartTime(), request.getRentalEnd(), request.getRentalEndTime(), order.getOrderCarId()));
-        if (ValueCalculation.reserveCheck(request.getRentalStart(), request.getRentalEnd(), request.getIdCar()))
+        order.setOrderPrice(ValueCalculation
+                .orderValueCalculation(
+                        request.getRentalStart(),
+                        request.getRentalStartTime(),
+                        request.getRentalEnd(),
+                        request.getRentalEndTime(),
+                        order.getOrderCarId())
+        );
+        if ((new ValueCalculation().reserveCheck(
+                request.getRentalStart(),
+                request.getRentalEnd(),
+                request.getIdCar()))
+        )
             return orderRepository.saveAndFlush(order);
         else return null;
     }
 
+    @SneakyThrows
     @Override
     public Order update(OrderUpdateRequest request, Long id) {
         Order order = new Order();
         if (request.getOrderId() != null) {
-            order = orderRepository.findById(Long.valueOf(request.getOrderId()))
+            order = orderRepository
+                    .findById(Long.valueOf(request.getOrderId()))
                     .orElseThrow(() -> new EntityNotFoundException(Order.class, request.getOrderId()));
         }
         order.setOrderUserId(findUser(request.getIdUser()));
@@ -63,7 +79,13 @@ public class OrderFormImpl implements OrderForm {
         order.setRentalStartTime(request.getRentalStartTime());
         order.setRentalEnd(request.getRentalEnd());
         order.setRentalEndTime(request.getRentalEndTime());
-        order.setOrderPrice(ValueCalculation.orderValueCalculation(request.getRentalStart(), request.getRentalStartTime(), request.getRentalEnd(), request.getRentalEndTime(), order.getOrderCarId()));
+        order.setOrderPrice(ValueCalculation
+                .orderValueCalculation(
+                        request.getRentalStart(),
+                        request.getRentalStartTime(),
+                        request.getRentalEnd(),
+                        request.getRentalEndTime(),
+                        order.getOrderCarId()));
         return orderRepository.saveAndFlush(order);
     }
 }

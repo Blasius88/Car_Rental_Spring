@@ -39,5 +39,4 @@ public class OrderCreateRequest {
     @NotNull
     private String rentalEndTime;
 
-    private Double orderPrice;
 }

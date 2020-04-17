@@ -3,6 +3,7 @@ package com.Car_Rental.controller;
 import com.Car_Rental.controller.requests.order.OrderCreateRequest;
 import com.Car_Rental.controller.requests.order.OrderUpdateRequest;
 import com.Car_Rental.entity.Order;
+import com.Car_Rental.exceptions.DateOrTimeEnteredIncorrectly;
 import com.Car_Rental.exceptions.EntityNotFoundException;
 import com.Car_Rental.repository.springdata.OrderRepository;
 import com.Car_Rental.service.OrderForm;
@@ -97,13 +98,7 @@ public class OrderController {
     @PostMapping
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<Order> createOrderUser(
-            @ModelAttribute @Valid OrderCreateRequest request) {
-        try {
+            @ModelAttribute @Valid OrderCreateRequest request) throws DateOrTimeEnteredIncorrectly {
             return new ResponseEntity<>(orderForm.save(request), HttpStatus.CREATED);
-        } catch (
-                Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
-        return new ResponseEntity<>(orderForm.save(request), HttpStatus.CREATED);
     }
 }

@@ -49,10 +49,12 @@ public class User {
     @Column (name ="city")
     private String userCity;
 
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
+
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Roles.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_role")
     private Roles role;
-
 
 }

@@ -14,6 +14,9 @@ public interface UserRepository extends CrudRepository<User, Long>, JpaRepositor
 
     Optional<User> findUserByLogin(String login);
 
+    User findUserByConfirmationToken(String token);
+
+
     @Modifying
     @Query("select u.userId from User u where u.userId =:id")
     User findByIdUser (Long id);

@@ -1,15 +1,18 @@
 package com.Car_Rental.service;
 
+import com.Car_Rental.controller.requests.authentication.UserPrincipal;
 import com.Car_Rental.entity.Roles;
 import com.Car_Rental.entity.User;
 import com.Car_Rental.repository.hibernate.RoleDao;
 import com.Car_Rental.repository.hibernate.UserDao;
+import com.Car_Rental.repository.springdata.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,27 +20,27 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private RoleDao roleDao;
+    private UserRepository userDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            User user = userDao.findByLogin(username);
-            List<Roles> roles = roleDao.getRolesByUserId(Math.toIntExact(Long.valueOf(user.getUserId())));
-            if (Long.valueOf(user.getUserId()) == null) {
-                throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-            } else {
-                return new org.springframework.security.core.userdetails.User(
-                        user.getLogin(),
-                        user.getPassword(),
-                        AuthorityUtils.commaSeparatedStringToAuthorityList(roles.get(0).getNameRoles())
+    @Transactional
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        User user = userDao.findUserByLogin(username.toLowerCase())
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("User not found with username or email : " + username)
                 );
-            }
-        } catch (Exception e) {
-            throw new UsernameNotFoundException("User with this login not found");
-        }
+
+        return UserPrincipal.create(user);
+    }
+
+
+    @Transactional
+    public UserDetails loadUserById(Long id) {
+        User user = userDao.findById(id).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with id : " + id)
+        );
+
+        return UserPrincipal.create(user);
     }
 }

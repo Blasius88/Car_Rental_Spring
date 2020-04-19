@@ -78,7 +78,7 @@ public class UserController {
     })
 
     @PostMapping
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     public ResponseEntity<User> createUser(
             @RequestBody @Valid UserCreateRequest request) {
         User user = conversionService.

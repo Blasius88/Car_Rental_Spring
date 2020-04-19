@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/rest")
 public class AuthController {
 
   private final JwtTokenUtils jwtTokenUtils;
@@ -60,7 +60,6 @@ public class AuthController {
   @GetMapping("/confirmation")
   @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
   public ResponseEntity<AuthResponse> confirmUserAccount(@RequestParam("auth-token") String confirmationToken) {
-
     AuthenticationRequest request = registrationService.confirm(confirmationToken);
     return logIn(request);
   }

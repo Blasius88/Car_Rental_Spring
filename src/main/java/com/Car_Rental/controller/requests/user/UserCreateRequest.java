@@ -54,4 +54,5 @@ public class UserCreateRequest {
 
     @NotNull
     private String City;
+
 }

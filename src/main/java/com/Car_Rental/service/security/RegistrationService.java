@@ -22,8 +22,10 @@ import java.util.Optional;
 public class RegistrationService {
 
     private final JwtTokenUtils tokenProvider;
+
     private final UserRepository userRepository;
 
+    @Autowired
     @Qualifier("mvcConversionService")
     private ConversionService conversionService;
 
@@ -46,12 +48,9 @@ public class RegistrationService {
     }
 
     public AuthenticationRequest confirm(String token) {
-
         AuthenticationRequest request = new AuthenticationRequest();
-        if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-
+        if (StringUtils.hasText(token) /*&& tokenProvider.validateToken(token)*/) {
             String login = tokenProvider.getUsernameFromToken(token);
-
             Optional<User> user =
                     userRepository.findUserByLogin(login.toLowerCase());
             UserCreateRequest userCreateRequest = new UserCreateRequest();

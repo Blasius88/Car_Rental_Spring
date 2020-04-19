@@ -14,5 +14,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserUpdateRequest extends UserCreateRequest {
+
     private Long userId;
 }

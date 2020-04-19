@@ -1,7 +1,7 @@
 package com.Car_Rental.config.security.filter;
 
 import com.Car_Rental.config.security.ApplicationHeader;
-import com.Car_Rental.config.security.jwt.JwtTokenProvider;
+import com.Car_Rental.config.security.jwt.JwtTokenUtils;
 import com.Car_Rental.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,34 +23,28 @@ import java.io.IOException;
 @Slf4j
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired private JwtTokenProvider tokenProvider;
+    @Autowired
+    private JwtTokenUtils tokenProvider;
 
-    @Autowired private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
         try {
-
             String token = request.getHeader(ApplicationHeader.TOKEN);
-
             if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
                 String username = tokenProvider.getUsernameFromToken(token);
-
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
             }
         } catch (Exception ex) {
             log.error("Could not set user authentication in security context", ex);
         }
-
         filterChain.doFilter(request, response);
     }
 }

@@ -11,9 +11,9 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class EntityIdResolver implements ObjectIdResolver {
+public class EntityIdResolver /*implements ObjectIdResolver*/ {
 
-    private final EntityManager entityManager;
+   /* private final EntityManager entityManager;
 
     @Override
     public void bindItem(ObjectIdGenerator.IdKey id, Object pojo) {
@@ -34,4 +34,4 @@ public class EntityIdResolver implements ObjectIdResolver {
     public boolean canUseFor(ObjectIdResolver resolverType) {
         return false;
     }
-}
+*/}

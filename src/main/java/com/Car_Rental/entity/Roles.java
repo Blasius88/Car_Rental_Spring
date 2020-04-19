@@ -6,16 +6,15 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Setter
 @Getter
-@RequiredArgsConstructor
-@EqualsAndHashCode(exclude = {
-        "id_roles"
-})
-@ToString(exclude = {
-        "id_roles"
-})
+@Builder
+@EqualsAndHashCode
+@ToString
 @Entity
 @Table(name = "m_roles")
 public class Roles {

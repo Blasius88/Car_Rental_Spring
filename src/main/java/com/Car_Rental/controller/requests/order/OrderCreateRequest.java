@@ -24,7 +24,6 @@ public class OrderCreateRequest {
     @NotNull
     private Long idUser;
 
-    @NotNull
     private Long idCar;
 
     @NotNull

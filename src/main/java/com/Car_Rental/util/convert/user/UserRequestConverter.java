@@ -12,13 +12,19 @@ import javax.persistence.NoResultException;
 
 public abstract class UserRequestConverter<S, T> extends EntityConverter<S, T> {
 
+    private static final Roles DEFAULT_ROLE =
+            Roles.builder()
+                    .id_roles(2L)
+                    .nameRoles("ROLE_USER")
+                    .build();
+
     protected User doConvert(User user, UserCreateRequest request) {
 
         user.setFirstName(request.getUserFirstName());
         user.setLastName(request.getUserLastName());
-        user.setUserLogin(request.getLogin());
+        user.setLogin(request.getLogin());
         user.setUserCreated(request.getCreated());
-        user.setUserPass(request.getPassword());
+        user.setPassword(request.getPassword());
         user.setUserEmail(request.getEmail());
         user.setUserPhone(request.getPhone());
         user.setUserCity(request.getCity());

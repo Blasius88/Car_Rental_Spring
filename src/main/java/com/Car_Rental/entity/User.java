@@ -32,10 +32,10 @@ public class User {
     private String lastName;
 
     @Column(name = "login")
-    private String userLogin;
+    private String login;
 
     @Column(name = "pass")
-    private String userPass;
+    private String password;
 
     @Column(name = "created")
     private Date userCreated;

@@ -38,11 +38,6 @@ public class ModelCarController {
 
     @GetMapping("/all")
     public ResponseEntity<List<CarModel>> getModelsCars() {
-        try {
-            return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
     }
 
@@ -60,11 +55,6 @@ public class ModelCarController {
         CarModel car_model = modelCarDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(CarModel.class, id));
-        try {
-            return new ResponseEntity<>(car_model, HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(car_model, HttpStatus.OK);
     }
 
@@ -73,11 +63,6 @@ public class ModelCarController {
     public ResponseEntity<CarModel> createCarModel(
             @RequestBody @Valid ModelCarCreateRequest request) {
         CarModel car_model = conversionService.convert(request, CarModel.class);
-        try {
-            return new ResponseEntity<>(modelCarDao.saveAndFlush(car_model), HttpStatus.CREATED);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(modelCarDao.saveAndFlush(car_model), HttpStatus.CREATED);
     }
 
@@ -87,11 +72,6 @@ public class ModelCarController {
     public ResponseEntity<Long> deleteCarModelById(
             @ApiParam("Contractor Id") @PathVariable("id") Long id) {
         modelCarDao.deleteById(id);
-        try {
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -101,11 +81,6 @@ public class ModelCarController {
     public ResponseEntity<Long> updateModelCarById(
             @ModelAttribute @Valid ModelCarRepository request) {
         CarModel convertedUser = conversionService.convert(request, CarModel.class);
-        try {
-            return new ResponseEntity(modelCarDao.save(convertedUser), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity(modelCarDao.save(convertedUser), HttpStatus.OK);
     }
 
@@ -119,11 +94,6 @@ public class ModelCarController {
     public ResponseEntity<Map<String, Object>> createCarModelPhotoPostgers(@PathVariable String idCarModel,
                                                                            @RequestBody MultipartFile multipartFile) throws Exception {
         modelCarDao.creteCarModelPhoto(Long.valueOf(idCarModel), multipartFile.getBytes());
-        try {
-            return new ResponseEntity<>(Collections.singletonMap("imageLink", "test"), HttpStatus.CREATED);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(Collections.singletonMap("imageLink", "test"), HttpStatus.CREATED);
     }
 }

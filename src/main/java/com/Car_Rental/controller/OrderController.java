@@ -44,11 +44,6 @@ public class OrderController {
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Order>> getOrders() {
-        try {
-            return new ResponseEntity<>(orderDao.findAll(), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(orderDao.findAll(), HttpStatus.OK);
     }
 
@@ -66,11 +61,6 @@ public class OrderController {
         Order order = orderDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(Order.class, id));
-        try {
-
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
@@ -87,11 +77,6 @@ public class OrderController {
     @Transactional
     public ResponseEntity<Long> updateOrderById(@PathVariable("id") String id,
                                                 @RequestBody @Valid OrderUpdateRequest request) {
-        try {
-            return new ResponseEntity(orderForm.update(request, Long.valueOf(id)), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity(orderForm.update(request, Long.valueOf(id)), HttpStatus.OK);
     }
 

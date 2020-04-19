@@ -48,11 +48,6 @@ public class UserController {
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<User>> getUsers() {
-        try {
-            return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
@@ -70,11 +65,6 @@ public class UserController {
         User user = userRepository
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
-        try {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -93,11 +83,6 @@ public class UserController {
             @RequestBody @Valid UserCreateRequest request) {
         User user = conversionService.
                 convert(request, User.class);
-        try {
-            return new ResponseEntity<>(userRepository.saveAndFlush(user), CREATED);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(userRepository.saveAndFlush(user), CREATED);
     }
 
@@ -113,11 +98,6 @@ public class UserController {
     public ResponseEntity<User> updateUser(
             @ModelAttribute @Valid UserUpdateRequest request) {
         User convertedUser = conversionService.convert(request, User.class);
-        try {
-            return new ResponseEntity<>(userRepository.save(convertedUser), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(userRepository.save(convertedUser), HttpStatus.OK);
     }
 
@@ -134,11 +114,6 @@ public class UserController {
     public ResponseEntity<Long> deleteUserById(
             @ApiParam("User Path Id") @PathVariable("id") Long id) {
         userRepository.deleteById(id);
-        try {
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

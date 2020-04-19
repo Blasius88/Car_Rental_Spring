@@ -4,7 +4,9 @@ import com.Car_Rental.entity.CarModel;
 import com.Car_Rental.entity.Order;
 import com.Car_Rental.exceptions.DateOrTimeEnteredIncorrectly;
 import com.Car_Rental.repository.springdata.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -15,7 +17,8 @@ import java.util.Set;
 
 @Slf4j
 public class ValueCalculation {
-    ResultSet res = null;
+
+    @Autowired
     private OrderRepository orderRepository;
 
     public static double orderValueCalculation(Date startData, String startTime, Date endData, String endTime, CarModel carModel) throws Exception {
@@ -43,29 +46,35 @@ public class ValueCalculation {
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+
         }
         return null;
     }
 
     public static Long timeParsing(String time) {
-        String[] strMas = time.split(":");
-        Long[] masStartTime = new Long[strMas.length];
-        for (int i = 0; i < strMas.length; i++) {
-            masStartTime[i] = Long.parseLong(strMas[i]);
+        try {
+            String[] strMas = time.split(":");
+            Long[] masStartTime = new Long[strMas.length];
+            for (int i = 0; i < strMas.length; i++) {
+                masStartTime[i] = Long.parseLong(strMas[i]);
+            }
+            Long minStart = masStartTime[0] * 60 + masStartTime[1];
+            return minStart;
+        }catch (Exception ex){
+            log.error(ex.getMessage(), ex);
+            return null;
         }
-        Long minStart = masStartTime[0] * 60 + masStartTime[1];
-        return minStart;
     }
 
     public boolean reserveCheck(Date start, Date end, Long id) {
        try {
-           Set<Order> order = orderRepository.reserveCheck(id);
-           for (Order o : order) {
+         /*  List<Order> orderCarId = orderRepository.findByOrderCarId();
+           for (Order o : orderCarId) {
                if ((o.getRentalStart() == start) && (o.getRentalEnd() == end)) {
                    return false;
                }
            }
-       }catch (Exception ex){
+*/       }catch (Exception ex){
            log.error(ex.getMessage(), ex);
        }
         return true;

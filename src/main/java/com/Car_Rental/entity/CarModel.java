@@ -6,22 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Setter
 @Getter
-@RequiredArgsConstructor
-@EqualsAndHashCode(
-        exclude = {
-                "idModel",
-                "idColor",
-                "idCar"
-        })
-@ToString(
-        exclude = {
-                "idModel",
-                "idColor",
-                "idCar"
-        })
+@EqualsAndHashCode
 @Entity
 @Table(name = "model_car")
 public class CarModel {

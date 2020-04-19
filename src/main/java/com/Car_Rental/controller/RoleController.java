@@ -30,11 +30,6 @@ public class RoleController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Roles>> getRoles() {
-        try {
-            return new ResponseEntity<>(roleDao.findAll(), HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(roleDao.findAll(), HttpStatus.OK);
     }
 
@@ -51,11 +46,6 @@ public class RoleController {
         Roles roles = roleDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(Roles.class, id));
-        try {
-            return new ResponseEntity<>(roles, HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-        }
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 }

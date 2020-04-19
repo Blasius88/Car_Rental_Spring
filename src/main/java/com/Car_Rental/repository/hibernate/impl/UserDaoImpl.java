@@ -40,10 +40,9 @@ public class UserDaoImpl implements UserDao {
         user.setUserId(resultSet.getLong(USER_ID));
         user.setFirstName(resultSet.getString(FIRST_NAME));
         user.setLastName(resultSet.getString(LAST_NAME));
-        user.setUserLogin(resultSet.getString(LOGIN));
-        user.setUserPass(resultSet.getString(PASS));
+        user.setLogin(resultSet.getString(LOGIN));
+        user.setPassword(resultSet.getString(PASS));
         user.setUserCreated(resultSet.getDate(CREATED));
-       // user.setRole((resultSet.getLong(ROLE)));
         user.setUserEmail(resultSet.getString(EMAIL));
         user.setUserPhone(resultSet.getString(PHONE));
         user.setUserCity(resultSet.getString(CITY));
@@ -94,10 +93,9 @@ public class UserDaoImpl implements UserDao {
     private void Params(User entity, MapSqlParameterSource parameterSource) {
         parameterSource.addValue(FIRST_NAME, entity.getFirstName());
         parameterSource.addValue(LAST_NAME, entity.getLastName());
-        parameterSource.addValue(LOGIN, entity.getUserLogin());
-        parameterSource.addValue(PASS, entity.getUserPass());
+        parameterSource.addValue(LOGIN, entity.getLogin());
+        parameterSource.addValue(PASS, entity.getPassword());
         parameterSource.addValue(CREATED, entity.getUserCreated());
-       // parameterSource.addValue(ROLE, entity.getIdRole());
         parameterSource.addValue(EMAIL, entity.getUserEmail());
         parameterSource.addValue(PHONE, entity.getUserPhone());
         parameterSource.addValue(CITY, entity.getUserCity());

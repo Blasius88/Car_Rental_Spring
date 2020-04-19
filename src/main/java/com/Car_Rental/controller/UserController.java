@@ -111,9 +111,9 @@ public class UserController {
     })
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Long> deleteUserById(
-            @ApiParam("User Path Id") @PathVariable("id") Long id) {
-        userRepository.deleteById(id);
+    public ResponseEntity<String> deleteUserById(
+            @ApiParam("User Path Id") @PathVariable("id") String id) {
+        userRepository.deleteById(Long.valueOf(id));
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

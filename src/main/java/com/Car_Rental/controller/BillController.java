@@ -85,7 +85,10 @@ public class BillController {
     @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteBill(@ApiParam("User Path Id") @PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteBill(
+            @ApiParam("User Path Id")
+            @PathVariable("id") String id) {
+        billRepository.deleteById(Long.valueOf(id));
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 

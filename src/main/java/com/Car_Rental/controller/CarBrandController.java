@@ -84,8 +84,9 @@ public class CarBrandController {
     @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteCarBrand(@ApiParam("User Path Id")
-                                               @PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteCarBrand(@ApiParam("User Path Id")
+                                               @PathVariable("id") String id) {
+        carBrandRepository.deleteById(Long.valueOf(id));
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

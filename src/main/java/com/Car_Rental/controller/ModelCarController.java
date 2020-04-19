@@ -69,9 +69,9 @@ public class ModelCarController {
     @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteCarModelById(
-            @ApiParam("Contractor Id") @PathVariable("id") Long id) {
-        modelCarDao.deleteById(id);
+    public ResponseEntity<String> deleteCarModelById(
+            @ApiParam("Contractor Id") @PathVariable("id") String id) {
+        modelCarDao.deleteById(Long.valueOf(id));
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 

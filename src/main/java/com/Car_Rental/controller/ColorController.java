@@ -93,9 +93,9 @@ public class ColorController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteColor(@ApiParam("User Path Id")
-                                            @PathVariable("id") Long id) {
-        colorDao.deleteById(id);
+    public ResponseEntity<String> deleteColor(@ApiParam("User Path Id")
+                                            @PathVariable("id") String id) {
+        colorDao.deleteById(Long.valueOf(id));
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

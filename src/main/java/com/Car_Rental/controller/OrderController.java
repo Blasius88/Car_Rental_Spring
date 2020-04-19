@@ -67,9 +67,9 @@ public class OrderController {
     @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteOrder(
-            @PathVariable("id") Long orderId) {
-        orderDao.deleteById(orderId);
+    public ResponseEntity<String> deleteOrder(
+            @PathVariable("id") String orderId) {
+        orderDao.deleteById(Long.valueOf(orderId));
         return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
 

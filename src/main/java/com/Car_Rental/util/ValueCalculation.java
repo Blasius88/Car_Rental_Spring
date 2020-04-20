@@ -4,6 +4,7 @@ import com.Car_Rental.entity.CarModel;
 import com.Car_Rental.entity.Order;
 import com.Car_Rental.exceptions.DateOrTimeEnteredIncorrectly;
 import com.Car_Rental.repository.springdata.OrderRepository;
+import com.Car_Rental.service.OrderForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.Set;
 public class ValueCalculation {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderForm orderRepository;
 
     public static double orderValueCalculation(Date startData, String startTime, Date endData, String endTime, CarModel carModel) throws Exception {
         try {

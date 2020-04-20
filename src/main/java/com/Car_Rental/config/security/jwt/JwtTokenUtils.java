@@ -22,9 +22,6 @@ import static java.util.Calendar.MILLISECOND;
 @RequiredArgsConstructor
 public class JwtTokenUtils {
 
-    private static final String CREATED = "created";
-    private static final String ROLE = "role";
-
     private final TokenConfiguration tokenConfig;
 
     public String generateToken(Authentication authentication) {
@@ -35,7 +32,7 @@ public class JwtTokenUtils {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS256, tokenConfig.getSshSecret())
+                .signWith(SignatureAlgorithm.HS512, tokenConfig.getSshSecret())
                 .compact();
     }
 
@@ -44,7 +41,7 @@ public class JwtTokenUtils {
                 .setSubject(request.getLogin())
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS256, tokenConfig.getSshSecret())
+                .signWith(SignatureAlgorithm.HS512, tokenConfig.getSshSecret())
                 .compact();
     }
 

@@ -66,12 +66,12 @@ public class OrderFormImpl implements OrderForm {
                 request.getRentalEnd(),
                 request.getIdCar()))
         )*/
-        List<Order> orderCarId = orderRepository.reserveCheck(Long.valueOf(request.getIdCar()));
+      /*  List<Order> orderCarId = orderRepository.findByOrderCarId(Long.valueOf(request.getIdCar()));
         for (Order o : orderCarId) {
             if ((o.getRentalStart() == request.getRentalStart()) && (o.getRentalEnd() == request.getRentalEnd())) {
                 return null;
             }
-        }
+        }*/
         return orderRepository.saveAndFlush(order);
     }
 

@@ -66,18 +66,4 @@ public class ValueCalculation {
             return null;
         }
     }
-
-    public boolean reserveCheck(Date start, Date end, Long id) {
-       try {
-         /*  List<Order> orderCarId = orderRepository.findByOrderCarId();
-           for (Order o : orderCarId) {
-               if ((o.getRentalStart() == start) && (o.getRentalEnd() == end)) {
-                   return false;
-               }
-           }
-*/       }catch (Exception ex){
-           log.error(ex.getMessage(), ex);
-       }
-        return true;
-    }
 }

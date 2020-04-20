@@ -61,17 +61,6 @@ public class OrderFormImpl implements OrderForm {
         } catch (Exception e) {
             log.error(e.getMessage(),e);
         }
-       /* if ((new ValueCalculation().reserveCheck(
-                request.getRentalStart(),
-                request.getRentalEnd(),
-                request.getIdCar()))
-        )*/
-      /*  List<Order> orderCarId = orderRepository.findByOrderCarId(Long.valueOf(request.getIdCar()));
-        for (Order o : orderCarId) {
-            if ((o.getRentalStart() == request.getRentalStart()) && (o.getRentalEnd() == request.getRentalEnd())) {
-                return null;
-            }
-        }*/
         return orderRepository.saveAndFlush(order);
     }
 

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@ApiModel(description = "Object for user authentication")
+@ApiModel(description = "Object with values for user authentication")
 public class AuthenticationRequest implements Serializable {
 
     @ApiModelProperty(required = true, dataType = "string", notes = "user login")

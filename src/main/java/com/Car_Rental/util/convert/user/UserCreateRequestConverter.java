@@ -15,8 +15,9 @@ public class UserCreateRequestConverter extends UserRequestConverter<UserCreateR
     @Override
     public User convert(UserCreateRequest request) {
         User user = new User();
-        user.setLogin(request.getLogin().toLowerCase());
+        user.setLogin(request.getLogin());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(findRole(request.getClass(), request.getIdRole()));
 
         return doConvert(user, request);
     }

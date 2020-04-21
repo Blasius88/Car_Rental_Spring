@@ -27,7 +27,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/rest/color")
+@RequestMapping(value = "/admin/color")
 public class ColorController {
 
     private final ColorRepository colorDao;

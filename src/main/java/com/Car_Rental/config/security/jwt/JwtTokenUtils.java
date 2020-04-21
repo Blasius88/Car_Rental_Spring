@@ -46,9 +46,17 @@ public class JwtTokenUtils {
     }
 
     private Date generateExpirationDate() {
-        Calendar calendar = Calendar.getInstance();
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, 6);
+
+        java.util.Date expirationDate = cal.getTime();
+
+        /*Calendar calendar = Calendar.getInstance();
         calendar.add(MILLISECOND, Integer.parseInt(tokenConfig.getExpirationTime()));
-        return calendar.getTime();
+       */
+        return expirationDate;
     }
 
     public Claims getClaimsFromToken(String token) {

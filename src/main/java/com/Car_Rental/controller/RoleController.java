@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping("/rest/role")
+@RequestMapping("/admin/role")
 public class RoleController {
 
     private final RoleRepository roleDao;

@@ -28,7 +28,7 @@ import java.util.Map;
 @Controller
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/rest/modelCar")
+@RequestMapping("/admin/modelCar")
 public class ModelCarController {
 
     private final ModelCarRepository modelCarDao;
@@ -41,7 +41,7 @@ public class ModelCarController {
         return new ResponseEntity<>(modelCarDao.findAll(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Get Order from server by id")
+    @ApiOperation(value = "Get Car Model from server by id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful getting Order"),
             @ApiResponse(code = 400, message = "Invalid Order ID supplied"),
@@ -51,7 +51,7 @@ public class ModelCarController {
     })
     @GetMapping(value = "/{id}")
     public ResponseEntity<CarModel> getCarModelsById(
-            @ApiParam("Order Path Id") @PathVariable String id) {
+            @ApiParam("CarModel Path Id") @PathVariable String id) {
         CarModel car_model = modelCarDao
                 .findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException(CarModel.class, id));
@@ -70,7 +70,7 @@ public class ModelCarController {
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteCarModelById(
-            @ApiParam("Contractor Id") @PathVariable("id") String id) {
+            @ApiParam("CarModel Id") @PathVariable("id") String id) {
         modelCarDao.deleteById(Long.valueOf(id));
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

@@ -24,4 +24,19 @@ public abstract class UserRequestConverter<S, T> extends EntityConverter<S, T> {
         user.setUserCity(request.getCity());
         return user;
     }
+
+    Roles findRole(Class<?> sClass, Long idRole) {
+        Roles roles;
+        try{
+            roles =entityManager.createQuery("select r from Roles r where r.id_roles =:name", Roles.class)
+                    .setParameter("name", idRole)
+                    .getSingleResult();
+        } catch (NumberFormatException e) {
+            throw new ConversionException(sClass, User.class, idRole, new ArgumentOfMethodNotValidException(Roles.class, idRole));
+        } catch (NoResultException e) {
+            throw new ConversionException (sClass, User.class, idRole,
+                    new EntityNotFoundException(" name = " + idRole, Roles.class));
+        }
+        return roles;
+    }
 }

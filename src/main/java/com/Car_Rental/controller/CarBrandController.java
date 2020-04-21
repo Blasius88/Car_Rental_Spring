@@ -26,7 +26,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/rest/CarBrand")
+@RequestMapping("/admin/CarBrand")
 public class CarBrandController {
 
     private final CarBrandRepository carBrandRepository;

@@ -34,6 +34,7 @@ public class UserController {
 
     private final UserRepository userRepository;
 
+    @Autowired
     @Qualifier(value = "mvcConversionService")
     private ConversionService conversionService;
 
@@ -81,8 +82,7 @@ public class UserController {
     @Transactional()
     public ResponseEntity<User> createUser(
             @RequestBody @Valid UserCreateRequest request) {
-        User user = conversionService.
-                convert(request, User.class);
+        User user = conversionService.convert(request, User.class);
         return new ResponseEntity<>(userRepository.saveAndFlush(user), CREATED);
     }
 

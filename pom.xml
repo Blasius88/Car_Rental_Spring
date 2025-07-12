@@ -19,7 +19,7 @@
         <swagger.version>3.0.0-SNAPSHOT</swagger.version>
         <jackson.version>2.9.8</jackson.version>
         <jakarta.version>2.3.2</jakarta.version>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
         <org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
         <org.hibernate.version>6.1.2.Final</org.hibernate.version>
         <io.jsonwebtoken.version>0.9.1</io.jsonwebtoken.version>
